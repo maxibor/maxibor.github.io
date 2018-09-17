@@ -1,0 +1,14 @@
+---
+title: Teaching
+layout: default
+sectionid: teaching
+---
+
+<ul>
+  {% for teaching in site.teaching %}
+    <li>
+      <a href="{{ teaching.url }}">{{ teaching.title }}</a>
+      {{ teaching.excerpt }}
+    </li>
+  {% endfor %}
+</ul>

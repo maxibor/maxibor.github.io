@@ -1,0 +1,66 @@
+# Site settings
+title: Maxime Borry
+email: borry@shh.mpg.de
+description: "Bioinformatics PhD Student at the Max Planck Institute for the Science of Human History"
+
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: 'http://maxibor.github.io/'
+# google_analytics: 'UA-35232680-3'
+
+# theme options from https://bootswatch.com/
+# comment out this to use default Bootstrap
+bootwatch: custom
+
+# Build settings
+markdown: kramdown
+highlighter: blue
+gems:
+  - jekyll-feed
+  - jekyll-redirect-from
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - .gitignore
+
+defaults:
+- scope:
+    path: _posts
+    type: posts
+  values:
+    layout: post
+    sectionid: blog
+- scope:
+    path: _papers
+    type: papers
+  values:
+    layout: paper
+    sectionid: publications
+- scope:
+    path: _teaching
+    type: teaching
+  values:
+    layout: teaching
+    sectionid: teaching
+- scope:
+    path: _news
+    type: news
+  values:
+    layout: pages
+    sectionid: announcements
+
+collections:
+  papers:
+    permalink: /papers/:year/:month/:day/:title/
+    output: true
+  teaching:
+    permalink: /teaching/:year/:month/:day/:title/
+    output: false
+  posts:
+    permalink: /blog/:year/:month/:day/:title/
+    output: true
+  news:
+    permalink: /announcements/:year/:month/:day/:title/
+    output: true
