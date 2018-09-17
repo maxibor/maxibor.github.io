@@ -30,3 +30,7 @@ Code Block :
 ```python
 print("Hello world")
 ```
+
+An image:
+
+<img class="img-responsive" src="{{ "/img/404.jpg" | prepend: site.baseurl }}" alt="Page Not Found">
