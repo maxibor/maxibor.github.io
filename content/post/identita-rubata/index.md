@@ -5,7 +5,7 @@ title: "Cronaca di un'identità rubata"
 subtitle: ""
 summary: ""
 authors: ["edoardo"]
-tags: ["privacy", "spid"]
+tags: ["spid"]
 categories: ["Article", "Blog"]
 date: 2017-12-03T14:48:58+01:00
 lastmod: 2019-12-03T14:48:58+01:00

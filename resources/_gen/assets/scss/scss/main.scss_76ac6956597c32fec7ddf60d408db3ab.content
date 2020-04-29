@@ -8395,10 +8395,10 @@ ul.share li:hover i {
   background-color: #f7f7f7; }
 
 .dark .home-section {
-  background-color: white; }
+  background-color: #272935; }
 
 .dark .home-section:nth-of-type(even) {
-  background-color: #f7f7f7; }
+  background-color: #23252f; }
 
 @media screen and (max-width: 768px) {
   .home-section {
