@@ -1,44 +1,44 @@
 # Navigation
 
 - id: toggle_navigation
-  translation: Toggle navigation
+  translation: Rog socodka
 
 - id: table_of_contents
-  translation: Table of Contents
+  translation: Tusmada Guud
 
 - id: on_this_page
-  translation: Contents
+  translation: Boggan ku yaal
 
 - id: back_to_top
-  translation: Back to top
+  translation: Kor aad
 
 # General
 
 - id: related
-  translation: Related
+  translation: La Mida
 
 - id: minute_read
-  translation: min read
+  translation: Akhrisma
 
 - id: previous
-  translation: Previous
+  translation: Hore
 
 - id: next
-  translation: Next
+  translation: Xiga
 
 - id: figure
-  translation: "Figure %d:"
+  translation: "Sawir %d:"
 
 - id: edit_page
-  translation: Edit this page
+  translation: Tifatir Boggan
 
 # Themes
 
 - id: theme_light
-  translation: Light
+  translation: Caddee
 
 - id: theme_dark
-  translation: Dark
+  translation: Madoobee
 
 - id: theme_auto
   translation: Automatic
@@ -46,13 +46,13 @@
 # Buttons
 
 - id: btn_preprint
-  translation: Preprint
+  translation: Daabac hore
 
 - id: btn_pdf
   translation: PDF
 
 - id: btn_cite
-  translation: Cite
+  translation: Xigso
 
 - id: btn_slides
   translation: Slides
@@ -64,10 +64,10 @@
   translation: Code
 
 - id: btn_dataset
-  translation: Dataset
+  translation: Xog
 
 - id: btn_project
-  translation: Project
+  translation: Mashruuc
 
 - id: btn_poster
   translation: Poster
@@ -76,109 +76,109 @@
   translation: Source Document
 
 - id: btn_copy
-  translation: Copy
+  translation: Nuqul
 
 - id: btn_download
-  translation: Download
+  translation: Dajiso
 
 # About widget
 
 - id: interests
-  translation: Interests
+  translation: Hiwaayado
 
 - id: education
-  translation: Education
+  translation: Waxbarasho
 
 - id: user_profile_latest
-  translation: Latest
+  translation: Ugu cusub
 
 # Accomplishments widget
 
 - id: see_certificate
-  translation: See certificate
+  translation: Arag Shahaadada
 
 # Experience widget
 
 - id: present
-  translation: Present
+  translation: Hadda
 
 # Pages widget
 
 - id: more_pages
-  translation: See all
+  translation: Arag dhammaan
 
 - id: more_posts
-  translation: See all posts
+  translation: Arag dhammaan qoraalada
 
 - id: more_talks
-  translation: See all talks
+  translation: Arag Qudbadaha
 
 - id: more_publications
-  translation: See all publications
+  translation: Arag qoraalada oo dhan
 
 # Contact widget
 
 - id: contact_name
-  translation: Name
+  translation: Magac
 
 - id: contact_email
   translation: Email
 
 - id: contact_message
-  translation: Message
+  translation: Baaq
 
 - id: contact_send
-  translation: Send
+  translation: Dir
 
 - id: book_appointment
-  translation: Book an appointment
+  translation: Ballan qabso
 
 # Publication/Talk details
 
 - id: abstract
-  translation: Abstract
+  translation: Arar
 
 - id: publication
-  translation: Publication
+  translation: Qormooyin
 
 - id: publication_type
-  translation: Type
+  translation: Nooc
 
 - id: date
-  translation: Date
+  translation: Goor
 
 - id: last_updated
-  translation: Last updated on
+  translation: La tifatiray
 
 - id: event
-  translation: Event
+  translation: Dhacdo
 
 - id: location
-  translation: Location
+  translation: Meel
 
 - id: pub_uncat
-  translation: Uncategorized
+  translation: Kale
 
 - id: pub_conf
-  translation: Conference paper
+  translation: Qoraal Shir
 
 - id: pub_journal
-  translation: Journal article
+  translation: Qoraal Majallad
 
 - id: pub_preprint
-  translation: Preprint
+  translation: Daabac Hore
 
 - id: pub_report
-  translation: Report
+  translation: Wargelin
 
 - id: pub_book
-  translation: Book
+  translation: Buug
 
 - id: pub_book_section
-  translation: Book section
+  translation: Qayb Buug
 
 - id: pub_thesis
-  translation: Thesis
+  translation: Buug Qalinjabin
 
 - id: pub_patent
   translation: Patent
@@ -186,29 +186,29 @@
 # Project details
 
 - id: open_project_site
-  translation: Go to Project Site
+  translation: Tag Bogga Mashruuca
 
 # Default titles for archive pages
 
 - id: posts
-  translation: Posts
+  translation: Qoraal
 
 - id: publications
   translation: Publications
 
 - id: talks
-  translation: Talks
+  translation: Qudbad
 
 - id: projects
-  translation: Projects
+  translation: Mashruuc
 
 # Search
 
 - id: search
-  translation: Search
+  translation: Raadi
 
 - id: search_placeholder
-  translation: Search...
+  translation: Raadi...
 
 - id: search_results
   translation: results found
@@ -219,18 +219,18 @@
 # Error 404
 
 - id: page_not_found
-  translation: Page not found
+  translation: Boggan lama helin
 
 - id: 404_recommendations
-  translation: Perhaps you were looking for one of these?
+  translation: Malaha waxaad raadinaysay?
 
 # Cookie consent
 
 - id: cookie_message
-  translation: This website uses cookies to ensure you get the best experience on our website.
+  translation: Boggani wuxuu isticmaala "cookies" sii aad u hesho adeegga ugu wacan
 
 - id: cookie_dismiss
-  translation: Got it!
+  translation: Gartay!
 
 - id: cookie_learn
-  translation: Learn more
+  translation: Faahfaahin

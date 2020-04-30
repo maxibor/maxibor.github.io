@@ -7683,7 +7683,7 @@ div.alert a {
   .navbar .dropdown-menu {
     font-size: 13.86px; }
   .navbar .dropdown-item.active,
-  .navbar .i18n-active {
+  .navbar .dropdown-item-active {
     font-weight: bold;
     color: #ff8f00 !important; }
 
@@ -7703,13 +7703,15 @@ div.alert a {
 @media (max-width: 991.98px) {
   /* Match breakpoint for i18n dropdown in navbar.html. */
   .i18n-dropdown .nav-link::after {
-    content: none; }
-  .i18n-dropdown .dropdown-menu {
-    /* Use style from uncollapsable dropdowns to prevent dropdown going off page. */
-    position: absolute;
-    /* Below style from .dropdown-menu-right to prevent dropdown going off page. */
-    right: 0;
-    left: auto; } }
+    content: none; } }
+
+.i18n-dropdown .dropdown-menu,
+.theme-dropdown .dropdown-menu {
+  /* Use style from uncollapsable dropdowns to prevent dropdown going off page. */
+  position: absolute;
+  /* Below style from .dropdown-menu-right to prevent dropdown going off page. */
+  right: 0;
+  left: auto; }
 
 /*
 .navbar .collapse {
