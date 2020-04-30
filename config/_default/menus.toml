@@ -13,12 +13,6 @@
   url = "#publications"
   weight = 20
 
-
-[[main]]
-  name = "Projects"
-  url = "#projects"
-  weight = 30
-
 # [[main]]
 #   name = "Posts"
 #   url = "#posts"
@@ -27,9 +21,9 @@
 [[main]]
   name = "Contact me"
   url = "#contact"
-  weight = 40
+  weight = 30
 
 [[main]]
   name = "CV"
   url = "/maxime_borry_cv.pdf"
-  weight = 50
+  weight = 40
