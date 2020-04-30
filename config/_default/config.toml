@@ -13,7 +13,7 @@ baseurl = "/"
 
 # Enter a copyright notice to display in the site footer.
 # To display a copyright symbol, type `&copy;`. For current year, type `{year}`.
-copyright = "&copy; {year} Maxime Borry. This website is adapted from the work of [Edoardo Debenedetti](https://github.com/dedeswim/hugo-personal-website), licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/)"
+copyright = "&copy; {year} Maxime Borry · Adapted from [Edoardo Debenedetti](https://github.com/dedeswim/hugo-personal-website), licensed under a [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)  "
 
 ############################
 ## Advanced options below ##

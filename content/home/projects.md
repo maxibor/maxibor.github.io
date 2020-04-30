@@ -6,7 +6,7 @@ active = true  # Activate this widget? true/false
 weight = 40  # Order that this section will appear.
 
 title = "A few projects I've done"
-subtitle = "(so far)"
+subtitle = "(more on [GitHub](https://github.com/maxibor))"
 
 [content]
   # Page type to display. E.g. project.

@@ -90,7 +90,7 @@ phone = ""
 
 # Address
 # For country_code, use the 2-letter ISO code (see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 )
-address = {street = "Kahlaische Straße, 10", city = "Jena", region = "Thuringen", postcode = "07743", country = "Germany", country_code = "DE"}
+address = {street = "", city = "Jena", region = "", postcode = "Germany", country = "Germany", country_code = "DE"}
 
 # Geographic coordinates
 # To get your coordinates, right-click on Google Maps and choose "What's here?". The coords will show up at the bottom.
@@ -111,6 +111,7 @@ appointment_url = ""
 contact_links = [
   {icon = "github", icon_pack = "fab", name = "Github", link = "https://github.com/maxibor"},
   {icon = "twitter", icon_pack = "fab", name = "DM Me", link = "https://twitter.com/notmaxib"},
+  {icon = "graduation-cap", icon_pack = "fas", name = "Google scholar", link = "https://scholar.google.com/citations?user=oUsxa5sAAAAJ"},
   # {icon = "keybase", icon_pack = "fab", name = "Chat on Keybase", link = "https://keybase.io/dedeswim"},
   # {icon = "instagram", icon_pack = "fab", name = "See some pictures of my travels", link = "https://instagram.com/edoardo.debenedetti"},
   # {icon = "skype", icon_pack = "fab", name = "Skype Me", link = ""},
@@ -123,7 +124,7 @@ contact_links = [
 ############################
 
 # Default image for social sharing and search engines. Place image in `static/img/` folder and specify image name here.
-sharing_image = "bikepacking.jpeg"
+sharing_image = "bikepacking.jpg"
 
 # Twitter username (without @). Used when a visitor shares your site on Twitter.
 twitter = "maxibor"
@@ -207,7 +208,7 @@ plugins_js  = []
   engine = 0
 
   # Which page types are commentable?
-  commentable = {page = true, post = true, docs = true, project = true, publication = true, talk = true}
+  commentable = {page = false, post = false, docs = false, project = false, publication = false, talk = false}
 
   # Configuration of Disqus.
   [comments.disqus]
@@ -250,9 +251,9 @@ plugins_js  = []
   #   1: Google Maps
   #   2: OpenStreetMap (Mapnik)
   #   3: OpenStreetMap (Mapbox)
-  engine = 2
+  engine = 0
   api_key = ""
-  zoom = 15
+  zoom = 10
 
 ############################
 ## Marketing
