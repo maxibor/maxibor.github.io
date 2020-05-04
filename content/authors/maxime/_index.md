@@ -75,7 +75,7 @@ user_groups:
 - Grad Students
 ---
 
-I am __Maxime__, a __PhD student in Bioinformatics__ at the [__Max Planck Institute for the Science History__](https://shh.mpg.de/en), in [__Jena, Germany__](https://goo.gl/maps/44om6h23iWE4ijqS9)
+I am __Maxime__, a __PhD student in Bioinformatics__ at the [__Max Planck Institute for the Science History__](https://shh.mpg.de/en), in [__Jena, Germany__](https://goo.gl/maps/4gDiakRwgkQpbzyr5)
 
 After an undergraduate degree in biology, I first decided to dive in the studies of population and our environment. Only after realizing I wanted to focus more on the statistical part and the data analysis, I switched back to a Bioinformatics MSc. 
 
