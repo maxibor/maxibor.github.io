@@ -6,7 +6,7 @@ active = true  # Activate this widget? true/false
 weight = 30  # Order that this section will appear.
 
 title = "Experience"
-subtitle = "(more in my [CV](/maxime_borry_cv.pdf))"
+subtitle = "(more on [LinkedIn](https://www.linkedin.com/in/maximeborry))"
 
 # Date format for experience
 #   Refer to https://sourcethemes.com/academic/docs/customization/#date-format
