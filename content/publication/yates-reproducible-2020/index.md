@@ -9,4 +9,5 @@ featured: false
 publication: "*bioRxiv*"
 url_pdf: "https://www.biorxiv.org/content/10.1101/2020.06.11.145615v1.full.pdf"
 doi: "10.1101/2020.06.11.145615"
+url_code: "https://github.com/nf-core/eager"
 ---
