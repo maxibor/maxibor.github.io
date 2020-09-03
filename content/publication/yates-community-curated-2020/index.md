@@ -47,7 +47,7 @@ projects: []
 publishDate: '2020-09-03T15:59:40.549865Z'
 publication_types:
 - 2
-abstract: textlessptextgreaterAncient DNA and RNA are valuable data sources for a
+abstract: Ancient DNA and RNA are valuable data sources for a
   wide range of disciplines. Within the field of ancient metagenomics, the number
   of published genetic datasets has risen dramatically in recent years, and tracking
   this data for reuse is particularly important for large-scale ecological and evolutionary
@@ -61,7 +61,7 @@ abstract: textlessptextgreaterAncient DNA and RNA are valuable data sources for 
   and automated checks to facilitate compatibility with established sequence-read
   archives and term-ontologies ensure consistency and interoperability for future
   meta-analyses. This collection will also assist in standardising metadata reporting
-  for future ancient metagenomic studies.textless/ptextgreater
+  for future ancient metagenomic studies.
 publication: '*bioRxiv*'
 url_pdf: https://www.biorxiv.org/content/10.1101/2020.09.02.279570v1
 url_code: https://github.com/SPAAM-workshop/AncientMetagenomeDir
