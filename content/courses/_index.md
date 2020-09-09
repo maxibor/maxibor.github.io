@@ -12,3 +12,4 @@ Courses I have taught/organized
 
 - [Introduction to Conda](https://maxibor.github.io/conda-presentation)
 - [Reproducible Research and Data Management](https://rrdm-shh.github.io)
+- [Taxonomic classifiers and sequence alignment algorithms](https://maxibor.github.io/taxonomic-classifiers-imprs.pdf)
