@@ -1,1 +1,218 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maxime Borry</title><link>/</link><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><description>Maxime Borry</description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020 Maxime Borry · Adapted from [Edoardo Debenedetti](https://github.com/dedeswim/hugo-personal-website), licensed under a [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)</copyright><lastBuildDate>Tue, 01 Sep 2020 00:00:00 +0000</lastBuildDate><image><url>/img/yoga.jpg</url><title>Maxime Borry</title><link>/</link></image><item><title>Community-curated and standardised metadata of published ancient metagenomic samples with AncientMetagenomeDir</title><link>/publication/yates-community-curated-2020/</link><pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate><guid>/publication/yates-community-curated-2020/</guid><description/></item><item><title>Reproducible, portable, and efficient ancient genome reconstruction with nf-core/eager</title><link>/publication/yates-reproducible-2020/</link><pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate><guid>/publication/yates-reproducible-2020/</guid><description/></item><item><title>CoproID predicts the source of coprolites and paleofeces using microbiome composition and host DNA content</title><link>/publication/borry-coproid-2020/</link><pubDate>Wed, 01 Apr 2020 00:00:00 +0000</pubDate><guid>/publication/borry-coproid-2020/</guid><description/></item><item><title>coGSEA</title><link>/project/cogsea/</link><pubDate>Fri, 03 Jan 2020 11:31:07 +0100</pubDate><guid>/project/cogsea/</guid><description/></item><item><title>Dixit Diderot</title><link>/project/dixit_diderot/</link><pubDate>Fri, 03 Jan 2020 11:31:07 +0100</pubDate><guid>/project/dixit_diderot/</guid><description/></item><item><title>Meetdock</title><link>/project/meetdock/</link><pubDate>Fri, 03 Jan 2020 11:31:07 +0100</pubDate><guid>/project/meetdock/</guid><description/></item><item><title>Phylogeny of the Anacyclus genus</title><link>/project/anacyclus/</link><pubDate>Fri, 03 Jan 2020 11:31:07 +0100</pubDate><guid>/project/anacyclus/</guid><description/></item><item><title>Sourcepredict: Prediction of metagenomic sample sources using dimension reduction followed by machine learning classification</title><link>/publication/borry-sourcepredict-2019/</link><pubDate>Sun, 01 Sep 2019 00:00:00 +0000</pubDate><guid>/publication/borry-sourcepredict-2019/</guid><description/></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maxime Borry</title><link>/</link><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><description>Maxime Borry</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2021 Maxime Borry</copyright><lastBuildDate>Tue, 12 Jan 2021 13:08:30 +0100</lastBuildDate><image><url>/media/yoga.jpg</url><title>Maxime Borry</title><link>/</link></image><item><title>Making Interactive maps in Python using GeoJSON and GitHub</title><link>/post/interactive-map-howto/</link><pubDate>Tue, 12 Jan 2021 13:08:30 +0100</pubDate><guid>/post/interactive-map-howto/</guid><description>&lt;p>Recently, I&amp;rsquo;ve been involved with the &lt;a href="https://github.com/spaam-community/ancientMetagenomeDir" target="_blank" rel="noopener">AncientMetagenomeDir&lt;/a> project. Briefly, with this collaborative community effort, we aimed to regroup in one single repository, all the metadata about every single published ancient DNA metagenomics article, and make them &lt;a href="https://en.wikipedia.org/wiki/FAIR_data" target="_blank" rel="noopener">FAIR&lt;/a>.&lt;/p>
+&lt;p>We ended with large &lt;code>TSV&lt;/code> table files regrouping a standardized set of metadata, about each ancient DNA metagenomics sample. Because these are originally archeological data, one the information that is systematically collected is the geographical location of each sample.&lt;/p>
+&lt;p>While static maps were already generated for the &lt;a href="https://doi.org/10.1101/2020.09.02.279570" target="_blank" rel="noopener">AncientMegenomeDir publication&lt;/a>, we had the opportunity to play with interactive maps for the &lt;a href="https://spaam-community.github.io/AncientMetagenomeDir/#/" target="_blank" rel="noopener">website of the project&lt;/a>.&lt;/p>
+&lt;p>Usually, hosting interactive elements online require some sort of a backend framework (like &lt;a href="https://www.streamlit.io/" target="_blank" rel="noopener">Streamlit&lt;/a> or &lt;a href="https://shiny.rstudio.com/" target="_blank" rel="noopener">Shiny&lt;/a>) to perform the rendering, however, I wanted to have it as serverless as possible, and this is where the &lt;a href="https://docs.github.com/en/free-pro-team@latest/github/managing-files-in-a-repository/mapping-geojson-files-on-github" target="_blank" rel="noopener">&lt;code>GeoJSON&lt;/code> rendering function of GitHub&lt;/a> came to the rescue.&lt;/p>
+&lt;p>That meant that as long as I would push a &lt;a href="https://geojson.org/" target="_blank" rel="noopener">&lt;code>GeoJSON&lt;/code>&lt;/a> file on GitHub, it would automatically be rendered as an interactive map by GitHub, thanks to &lt;a href="https://leafletjs.com/" target="_blank" rel="noopener">Leaflet.js&lt;/a>.&lt;/p>
+&lt;h2 id="from-tsv-to-geojson">From TSV to GeoJSON&lt;/h2>
+&lt;p>The question that I was left with: How to go from a &lt;code>TSV&lt;/code> table to a &lt;code>GeoJSON&lt;/code> file.
+Luckily for me, this is really easy to do thanks to &lt;a href="https://geopandas.org/" target="_blank" rel="noopener">GeoPandas&lt;/a>.&lt;br>
+The only things I need were to make sure there were a &lt;code>latitude&lt;/code> and &lt;code>longitude&lt;/code> column.&lt;/p>
+&lt;figure id="figure-a-caption">
+&lt;a data-fancybox="" href="/post/interactive-map-howto/coordinate-system_hu0fbc7a9d6e3ec1414817c2d1317b72fa_45308_2000x2000_fit_lanczos_2.png" data-caption="A caption">
+&lt;img data-src="/post/interactive-map-howto/coordinate-system_hu0fbc7a9d6e3ec1414817c2d1317b72fa_45308_2000x2000_fit_lanczos_2.png" class="lazyload" alt="" width="435" height="340">
+&lt;/a>
+&lt;figcaption data-pre="Figure&amp;nbsp;" data-post=":&amp;nbsp;" class="numbered">
+A caption
+&lt;/figcaption>
+&lt;/figure>
+&lt;figure id="figure-test">
+&lt;a data-fancybox="" href="/post/interactive-map-howto/coordinate-system_hu0fbc7a9d6e3ec1414817c2d1317b72fa_45308_2000x2000_fit_lanczos_2.png" data-caption="test">
+&lt;img data-src="/post/interactive-map-howto/coordinate-system_hu0fbc7a9d6e3ec1414817c2d1317b72fa_45308_2000x2000_fit_lanczos_2.png" class="lazyload" alt="" width="435" height="340">
+&lt;/a>
+&lt;figcaption>
+test
+&lt;/figcaption>
+&lt;/figure>
+&lt;pre>&lt;code class="language-python">import pandas as pd
+import geopandas
+df = pd.read_csv(&amp;quot;table.tsv&amp;quot;, sep=&amp;quot;\t&amp;quot;)
+gdf = geopandas.GeoDataFrame(df, geometry=geopandas.points_from_xy(df.longitude, df.latitude))
+gdf.to_file(&amp;quot;output.geo.json&amp;quot;, driver='GeoJSON')
+&lt;/code>&lt;/pre>
+&lt;blockquote>
+&lt;p>Instead of pushing to GitHub at every change to check the GeoJSON rendering, we can check our GeoJSON map with the &lt;a href="https://geojson.io/" target="_blank" rel="noopener">geojson.io&lt;/a> website.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="displaying-more-metadata-on-the-map">Displaying more metadata on the map&lt;/h2>
+&lt;p>So far, I only used the map to display the latitude and longitude of each sample, but we can actually display more information by changing the color, size, or the shape of each marker(point) for example.&lt;/p>
+&lt;p>Refering again the &lt;a href="https://docs.github.com/en/free-pro-team@latest/github/managing-files-in-a-repository/mapping-geojson-files-on-github#styling-features" target="_blank" rel="noopener">Github documentation&lt;/a>, this corresponds to the &lt;code>marker-color&lt;/code>, &lt;code>marker-size&lt;/code>, or &lt;code>marker-symbol&lt;/code>.&lt;/p>
+&lt;p>The only thing that we have to do, is add as column with the property name and the desired values (here &lt;code>marker-color&lt;/code>)&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>marker-color&lt;/th>
+&lt;th>publication_doi&lt;/th>
+&lt;th>site_name&lt;/th>
+&lt;th>latitude&lt;/th>
+&lt;th>longitude&lt;/th>
+&lt;th>sample_name&lt;/th>
+&lt;th>sample_age&lt;/th>
+&lt;th>material&lt;/th>
+&lt;th>archive&lt;/th>
+&lt;th>archive_accession&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>#009C54&lt;/td>
+&lt;td>10.1016/j.quascirev.2017.11.037&lt;/td>
+&lt;td>Hässeldala Port&lt;/td>
+&lt;td>56.16&lt;/td>
+&lt;td>15.01&lt;/td>
+&lt;td>HA1.1&lt;/td>
+&lt;td>13900&lt;/td>
+&lt;td>lake sediment&lt;/td>
+&lt;td>ENA&lt;/td>
+&lt;td>SRS2040659&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>#C22026&lt;/td>
+&lt;td>10.3390/geosciences10070270&lt;/td>
+&lt;td>Unknown&lt;/td>
+&lt;td>53.322&lt;/td>
+&lt;td>1.118&lt;/td>
+&lt;td>ELF001A_95_S81_ELFM1D1&lt;/td>
+&lt;td>6000&lt;/td>
+&lt;td>shallow marine sediment&lt;/td>
+&lt;td>ENA&lt;/td>
+&lt;td>ERS3605424&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;figure id="figure-test">
+&lt;a data-fancybox="" href="/Users/borry/Documents/GitHub/maxibor.github.io/content/post/interactive-map-howto/coordinate-system.png" data-caption="test">
+&lt;img src="/Users/borry/Documents/GitHub/maxibor.github.io/content/post/interactive-map-howto/coordinate-system.png" alt="" >
+&lt;/a>
+&lt;figcaption>
+test
+&lt;/figcaption>
+&lt;/figure>
+&lt;!-- ![marker-color](marker-color.png) -->
+&lt;p>Here, markers in pink are host-associated single genomes, while markers in green are environmental metagenomes.&lt;/p>
+&lt;h2 id="preventing-overlapping-points">Preventing overlapping points&lt;/h2>
+&lt;p>As in this dataset, there are different samples coming from the sample archeological sites, it meant that I had to deal with exactly overlapping points because they share the exact same geographic coordinates.&lt;/p>
+&lt;p>This is problematic for the map, because only one will be displayed, the other ones being hidden below.&lt;/p>
+&lt;p>To overcome this issue, there is the clever little trick of slightly altering the coordinates of each sample to plot them as distinct points on the map. I do that with random sampling from the normal distribution using &lt;a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.normal.html" target="_blank" rel="noopener">numpy&lt;/a> with a very small standard deviation.&lt;/p>
+&lt;pre>&lt;code class="language-python">import pandas as pd
+import geopandas
+import numpy as np
+df = pd.read_csv(&amp;quot;table.tsv&amp;quot;, sep=&amp;quot;\t&amp;quot;)
+df['new_latitude'] = df['latitude'].apply(lambda x: np.random.normal(x, sigma))
+df['new_longitude'] = df['longitude'].apply(lambda x: np.random.normal(x, sigma))
+gdf = geopandas.GeoDataFrame(df, geometry=geopandas.points_from_xy(df.new_longitude, df.new_latitude))
+gdf.to_file(&amp;quot;output.geo.json&amp;quot;, driver='GeoJSON')
+&lt;/code>&lt;/pre></description></item><item><title>Community-curated and standardised metadata of published ancient metagenomic samples with AncientMetagenomeDir</title><link>/publication/yates-community-curated-2020/</link><pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate><guid>/publication/yates-community-curated-2020/</guid><description/></item><item><title>Reproducible, portable, and efficient ancient genome reconstruction with nf-core/eager</title><link>/publication/yates-reproducible-2020/</link><pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate><guid>/publication/yates-reproducible-2020/</guid><description/></item><item><title>CoproID predicts the source of coprolites and paleofeces using microbiome composition and host DNA content</title><link>/publication/borry-coproid-2020/</link><pubDate>Wed, 01 Apr 2020 00:00:00 +0000</pubDate><guid>/publication/borry-coproid-2020/</guid><description/></item><item><title>coGSEA</title><link>/project/cogsea/</link><pubDate>Fri, 03 Jan 2020 11:31:07 +0100</pubDate><guid>/project/cogsea/</guid><description/></item><item><title>Dixit Diderot</title><link>/project/dixit_diderot/</link><pubDate>Fri, 03 Jan 2020 11:31:07 +0100</pubDate><guid>/project/dixit_diderot/</guid><description/></item><item><title>Meetdock</title><link>/project/meetdock/</link><pubDate>Fri, 03 Jan 2020 11:31:07 +0100</pubDate><guid>/project/meetdock/</guid><description/></item><item><title>Phylogeny of the Anacyclus genus</title><link>/project/anacyclus/</link><pubDate>Fri, 03 Jan 2020 11:31:07 +0100</pubDate><guid>/project/anacyclus/</guid><description/></item><item><title>Sourcepredict: Prediction of metagenomic sample sources using dimension reduction followed by machine learning classification</title><link>/publication/borry-sourcepredict-2019/</link><pubDate>Sun, 01 Sep 2019 00:00:00 +0000</pubDate><guid>/publication/borry-sourcepredict-2019/</guid><description/></item><item><title>Slides</title><link>/slides/example/</link><pubDate>Tue, 05 Feb 2019 00:00:00 +0000</pubDate><guid>/slides/example/</guid><description>&lt;h1 id="create-slides-in-markdown-with-wowchemy">Create slides in Markdown with Wowchemy&lt;/h1>
+&lt;p>&lt;a href="https://wowchemy.com/" target="_blank" rel="noopener">Wowchemy&lt;/a> | &lt;a href="https://owchemy.com/docs/managing-content/#create-slides" target="_blank" rel="noopener">Documentation&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="features">Features&lt;/h2>
+&lt;ul>
+&lt;li>Efficiently write slides in Markdown&lt;/li>
+&lt;li>3-in-1: Create, Present, and Publish your slides&lt;/li>
+&lt;li>Supports speaker notes&lt;/li>
+&lt;li>Mobile friendly slides&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="controls">Controls&lt;/h2>
+&lt;ul>
+&lt;li>Next: &lt;code>Right Arrow&lt;/code> or &lt;code>Space&lt;/code>&lt;/li>
+&lt;li>Previous: &lt;code>Left Arrow&lt;/code>&lt;/li>
+&lt;li>Start: &lt;code>Home&lt;/code>&lt;/li>
+&lt;li>Finish: &lt;code>End&lt;/code>&lt;/li>
+&lt;li>Overview: &lt;code>Esc&lt;/code>&lt;/li>
+&lt;li>Speaker notes: &lt;code>S&lt;/code>&lt;/li>
+&lt;li>Fullscreen: &lt;code>F&lt;/code>&lt;/li>
+&lt;li>Zoom: &lt;code>Alt + Click&lt;/code>&lt;/li>
+&lt;li>&lt;a href="https://github.com/hakimel/reveal.js#pdf-export" target="_blank" rel="noopener">PDF Export&lt;/a>: &lt;code>E&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="code-highlighting">Code Highlighting&lt;/h2>
+&lt;p>Inline code: &lt;code>variable&lt;/code>&lt;/p>
+&lt;p>Code block:&lt;/p>
+&lt;pre>&lt;code class="language-python">porridge = &amp;quot;blueberry&amp;quot;
+if porridge == &amp;quot;blueberry&amp;quot;:
+print(&amp;quot;Eating...&amp;quot;)
+&lt;/code>&lt;/pre>
+&lt;hr>
+&lt;h2 id="math">Math&lt;/h2>
+&lt;p>In-line math: $x + y = z$&lt;/p>
+&lt;p>Block math:&lt;/p>
+&lt;p>$$
+f\left( x \right) = ;\frac{{2\left( {x + 4} \right)\left( {x - 4} \right)}}{{\left( {x + 4} \right)\left( {x + 1} \right)}}
+$$&lt;/p>
+&lt;hr>
+&lt;h2 id="fragments">Fragments&lt;/h2>
+&lt;p>Make content appear incrementally&lt;/p>
+&lt;pre>&lt;code>{{% fragment %}} One {{% /fragment %}}
+{{% fragment %}} **Two** {{% /fragment %}}
+{{% fragment %}} Three {{% /fragment %}}
+&lt;/code>&lt;/pre>
+&lt;p>Press &lt;code>Space&lt;/code> to play!&lt;/p>
+&lt;p>&lt;span class="fragment " >
+One
+&lt;/span>
+&lt;span class="fragment " >
+&lt;strong>Two&lt;/strong>
+&lt;/span>
+&lt;span class="fragment " >
+Three
+&lt;/span>&lt;/p>
+&lt;hr>
+&lt;p>A fragment can accept two optional parameters:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>class&lt;/code>: use a custom style (requires definition in custom CSS)&lt;/li>
+&lt;li>&lt;code>weight&lt;/code>: sets the order in which a fragment appears&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="speaker-notes">Speaker Notes&lt;/h2>
+&lt;p>Add speaker notes to your presentation&lt;/p>
+&lt;pre>&lt;code class="language-markdown">{{% speaker_note %}}
+- Only the speaker can read these notes
+- Press `S` key to view
+{{% /speaker_note %}}
+&lt;/code>&lt;/pre>
+&lt;p>Press the &lt;code>S&lt;/code> key to view the speaker notes!&lt;/p>
+&lt;aside class="notes">
+&lt;ul>
+&lt;li>Only the speaker can read these notes&lt;/li>
+&lt;li>Press &lt;code>S&lt;/code> key to view&lt;/li>
+&lt;/ul>
+&lt;/aside>
+&lt;hr>
+&lt;h2 id="themes">Themes&lt;/h2>
+&lt;ul>
+&lt;li>black: Black background, white text, blue links (default)&lt;/li>
+&lt;li>white: White background, black text, blue links&lt;/li>
+&lt;li>league: Gray background, white text, blue links&lt;/li>
+&lt;li>beige: Beige background, dark text, brown links&lt;/li>
+&lt;li>sky: Blue background, thin dark text, blue links&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;ul>
+&lt;li>night: Black background, thick white text, orange links&lt;/li>
+&lt;li>serif: Cappuccino background, gray text, brown links&lt;/li>
+&lt;li>simple: White background, black text, blue links&lt;/li>
+&lt;li>solarized: Cream-colored background, dark green text, blue links&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;section data-noprocess data-shortcode-slide
+data-background-image="/media/boards.jpg"
+>
+&lt;h2 id="custom-slide">Custom Slide&lt;/h2>
+&lt;p>Customize the slide style and background&lt;/p>
+&lt;pre>&lt;code class="language-markdown">{{&amp;lt; slide background-image=&amp;quot;/media/boards.jpg&amp;quot; &amp;gt;}}
+{{&amp;lt; slide background-color=&amp;quot;#0000FF&amp;quot; &amp;gt;}}
+{{&amp;lt; slide class=&amp;quot;my-style&amp;quot; &amp;gt;}}
+&lt;/code>&lt;/pre>
+&lt;hr>
+&lt;h2 id="custom-css-example">Custom CSS Example&lt;/h2>
+&lt;p>Let&amp;rsquo;s make headers navy colored.&lt;/p>
+&lt;p>Create &lt;code>assets/css/reveal_custom.css&lt;/code> with:&lt;/p>
+&lt;pre>&lt;code class="language-css">.reveal section h1,
+.reveal section h2,
+.reveal section h3 {
+color: navy;
+}
+&lt;/code>&lt;/pre>
+&lt;hr>
+&lt;h1 id="questions">Questions?&lt;/h1>
+&lt;p>&lt;a href="https://github.com/wowchemy/wowchemy-hugo-modules/discussions" target="_blank" rel="noopener">Ask&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://wowchemy.com/docs/managing-content/#create-slides" target="_blank" rel="noopener">Documentation&lt;/a>&lt;/p></description></item></channel></rss>
