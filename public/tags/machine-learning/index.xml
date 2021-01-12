@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Machine Learning | Maxime Borry</title>
+    <link>/tags/machine-learning/</link>
+      <atom:link href="/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" />
+    <description>Machine Learning</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021 Maxime Borry · Adapted from [Edoardo Debenedetti](https://github.com/dedeswim/hugo-personal-website), licensed under a [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)  </copyright><lastBuildDate>Fri, 03 Jan 2020 11:31:07 +0100</lastBuildDate>
+    <image>
+      <url>/img/yoga.jpg</url>
+      <title>Machine Learning</title>
+      <link>/tags/machine-learning/</link>
+    </image>
+    
+    <item>
+      <title>Meetdock</title>
+      <link>/project/meetdock/</link>
+      <pubDate>Fri, 03 Jan 2020 11:31:07 +0100</pubDate>
+      <guid>/project/meetdock/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

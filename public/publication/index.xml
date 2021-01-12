@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Publications | Maxime Borry</title>
+    <link>/publication/</link>
+      <atom:link href="/publication/index.xml" rel="self" type="application/rss+xml" />
+    <description>Publications</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021 Maxime Borry · Adapted from [Edoardo Debenedetti](https://github.com/dedeswim/hugo-personal-website), licensed under a [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)  </copyright><lastBuildDate>Tue, 01 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/img/yoga.jpg</url>
+      <title>Publications</title>
+      <link>/publication/</link>
+    </image>
+    
+    <item>
+      <title>Community-curated and standardised metadata of published ancient metagenomic samples with AncientMetagenomeDir</title>
+      <link>/publication/yates-community-curated-2020/</link>
+      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>/publication/yates-community-curated-2020/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Reproducible, portable, and efficient ancient genome reconstruction with nf-core/eager</title>
+      <link>/publication/yates-reproducible-2020/</link>
+      <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>/publication/yates-reproducible-2020/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CoproID predicts the source of coprolites and paleofeces using microbiome composition and host DNA content</title>
+      <link>/publication/borry-coproid-2020/</link>
+      <pubDate>Wed, 01 Apr 2020 00:00:00 +0000</pubDate>
+      <guid>/publication/borry-coproid-2020/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Sourcepredict: Prediction of metagenomic sample sources using dimension reduction followed by machine learning classification</title>
+      <link>/publication/borry-sourcepredict-2019/</link>
+      <pubDate>Sun, 01 Sep 2019 00:00:00 +0000</pubDate>
+      <guid>/publication/borry-sourcepredict-2019/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
