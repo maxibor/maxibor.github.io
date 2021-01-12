@@ -5,9 +5,9 @@
     <link>/post/</link>
       <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021 Maxime Borry · Adapted from [Edoardo Debenedetti](https://github.com/dedeswim/hugo-personal-website), licensed under a [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)  </copyright><lastBuildDate>Tue, 12 Jan 2021 13:08:30 +0100</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2021 Maxime Borry</copyright><lastBuildDate>Tue, 12 Jan 2021 13:08:30 +0100</lastBuildDate>
     <image>
-      <url>/img/yoga.jpg</url>
+      <url>/media/yoga.jpg</url>
       <title>Posts</title>
       <link>/post/</link>
     </image>
@@ -17,27 +17,22 @@
       <link>/post/interactive-map-howto/</link>
       <pubDate>Tue, 12 Jan 2021 13:08:30 +0100</pubDate>
       <guid>/post/interactive-map-howto/</guid>
-      <description>&lt;p&gt;Recently, I&amp;rsquo;ve been involved with the 
-&lt;a href=&#34;https://github.com/spaam-community/ancientMetagenomeDir&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;AncientMetagenomeDir&lt;/a&gt; project. Briefly, with this collaborative community effort, we aimed to regroup in one single repository, all the metadata about every single published ancient DNA metagenomics article, and make them 
-&lt;a href=&#34;https://en.wikipedia.org/wiki/FAIR_data&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;FAIR&lt;/a&gt;.&lt;/p&gt;
+      <description>&lt;p&gt;Recently, I&amp;rsquo;ve been involved with the &lt;a href=&#34;https://github.com/spaam-community/ancientMetagenomeDir&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;AncientMetagenomeDir&lt;/a&gt; project. Briefly, with this collaborative community effort, we aimed to regroup in one single repository, all the metadata about every single published ancient DNA metagenomics article, and make them &lt;a href=&#34;https://en.wikipedia.org/wiki/FAIR_data&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;FAIR&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;We ended with large &lt;code&gt;TSV&lt;/code&gt; table files regrouping a standardized set of metadata, about each ancient DNA metagenomics sample. Because these are originally archeological data, one the information that is systematically collected is the geographical location of each sample.&lt;/p&gt;
-&lt;p&gt;While static maps were already generated for the 
-&lt;a href=&#34;https://doi.org/10.1101/2020.09.02.279570&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;AncientMegenomeDir publication&lt;/a&gt;, we had the opportunity to play with interactive maps for the 
-&lt;a href=&#34;https://spaam-community.github.io/AncientMetagenomeDir/#/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;website of the project&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Usually, hosting interactive elements online require some sort of a backend framework (like 
-&lt;a href=&#34;https://www.streamlit.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Streamlit&lt;/a&gt; or 
-&lt;a href=&#34;https://shiny.rstudio.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Shiny&lt;/a&gt;) to perform the rendering, however, I wanted to have it as serverless as possible, and this is where the 
-&lt;a href=&#34;https://docs.github.com/en/free-pro-team@latest/github/managing-files-in-a-repository/mapping-geojson-files-on-github&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;GeoJSON&lt;/code&gt; rendering function of GitHub&lt;/a&gt; came to the rescue.&lt;/p&gt;
-&lt;p&gt;That meant that as long as I would push a 
-&lt;a href=&#34;https://geojson.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;GeoJSON&lt;/code&gt;&lt;/a&gt; file on GitHub, it would automatically be rendered as an interactive map by GitHub, thanks to 
-&lt;a href=&#34;https://leafletjs.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Leaflet.js&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;While static maps were already generated for the &lt;a href=&#34;https://doi.org/10.1101/2020.09.02.279570&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;AncientMegenomeDir publication&lt;/a&gt;, we had the opportunity to play with interactive maps for the &lt;a href=&#34;https://spaam-community.github.io/AncientMetagenomeDir/#/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;website of the project&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Usually, hosting interactive elements online require some sort of a backend framework (like &lt;a href=&#34;https://www.streamlit.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Streamlit&lt;/a&gt; or &lt;a href=&#34;https://shiny.rstudio.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Shiny&lt;/a&gt;) to perform the rendering, however, I wanted to have it as serverless as possible, and this is where the &lt;a href=&#34;https://docs.github.com/en/free-pro-team@latest/github/managing-files-in-a-repository/mapping-geojson-files-on-github&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;GeoJSON&lt;/code&gt; rendering function of GitHub&lt;/a&gt; came to the rescue.&lt;/p&gt;
+&lt;p&gt;That meant that as long as I would push a &lt;a href=&#34;https://geojson.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;GeoJSON&lt;/code&gt;&lt;/a&gt; file on GitHub, it would automatically be rendered as an interactive map by GitHub, thanks to &lt;a href=&#34;https://leafletjs.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Leaflet.js&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;from-tsv-to-geojson&#34;&gt;From TSV to GeoJSON&lt;/h2&gt;
 &lt;p&gt;The question that I was left with: How to go from a &lt;code&gt;TSV&lt;/code&gt; table to a &lt;code&gt;GeoJSON&lt;/code&gt; file.
-Luckily for me, this is really easy to do thanks to 
-&lt;a href=&#34;https://geopandas.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GeoPandas&lt;/a&gt;.&lt;br&gt;
+Luckily for me, this is really easy to do thanks to &lt;a href=&#34;https://geopandas.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GeoPandas&lt;/a&gt;.&lt;br&gt;
 The only things I need were to make sure there were a &lt;code&gt;latitude&lt;/code&gt; and &lt;code&gt;longitude&lt;/code&gt; column.&lt;/p&gt;
 
 
+
+
+
+
+  
 
 
 
@@ -66,7 +61,7 @@ The only things I need were to make sure there were a &lt;code&gt;latitude&lt;/c
 
   
   
-  &lt;figcaption data-pre=&#34;Figure &#34; data-post=&#34;:&#34; class=&#34;numbered&#34;&gt;
+  &lt;figcaption data-pre=&#34;Figure&amp;nbsp;&#34; data-post=&#34;:&amp;nbsp;&#34; class=&#34;numbered&#34;&gt;
     A caption
   &lt;/figcaption&gt;
 
@@ -75,6 +70,11 @@ The only things I need were to make sure there were a &lt;code&gt;latitude&lt;/c
 
 
 
+
+
+
+
+  
 
 
 
@@ -118,13 +118,11 @@ gdf = geopandas.GeoDataFrame(df, geometry=geopandas.points_from_xy(df.longitude,
 gdf.to_file(&amp;quot;output.geo.json&amp;quot;, driver=&#39;GeoJSON&#39;)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Instead of pushing to GitHub at every change to check the GeoJSON rendering, we can check our GeoJSON map with the 
-&lt;a href=&#34;https://geojson.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;geojson.io&lt;/a&gt; website.&lt;/p&gt;
+&lt;p&gt;Instead of pushing to GitHub at every change to check the GeoJSON rendering, we can check our GeoJSON map with the &lt;a href=&#34;https://geojson.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;geojson.io&lt;/a&gt; website.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;displaying-more-metadata-on-the-map&#34;&gt;Displaying more metadata on the map&lt;/h2&gt;
 &lt;p&gt;So far, I only used the map to display the latitude and longitude of each sample, but we can actually display more information by changing the color, size, or the shape of each marker(point) for example.&lt;/p&gt;
-&lt;p&gt;Refering again the 
-&lt;a href=&#34;https://docs.github.com/en/free-pro-team@latest/github/managing-files-in-a-repository/mapping-geojson-files-on-github#styling-features&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Github documentation&lt;/a&gt;, this corresponds to the &lt;code&gt;marker-color&lt;/code&gt;, &lt;code&gt;marker-size&lt;/code&gt;, or &lt;code&gt;marker-symbol&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Refering again the &lt;a href=&#34;https://docs.github.com/en/free-pro-team@latest/github/managing-files-in-a-repository/mapping-geojson-files-on-github#styling-features&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Github documentation&lt;/a&gt;, this corresponds to the &lt;code&gt;marker-color&lt;/code&gt;, &lt;code&gt;marker-size&lt;/code&gt;, or &lt;code&gt;marker-symbol&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;The only thing that we have to do, is add as column with the property name and the desired values (here &lt;code&gt;marker-color&lt;/code&gt;)&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -183,6 +181,9 @@ gdf.to_file(&amp;quot;output.geo.json&amp;quot;, driver=&#39;GeoJSON&#39;)
 
 
 
+
+
+
 &lt;figure id=&#34;figure-test&#34;&gt;
 
 
@@ -207,8 +208,7 @@ gdf.to_file(&amp;quot;output.geo.json&amp;quot;, driver=&#39;GeoJSON&#39;)
 &lt;h2 id=&#34;preventing-overlapping-points&#34;&gt;Preventing overlapping points&lt;/h2&gt;
 &lt;p&gt;As in this dataset, there are different samples coming from the sample archeological sites, it meant that I had to deal with exactly overlapping points because they share the exact same geographic coordinates.&lt;/p&gt;
 &lt;p&gt;This is problematic for the map, because only one will be displayed, the other ones being hidden below.&lt;/p&gt;
-&lt;p&gt;To overcome this issue, there is the clever little trick of slightly altering the coordinates of each sample to plot them as distinct points on the map. I do that with random sampling from the normal distribution using 
-&lt;a href=&#34;https://numpy.org/doc/stable/reference/random/generated/numpy.random.normal.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;numpy&lt;/a&gt; with a very small standard deviation.&lt;/p&gt;
+&lt;p&gt;To overcome this issue, there is the clever little trick of slightly altering the coordinates of each sample to plot them as distinct points on the map. I do that with random sampling from the normal distribution using &lt;a href=&#34;https://numpy.org/doc/stable/reference/random/generated/numpy.random.normal.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;numpy&lt;/a&gt; with a very small standard deviation.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import pandas as pd
 import geopandas
 import numpy as np

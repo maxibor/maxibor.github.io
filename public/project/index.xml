@@ -5,9 +5,9 @@
     <link>/project/</link>
       <atom:link href="/project/index.xml" rel="self" type="application/rss+xml" />
     <description>Projects</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021 Maxime Borry · Adapted from [Edoardo Debenedetti](https://github.com/dedeswim/hugo-personal-website), licensed under a [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)  </copyright><lastBuildDate>Fri, 03 Jan 2020 11:31:07 +0100</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2021 Maxime Borry</copyright><lastBuildDate>Fri, 03 Jan 2020 11:31:07 +0100</lastBuildDate>
     <image>
-      <url>/img/yoga.jpg</url>
+      <url>/media/yoga.jpg</url>
       <title>Projects</title>
       <link>/project/</link>
     </image>

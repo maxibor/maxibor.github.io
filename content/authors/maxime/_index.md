@@ -10,7 +10,7 @@ authors:
 superuser: true
 
 # Role/position
-role: PhD student in Bioinformatics
+role: Maxime Borry
 # Organizations/Affiliations
 organizations:
 - name: Max Planck Institute for the Science of Human History

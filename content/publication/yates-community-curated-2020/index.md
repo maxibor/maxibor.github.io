@@ -1,5 +1,5 @@
 ---
-# Documentation: https://sourcethemes.com/academic/docs/managing-content/
+# Documentation: https://wowchemy.com/docs/managing-content/
 
 title: Community-curated and standardised metadata of published ancient metagenomic
   samples with AncientMetagenomeDir
@@ -26,7 +26,7 @@ authors:
 tags: []
 categories: []
 date: '2020-09-01'
-lastmod: 2020-09-03T17:59:40+02:00
+lastmod: 2021-01-12T17:16:00+01:00
 featured: false
 draft: false
 
@@ -44,10 +44,10 @@ image:
 #   E.g. `projects = ["internal-project"]` references `content/project/deep-learning/index.md`.
 #   Otherwise, set `projects = []`.
 projects: []
-publishDate: '2020-09-03T15:59:40.549865Z'
+publishDate: '2021-01-12T16:16:00.361969Z'
 publication_types:
-- 2
-abstract: Ancient DNA and RNA are valuable data sources for a
+- '2'
+abstract: textlessptextgreaterAncient DNA and RNA are valuable data sources for a
   wide range of disciplines. Within the field of ancient metagenomics, the number
   of published genetic datasets has risen dramatically in recent years, and tracking
   this data for reuse is particularly important for large-scale ecological and evolutionary
@@ -61,9 +61,8 @@ abstract: Ancient DNA and RNA are valuable data sources for a
   and automated checks to facilitate compatibility with established sequence-read
   archives and term-ontologies ensure consistency and interoperability for future
   meta-analyses. This collection will also assist in standardising metadata reporting
-  for future ancient metagenomic studies.
+  for future ancient metagenomic studies.textless/ptextgreater
 publication: '*bioRxiv*'
 url_pdf: https://www.biorxiv.org/content/10.1101/2020.09.02.279570v1
-url_code: https://github.com/SPAAM-workshop/AncientMetagenomeDir
 doi: 10.1101/2020.09.02.279570
 ---
