@@ -44,6 +44,7 @@ The question that I was left with: How to go from a `TSV` table to a `GeoJSON` f
 Luckily for me, this is really easy to do thanks to [GeoPandas](https://geopandas.org/).  
 The only things I need were to make sure there were a `latitude` and `longitude` column.
 
+{{< figure src="coordinate-system.png" title="A caption" numbered="true" >}}
 
 {{< figure src="coordinate-system.png" title="test" >}}
 
@@ -71,9 +72,9 @@ The only thing that we have to do, is add as column with the property name and t
 | #009C54      | 10.1016/j.quascirev.2017.11.037 | Hässeldala Port | 56.16    | 15.01     | HA1.1                  | 13900      | lake sediment           | ENA     | SRS2040659        |
 | #C22026      | 10.3390/geosciences10070270     | Unknown         | 53.322   | 1.118     | ELF001A_95_S81_ELFM1D1 | 6000       | shallow marine sediment | ENA     | ERS3605424        |
 
-{{< figure src="marker-color.png" title="test" >}}
+{{< figure src="/Users/borry/Documents/GitHub/maxibor.github.io/content/post/interactive-map-howto/coordinate-system.png" title="test" >}}
 
-![marker-color](marker-color.png)  
+<!-- ![marker-color](marker-color.png)   -->
 
 Here, markers in pink are host-associated single genomes, while markers in green are environmental metagenomes.
 

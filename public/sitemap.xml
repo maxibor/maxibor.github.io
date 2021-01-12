@@ -3,6 +3,21 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/post/interactive-map-howto/</loc>
+    <lastmod>2021-01-12T13:08:30+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2021-01-12T13:08:30+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2021-01-12T13:08:30+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/authors/maxime/</loc>
     <lastmod>2020-09-03T17:59:40+02:00</lastmod>
   </url>
@@ -84,11 +99,6 @@
   
   <url>
     <loc>/authors/maxime-borry/</loc>
-    <lastmod>2020-09-03T17:59:40+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/</loc>
     <lastmod>2020-09-03T17:59:40+02:00</lastmod>
   </url>
   
@@ -228,10 +238,6 @@
   
   <url>
     <loc>/courses/</loc>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
   </url>
   
   <url>
