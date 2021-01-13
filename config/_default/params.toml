@@ -71,7 +71,7 @@ diagram = true
 # Privacy pack
 #   Show a cookie consent message to visitors
 #   Anonymize IP in Google Analytics (if enabled)
-privacy_pack = false
+privacy_pack = true
 
 # Enable visitors to edit pages?
 #   `repo` defines the repository URL. `editable` defines which page types can be edited.
@@ -116,7 +116,7 @@ contact_links = [
   {icon = "github", icon_pack = "fab", name = "Github - maxibor", link = "https://github.com/maxibor"},
   {icon = "twitter", icon_pack = "fab", name = "DM Me - @notmaxib", link = "https://twitter.com/notmaxib"},
   {icon = "graduation-cap", icon_pack = "fas", name = "Google scholar", link = "https://scholar.google.com/citations?user=oUsxa5sAAAAJ"},
-  {icon = "orcid", icon_pack = "fab", name = "ORCID", link = "https://orcid.org/0000-0001-9140-7559"}
+  {icon = "orcid", icon_pack = "fab", name = "ORCID - 0000-0001-9140-7559", link = "https://orcid.org/0000-0001-9140-7559"}
   # {icon = "keybase", icon_pack = "fab", name = "Chat on Keybase", link = "https://keybase.io/dedeswim"},
   # {icon = "instagram", icon_pack = "fab", name = "See some pictures of my travels", link = "https://instagram.com/edoardo.debenedetti"},
   # {icon = "skype", icon_pack = "fab", name = "Skype Me", link = ""},

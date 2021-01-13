@@ -22,6 +22,14 @@ date_format: Jan 2006
 #   Leave `date_end` empty if it's your current employer.
 #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
 experience:
+  - title: Bioinformatics PhD student
+    company: Max Planck Institute for the Science of Human History
+    company_url: https://www.shh.mpg.de/
+    location: Jena, Germany
+    date_start: '2018-09-10'
+    date_end: 
+    description: Development of tools and pipelines for the analysis of ancient DNA metagenomics data.
+
   - title: Bioinformatics Research intern
     company: Natural History Museum - CNRS
     company_url: http://ecoanthropologie.cnrs.fr/article833.html?lang=en
