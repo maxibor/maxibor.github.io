@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>noSQL | Maxime Borry</title><link>https://maximeborry.com/tag/nosql/</link><atom:link href="https://maximeborry.com/tag/nosql/index.xml" rel="self" type="application/rss+xml"/><description>noSQL</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2021 Maxime Borry</copyright><lastBuildDate>Wed, 10 Feb 2021 10:40:21 +0100</lastBuildDate><image><url>https://maximeborry.com/media/yoga.jpg</url><title>noSQL</title><link>https://maximeborry.com/tag/nosql/</link></image><item><title>noSQL: when it's too big for a dictionary</title><link>https://maximeborry.com/post/rocksdb/</link><pubDate>Wed, 10 Feb 2021 10:40:21 +0100</pubDate><guid>https://maximeborry.com/post/rocksdb/</guid><description>&lt;p>Recently, I&amp;rsquo;ve been working on a project where I need to store a key-value pairs for very large files.
+In Python, the first idea would be to use a &lt;a href="https://docs.python.org/3/tutorial/datastructures.html#dictionaries" target="_blank" rel="noopener">dictionary&lt;/a>.&lt;br>
+However, I had more than 800 millions key-value pairs to store, so a dictonary just wouldn&amp;rsquo;t cut it.&lt;br>
+Enters the world of noSQL databases, and more specifically &lt;a href="https://rocksdb.org" target="_blank" rel="noopener">RocksDB&lt;/a>.&lt;br>
+Described by its creators, originally at Facebook, as a &amp;ldquo;high performance persistant key-value store&amp;rdquo;, it behaves pretty much like a dictonary, but can scale very well.&lt;/p>
+&lt;p>Written in C++, there is fortunately a python binding, in the name of &lt;a href="https://github.com/twmht/python-rocksdb" target="_blank" rel="noopener">python-rocksdb&lt;/a>, even available as a &lt;a href="https://anaconda.org/conda-forge/python-rocksdb" target="_blank" rel="noopener">conda package&lt;/a>.&lt;/p>
+&lt;p>It&amp;rsquo;s relatively simple to use:&lt;/p>
+&lt;pre>&lt;code class="language-python">import rocksdb
+# Create or open database
+db = rocksdb.DB(&amp;quot;test.db&amp;quot;, rocksdb.Options(create_if_missing=True))
+key = &amp;quot;Hello&amp;quot;
+value = &amp;quot;World&amp;quot;
+# Store key-value pair
+db.put(key.encode(), value.decode())
+# Get value for a given key
+print(db.get(key.encode()).decode())
+# prints &amp;quot;World&amp;quot;
+# Delete a key value-pair
+db.delete(key.encode())
+&lt;/code>&lt;/pre>
+&lt;p>Because RocksDB stores all data as byte strings, one need to use &lt;code>.encode()&lt;/code> and &lt;code>.decode()&lt;/code> to store and get data.&lt;/p>
+&lt;h3 id="batch-operation">Batch operation&lt;/h3>
+&lt;p>One way to speed up RockDB, is to perform operations in batch, instead of performing them one by one.&lt;/p>
+&lt;pre>&lt;code class="language-python">import rocksdb
+db = rocksdb.DB(&amp;quot;test.db&amp;quot;, rocksdb.Options(create_if_missing=True))
+batch = rocksdb.WriteBatch()
+batch.put(b&amp;quot;key&amp;quot;, b&amp;quot;v1&amp;quot;)
+batch.delete(b&amp;quot;key&amp;quot;)
+batch.put(b&amp;quot;key&amp;quot;, b&amp;quot;v2&amp;quot;)
+batch.put(b&amp;quot;key&amp;quot;, b&amp;quot;v3&amp;quot;)
+db.write(batch)
+&lt;/code>&lt;/pre>
+&lt;h3 id="batch-limits-and-solutions">Batch limits and solutions&lt;/h3>
+&lt;p>&lt;strong>But beware !&lt;/strong> For very large files, the batch can become too big for the memory of your computer, and you end up &lt;a href="https://www.enterprisestorageforum.com/storage-hardware/memory-swapping.html" target="_blank" rel="noopener">swapping&lt;/a> like crazy !&lt;/p>
+&lt;figure id="figure-when-memory-overflows-to-swap">
+&lt;a data-fancybox="" href="https://media1.tenor.com/images/09e8655db8859a953eb58c64a9fc7d7e/tenor.gif?itemid=11213683" data-caption="When memory overflows to swap">
+&lt;img src="https://media1.tenor.com/images/09e8655db8859a953eb58c64a9fc7d7e/tenor.gif?itemid=11213683" alt="" >
+&lt;/a>
+&lt;figcaption>
+When memory overflows to swap
+&lt;/figcaption>
+&lt;/figure>
+&lt;p>To prevent this, we have to restrict ourselves to batches of reasonable sizes, meaning making more batches, but smaller.&lt;/p>
+&lt;p>&lt;strong>But beware !&lt;/strong> RocksDB storage system relies on many indivual &lt;code>.sst&lt;/code> files, that RocksDB opens in parallel to make queries and store data. The larger the database, the more files are open. And this can lead to this kind of error:&lt;/p>
+&lt;pre>&lt;code class="language-bash">IO error: While open a file for appending: xxxxxxx.sst: Too many open files
+&lt;/code>&lt;/pre>
+&lt;p>Indeed, there is maximum number of files that can be open at any give time by a single process.&lt;br>
+For example, it&amp;rsquo;s &lt;a href="https://stackoverflow.com/questions/6624077/max-open-files-per-process" target="_blank" rel="noopener">256 by default on macOS&lt;/a>&lt;/p>
+&lt;p>Luckily, to overcome this hurdle, RocksDB has the &lt;code>max_open_files&lt;/code> option.&lt;/p>
+&lt;p>Putting it all together, this gives us the following script:&lt;/p>
+&lt;pre>&lt;code class="language-python">import rocksdb
+from subprocess import check_output
+from tqdm import tqdm
+def get_nb_lines(filename):
+&amp;quot;&amp;quot;&amp;quot;A function for getting the number of lines in a file
+Args:
+filename(str): The path to a file
+Returns:
+int: Number of lines in file
+&amp;quot;&amp;quot;&amp;quot;
+cmd = f&amp;quot;wc -l {filename}&amp;quot;
+return int(check_output(cmd, shell=True).split()[0])
+OPTS = rocksdb.Options()
+OPTS.create_if_missing = False
+OPTS.max_open_files = 250
+# Instantiating the database
+db = rocksdb.DB(&amp;quot;mybigdata.db&amp;quot;, OPTS)
+# The big file we want to store in RocksDB
+key_value_file = &amp;quot;very_large_file.tsv&amp;quot;
+# We get the number of key-value pairs in the file
+nb_key_value_pairs = get_nb_lines(key_value_file)
+# Starting our first batch
+batch = rocksdb.WriteBatch()
+# Key-value pair counter
+i = 0
+# Number of batches, the more, the less memory used
+max_batches = 100
+# Setting the batch size: how many key-value pairs go in each batch
+batch_size = min(nlines-1, int(nlines/max_batches))
+with open(key_value_file) as bigfile:
+for line in tqdm(bigfile, total=nlines):
+# Each line looks like: key [tab] value
+linesplit = line.split()
+key = linesplit[0]
+value = linesplit[1]
+batch.put(bytes(key, encoding='utf8'), bytes(value, encoding='utf8'))
+# If we reached the batch size, store it in RocksDB, and create a new batch
+if i % batch_size == 0:
+db.write(batch)
+batch = rocksdb.WriteBatch()
+# Store the remaining key-value pairs
+db.write(batch)
+&lt;/code>&lt;/pre></description></item></channel></rss>
