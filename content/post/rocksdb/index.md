@@ -7,10 +7,10 @@ summary: ""
 authors: [Maxime]
 tags: [noSQL, database, big data]
 categories: []
-date: 2021-02-09T23:22:21+01:00
-lastmod: 2021-02-09T23:22:21+01:00
+date: 2021-02-10T10:40:21+01:00
+lastmod: 2021-02-10T10:53:21+01:00
 featured: false
-draft: true
+draft: false
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.
@@ -61,7 +61,7 @@ Because RocksDB stores all data as byte strings, one need to use `.encode()` and
 
 ### Batch operation
 
-One way to speed up RockDB, is to perform operation in batch, instead of performing them one by one.
+One way to speed up RockDB, is to perform operations in batch, instead of performing them one by one.
 
 ```python
 import rocksdb
@@ -84,16 +84,18 @@ db.write(batch)
 
 To prevent this, we have to restrict ourselves to batches of reasonable sizes, meaning making more batches, but smaller.
 
-**But beware !** All these batches create new files that we remain open until we're done, which can lead to this kind of error:
+**But beware !** RocksDB storage system relies on many indivual `.sst` files, that RocksDB opens in parallel to make queries and store data. The larger the database, the more files are open. And this can lead to this kind of error:
 
 ```bash
-IOError: File not found ... (Too many open files)
+IO error: While open a file for appending: xxxxxxx.sst: Too many open files
 ```
 
 Indeed, there is maximum number of files that can be open at any give time by a single process.   
 For example, it's [256 by default on macOS](https://stackoverflow.com/questions/6624077/max-open-files-per-process)
 
-So I came with this solution, which if you ever need, you can find below:
+Luckily, to overcome this hurdle, RocksDB has the `max_open_files` option.
+
+Putting it all together, this gives us the following script:
 
 ```python
 import rocksdb
@@ -110,7 +112,12 @@ def get_nb_lines(filename):
   cmd = f"wc -l {filename}"
   return int(check_output(cmd, shell=True).split()[0])
 
-db = rocksdb.DB("test.db", rocksdb.Options(create_if_missing=True))
+OPTS = rocksdb.Options()
+OPTS.create_if_missing = False
+OPTS.max_open_files = 250
+
+# Instantiating the database
+db = rocksdb.DB("mybigdata.db", OPTS)
 
 # The big file we want to store in RocksDB
 key_value_file = "very_large_file.tsv"
@@ -124,8 +131,8 @@ batch = rocksdb.WriteBatch()
 # Key-value pair counter
 i = 0
 
-# Max number of batches to avoid IO Errors
-max_batches = 120
+# Number of batches, the more, the less memory used
+max_batches = 100
 
 # Setting the batch size: how many key-value pairs go in each batch
 batch_size = min(nlines-1, int(nlines/max_batches))
