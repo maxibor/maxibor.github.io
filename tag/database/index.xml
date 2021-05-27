@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>database | Maxime Borry</title><link>https://maximeborry.com/tag/database/</link><atom:link href="https://maximeborry.com/tag/database/index.xml" rel="self" type="application/rss+xml"/><description>database</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2021 Maxime Borry</copyright><lastBuildDate>Wed, 10 Feb 2021 10:40:21 +0100</lastBuildDate><image><url>https://maximeborry.com/media/yoga.jpg</url><title>database</title><link>https://maximeborry.com/tag/database/</link></image><item><title>noSQL: when it's too big for a dictionary</title><link>https://maximeborry.com/post/rocksdb/</link><pubDate>Wed, 10 Feb 2021 10:40:21 +0100</pubDate><guid>https://maximeborry.com/post/rocksdb/</guid><description>&lt;p>Recently, I&amp;rsquo;ve been working on a project where I need to store a key-value pairs for very large files.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>database | Maxime Borry</title><link>https://maximeborry.com/tag/database/</link><atom:link href="https://maximeborry.com/tag/database/index.xml" rel="self" type="application/rss+xml"/><description>database</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2021 Maxime Borry</copyright><lastBuildDate>Wed, 10 Feb 2021 10:40:21 +0100</lastBuildDate><image><url>https://maximeborry.com/media/icon_hu4c4b160219548583b0b35e67c5987186_165157_512x512_fill_lanczos_center_2.png</url><title>database</title><link>https://maximeborry.com/tag/database/</link></image><item><title>noSQL: when it's too big for a dictionary</title><link>https://maximeborry.com/post/rocksdb/</link><pubDate>Wed, 10 Feb 2021 10:40:21 +0100</pubDate><guid>https://maximeborry.com/post/rocksdb/</guid><description>&lt;p>Recently, I&amp;rsquo;ve been working on a project where I need to store a key-value pairs for very large files.
 In Python, the first idea would be to use a &lt;a href="https://docs.python.org/3/tutorial/datastructures.html#dictionaries" target="_blank" rel="noopener">dictionary&lt;/a>.&lt;br>
 However, I had more than 800 millions key-value pairs to store, so a dictonary just wouldn&amp;rsquo;t cut it.&lt;br>
 Enters the world of noSQL databases, and more specifically &lt;a href="https://rocksdb.org" target="_blank" rel="noopener">RocksDB&lt;/a>.&lt;br>
@@ -33,13 +33,11 @@ db.write(batch)
 &lt;h3 id="batch-limits-and-solutions">Batch limits and solutions&lt;/h3>
 &lt;p>&lt;strong>But beware !&lt;/strong> For very large files, the batch can become too big for the memory of your computer, and you end up &lt;a href="https://www.enterprisestorageforum.com/storage-hardware/memory-swapping.html" target="_blank" rel="noopener">swapping&lt;/a> like crazy !&lt;/p>
 &lt;figure id="figure-when-memory-overflows-to-swap">
-&lt;a data-fancybox="" href="https://media1.tenor.com/images/09e8655db8859a953eb58c64a9fc7d7e/tenor.gif?itemid=11213683" data-caption="When memory overflows to swap">
-&lt;img src="https://media1.tenor.com/images/09e8655db8859a953eb58c64a9fc7d7e/tenor.gif?itemid=11213683" alt="" >
-&lt;/a>
-&lt;figcaption>
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img src="https://media1.tenor.com/images/09e8655db8859a953eb58c64a9fc7d7e/tenor.gif?itemid=11213683" alt="When memory overflows to swap" loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;figcaption>
 When memory overflows to swap
-&lt;/figcaption>
-&lt;/figure>
+&lt;/figcaption>&lt;/figure>
 &lt;p>To prevent this, we have to restrict ourselves to batches of reasonable sizes, meaning making more batches, but smaller.&lt;/p>
 &lt;p>&lt;strong>But beware !&lt;/strong> RocksDB storage system relies on many indivual &lt;code>.sst&lt;/code> files, that RocksDB opens in parallel to make queries and store data. The larger the database, the more files are open. And this can lead to this kind of error:&lt;/p>
 &lt;pre>&lt;code class="language-bash">IO error: While open a file for appending: xxxxxxx.sst: Too many open files
