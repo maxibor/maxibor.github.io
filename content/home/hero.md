@@ -6,7 +6,7 @@ active = true  # Activate this widget? true/false
 weight = 10  # Order that this section will appear.
 
 title = """Maxime Borry  
-PhD student"""
+Doctoral Researcher"""
 
 
 # Hero image (optional). Enter filename of an image in the `static/media/` folder.
