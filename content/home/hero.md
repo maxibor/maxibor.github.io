@@ -42,5 +42,5 @@ hero_media = ""
 +++
 Working on **Bioinformatics** for **ancient DNA Metagenomics**  
 at the  
-**Max Planck Institute for the Science of Human History**
+**Max Planck Institute for Evolutionary Anthropology**
 
