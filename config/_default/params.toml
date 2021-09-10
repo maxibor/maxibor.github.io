@@ -88,7 +88,7 @@ show_related = {book = true, page = false, post = true, project = true, publicat
 ############################
 
 # Enter contact details (optional). To hide a field, clear it to "".
-email = "borry@shh.mpg.de"
+email = "maxime_borry@eva.mpg.de"
 phone = ""
 
 # Address
