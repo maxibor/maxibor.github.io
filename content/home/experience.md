@@ -23,6 +23,14 @@ date_format: Jan 2006
 #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
 experience:
   - title: Bioinformatics Doctoral Researcher
+    company: Max Planck Institute for Evolutionary Anthropology
+    company_url: https://www.eva.mpg.de
+    location: Leipzig, Germany
+    date_start: '2021-09-02'
+    date_end: 
+    description: Development of tools and pipelines for the analysis of ancient DNA metagenomics data.
+
+  - title: Bioinformatics Doctoral Researcher
     company: Max Planck Institute for the Science of Human History
     company_url: https://www.shh.mpg.de/
     location: Jena, Germany

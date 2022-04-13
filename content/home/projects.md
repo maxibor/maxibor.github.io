@@ -7,9 +7,9 @@ widget: portfolio
 headless: true
 
 # Order that this section appears on the page.
-weight: 65
+weight: 90
 
-title: A few projects I've done
+title: A few other projects I've done
 subtitle: (more on [GitHub](https://github.com/maxibor))
 
 content:

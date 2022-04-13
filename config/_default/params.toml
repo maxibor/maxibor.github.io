@@ -112,7 +112,7 @@ appointment_url = ""
 # Contact links
 #   Set to `[]` to disable, or comment out unwanted lines with a hash `#`.
 contact_links = [
-  {icon = "map-marker-alt", icon_pack = "fas", name = "Jena, Germany", link = "https://goo.gl/maps/4gDiakRwgkQpbzyr5"},
+  {icon = "map-marker-alt", icon_pack = "fas", name = "Leipzig, Germany", link = "https://goo.gl/maps/4gDiakRwgkQpbzyr5"},
   {icon = "github", icon_pack = "fab", name = "Github - maxibor", link = "https://github.com/maxibor"},
   {icon = "twitter", icon_pack = "fab", name = "DM Me - @notmaxib", link = "https://twitter.com/notmaxib"},
   {icon = "graduation-cap", icon_pack = "fas", name = "Google scholar", link = "https://scholar.google.com/citations?user=oUsxa5sAAAAJ"},
