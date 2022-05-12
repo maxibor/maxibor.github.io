@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>kraken | Maxime Borry</title><link>https://maximeborry.com/tag/kraken/</link><atom:link href="https://maximeborry.com/tag/kraken/index.xml" rel="self" type="application/rss+xml"/><description>kraken</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2022 Maxime Borry</copyright><lastBuildDate>Tue, 10 May 2022 13:38:45 +0200</lastBuildDate><image><url>https://maximeborry.com/media/icon_hu4c4b160219548583b0b35e67c5987186_165157_512x512_fill_lanczos_center_2.png</url><title>kraken</title><link>https://maximeborry.com/tag/kraken/</link></image><item><title>A new E-score for KrakenUniq</title><link>https://maximeborry.com/post/kraken-uniq/</link><pubDate>Tue, 10 May 2022 13:38:45 +0200</pubDate><guid>https://maximeborry.com/post/kraken-uniq/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;p>The task of &lt;a href="https://www.sevenbridges.com/taxonomic-profiling-of-metagenomics-samples/" target="_blank" rel="noopener">taxonomic profiling&lt;/a> consists of answering the question &lt;em>&amp;ldquo;Who is there ?&amp;quot;&lt;/em> in a metagenomic sample.
 However, in practice, it turns out to be quite a challenging assignment to tackle, and many solutions have been proposed to address it (for a comparative benchmark, see &lt;a href="https://doi.org/10.1038/s41592-022-01431-4" target="_blank" rel="noopener">Meyer et al. 2022&lt;/a>).&lt;/p>
-&lt;p>One of the central aspect of taxonomic profiling is to distinguishing true positive (taxon actually present in a sample) from false positive (taxon actually not present in sample) taxonomic assignments.&lt;/p>
-&lt;p>Today, I want to focus on one particular taxonomic profiler, &lt;a href="https://github.com/fbreitwieser/krakenuniq" target="_blank" rel="noopener">KrakenUniq&lt;/a> (&lt;a href="https://doi.org/10.1186/s13059-018-1568-0" target="_blank" rel="noopener">Breitwieser et al. 2018&lt;/a>).&lt;/p>
-&lt;p>Based on the popular &lt;a href="https://en.wikipedia.org/wiki/K-mer" target="_blank" rel="noopener">k-mer&lt;/a> based taxonomic classifier &lt;a href="https://github.com/DerrickWood/kraken" target="_blank" rel="noopener">Kraken&lt;/a> (&lt;a href="https://doi.org/10.1186/gb-2014-15-3-r46" target="_blank" rel="noopener">Wood et al. 2014&lt;/a>), KrakenUniq adds a unique (😉) feature of top of Kraken, the reporting of unique kmer counts. Let me explain.&lt;/p>
-&lt;p>The original Kraken program is based on direct k-mer matching. Kraken builds a database of all present k-mer in each reference genomes, and then compares it the k-mers found in the query sequences/sequencing reads (fig 1) . If there is a match, it uses a taxonomic tree and the LCA algorithm to assign each query sequence to a given taxon.&lt;/p>
+&lt;p>One of the central aspect of taxonomic profiling is to distinguishing true positive (taxon actually present in a sample) from false positive (taxon not actually present in sample) taxonomic assignments.&lt;/p>
+&lt;p>Today, I want to focus on one particular taxonomic profiler: &lt;a href="https://github.com/fbreitwieser/krakenuniq" target="_blank" rel="noopener">KrakenUniq&lt;/a> (&lt;a href="https://doi.org/10.1186/s13059-018-1568-0" target="_blank" rel="noopener">Breitwieser et al. 2018&lt;/a>).&lt;/p>
+&lt;p>Based on the popular &lt;a href="https://en.wikipedia.org/wiki/K-mer" target="_blank" rel="noopener">k-mer&lt;/a> based taxonomic classifier &lt;a href="https://github.com/DerrickWood/kraken" target="_blank" rel="noopener">Kraken&lt;/a> (&lt;a href="https://doi.org/10.1186/gb-2014-15-3-r46" target="_blank" rel="noopener">Wood et al. 2014&lt;/a>), KrakenUniq adds a unique (😉) feature on top of Kraken, the reporting of unique k-mer counts.&lt;/p>
+&lt;p>Let me explain:&lt;/p>
+&lt;p>The original Kraken program is based on direct k-mer matching. First Kraken builds a database of all present k-mer in each reference genomes, and then compares it to the k-mers found in the query sequences/sequencing reads (fig 1) . If there is a match, it uses a taxonomic tree and the LCA algorithm to assign each query sequence to a given taxon.&lt;/p>
 &lt;p>&lt;img src="kraken.png" alt="">&lt;br>
 &lt;strong>Figure 1&lt;/strong>: The Kraken sequence classification algorithm. &lt;a href="https://genomebiology.biomedcentral.com/articles/10.1186/gb-2014-15-3-r46/figures/1" target="_blank" rel="noopener">original here&lt;/a>&lt;/p>
-&lt;p>While this is already a well performing taxonomic profiling method, it suffers from one major drawback: it can not account for duplicated sequences. For example, when reporting the number of reads belonging to each taxon in a sample, Kraken is not able to distinguish an evenly covered genome (likely a true positive) from a genome suffering from read stacking (likely a false positive), often being the symptom (fig 2) of a false positive assignment, due to reads matching ultra-conserved regions between taxons from the same clade.&lt;/p>
+&lt;p>While this is already a good performing taxonomic profiling method, it suffers from one major drawback: it can not account for duplicated sequences. For example, when reporting the number of reads belonging to each taxon in a sample, Kraken is not able to distinguish an evenly covered genome (likely a true positive, blue genome fig 2) from a genome suffering from read stacking (likely a false positive, purple genome, fig 2). This uneven coverage, often a false positive assignment, can be the consequence of different reasons, but one of the most common is due to reads matching ultra-conserved regions between taxons from the same clade, the so-called &lt;em>read stacking&lt;/em>.&lt;/p>
 &lt;p>&lt;img src="featured.png" alt="">&lt;br>
 &lt;strong>Figure 2&lt;/strong>: Two taxons having the same amount of assigned reads, two different scenarios. The blue genome has an evenly distributed coverage, while the purple genome suffers from read stacking. Unique kmers are highlighted with a black perimeter&lt;/p>
-&lt;p>To circument this problem, KrakenUniq leverages the &lt;a href="https://en.wikipedia.org/wiki/HyperLogLog" target="_blank" rel="noopener">HLL algorithm&lt;/a> to count the unique/distinc k-mers. In practice, in the example of fig 2, Kraken would have reported a &amp;ldquo;coverage&amp;rdquo; of 24 for both the blue and purple genome, while KrakenUniq would have reported a &amp;ldquo;coverage&amp;rdquo; of 7 for the blue genome, and 2 for the purple genome.&lt;/p>
-&lt;p>On top of that, KrakenUniq keeps track of how many of unique k-mers have been found, out all possible unique k-mers for each genome, which gives an estimation of the &amp;ldquo;coverage&amp;rdquo;.&lt;/p>
+&lt;p>To circumvent this problem, KrakenUniq leverages the &lt;a href="https://en.wikipedia.org/wiki/HyperLogLog" target="_blank" rel="noopener">HLL algorithm&lt;/a> to count the unique/distinct k-mers. In practice, in the example of fig 2, Kraken would have reported a k-mer count of 24 for both the blue and purple genome, while KrakenUniq would have reported a k-mer count of 7 for the blue genome, and k-mer count of 2 for the purple genome.&lt;/p>
+&lt;p>On top of that, KrakenUniq keeps track of how many of unique k-mers have been found, out all possible unique k-mers for each taxon, and normalizes it by the taxon genome size, which gives an estimation of the &amp;ldquo;coverage&amp;rdquo;.&lt;/p>
 &lt;p>So, to summarize, with KrakenUniq, for each taxon, we now have three different metrics instead of &amp;ldquo;just one&amp;rdquo; for Kraken :&lt;/p>
 &lt;ul>
 &lt;li>read count per taxon (which we already had with kraken), we&amp;rsquo;ll refer to it later as $R$&lt;/li>
 &lt;li>number of unique k-mers (new with KrakenUniq), we&amp;rsquo;ll refer to it later as $K$&lt;/li>
-&lt;li>&amp;ldquo;coverage&amp;rdquo; coverage of the k-mers of the clade in the database, we&amp;rsquo;ll refer to it later as $C$&lt;/li>
+&lt;li>&amp;ldquo;coverage&amp;rdquo; of the k-mers of the clade in the database, we&amp;rsquo;ll refer to it later as $C$&lt;/li>
 &lt;/ul>
-&lt;p>Note that I&amp;rsquo;ve always mentioned the &amp;ldquo;coverage&amp;rdquo; between quotes, this is because &lt;a href="https://github.com/fbreitwieser/krakenuniq/blob/2ac22bf7681223efa17ffba221231c7faac9da05/src/taxdb.hpp#L1103" target="_blank" rel="noopener">KrakenUniq defines it&lt;/a> as $C = \frac{k}{genome\ size}$.&lt;br>
+&lt;p>Note that I&amp;rsquo;ve always mentioned the &amp;ldquo;coverage&amp;rdquo; between quotes, this is because &lt;a href="https://github.com/fbreitwieser/krakenuniq/blob/2ac22bf7681223efa17ffba221231c7faac9da05/src/taxdb.hpp#L1103" target="_blank" rel="noopener">KrakenUniq defines it&lt;/a> as $C = \frac{K}{genome\ size}$.&lt;br>
 Because by definition, the maximum number of k-mers (of length $k$) for a sequence of length $L$ can not exceed $L - k + 1$. This means that in the ideal situation, for example the blue genome of fig 2, the &amp;ldquo;coverage&amp;rdquo; will be at best, close to 1, but never greater than 1.&lt;/p>
 &lt;p>To try to make sense of these three metrics, &lt;a href="https://doi.org/10.1186/s13059-021-02580-z" target="_blank" rel="noopener">Guellil et al. 2022&lt;/a> came up with a score $E$ combining them, to discriminate true positive from false positive taxonomic assignments.&lt;/p>
 &lt;p>$$E = \frac{K}{R} \times C$$&lt;/p>
@@ -34,12 +35,12 @@ kmer_length = 35
 genome_size = 1000000
 &lt;/code>&lt;/pre>
 &lt;p>&lt;strong>We&amp;rsquo;ll look at four different possible scenarios&lt;/strong>&lt;br>
-For each scenario, we&amp;rsquo;ll simulated 100 different situations&lt;/p>
+For each scenario, we&amp;rsquo;ll simulate 100 different situations&lt;/p>
 &lt;h4 id="scenario-a-high-duplication-low-coverage-false-positive">scenario A: high duplication, low coverage (false positive)&lt;/h4>
 &lt;ul>
 &lt;li>A lot of reads are duplicated, probably coming from conversed regions, or sequencing artifacts&lt;/li>
 &lt;li>low coverage&lt;/li>
-&lt;li>There are more reads than unique kmers&lt;/li>
+&lt;li>There are more reads than unique k-mers&lt;/li>
 &lt;/ul>
 &lt;pre>&lt;code class="language-python">a_reads = np.random.randint(10, 300, 100) # randomly choose the number of reads, between 10 and 300
 comp_kmer_a = lambda x: int(x / np.random.randint(2,10, 1)) # randomly choose between 2 and 10 times less k-mers
@@ -55,7 +56,7 @@ plt.legend(loc=&amp;quot;upper left&amp;quot;);
 &lt;ul>
 &lt;li>Very few reads are duplicated&lt;/li>
 &lt;li>low coverage&lt;/li>
-&lt;li>more unique kmers than reads (up to $ku = read_length - kmer_length + 1$ more unique k-mers than reads)&lt;/li>
+&lt;li>more unique k-mers than reads (up to $ku = read_length - kmer_length + 1$ more unique k-mers than reads)&lt;/li>
 &lt;/ul>
 &lt;pre>&lt;code class="language-python">b_reads = np.random.randint(10, 300, 100) # randomly choose the number of reads, between 10 and 300
 comp_kmer_b = lambda x: min(genome_size - kmer_length + 1, int(x * np.random.randint(2,(read_length - kmer_length + 1), 1))) # randomly choose up to ku more k-mers than reads
@@ -117,7 +118,7 @@ plt.title(&amp;quot;Guellil et al. E score&amp;quot;)
 plt.ylim(0,0.001);
 &lt;/code>&lt;/pre>
 &lt;p>&lt;img src="output_17_0.png" alt="png">&lt;/p>
-&lt;p>As we can see, it can be quite tricky in some situations to differentiate a true from a false positive assignment. This is particularly problematic beween scenario A and scenario B.&lt;/p>
+&lt;p>As we can see, it can be quite tricky in some situations to differentiate a true from a false positive assignment. This is particularly problematic between scenario A and scenario B.&lt;/p>
 &lt;h3 id="modified-dexp-e-score">Modified &lt;em>dexp&lt;/em> E-score&lt;/h3>
 &lt;p>Here I propose a slightly different score to mitigate some of issue.
 Instead of defining&lt;/p>
@@ -163,7 +164,7 @@ diff_e_score_dexp = np.mean([e_score_dexp_b - e_score_dexp_a, e_score_dexp_c - e
 &lt;/code>&lt;/pre>
 &lt;pre>&lt;code class="language-python">plt.plot(diff_e_score_guellil, label=&amp;quot;Guellil et al. E-score&amp;quot;)
 plt.plot(diff_e_score_dexp, label=&amp;quot;double-exp E-score&amp;quot;)
-plt.title(&amp;quot;Diffence of E-score between true and false positive\n(the greater the better)&amp;quot;)
+plt.title(&amp;quot;Difference of E-score between true and false positive\n(the greater the better)&amp;quot;)
 plt.legend(loc=&amp;quot;upper left&amp;quot;)
 plt.ylim(0,30);
 &lt;/code>&lt;/pre>
@@ -171,7 +172,7 @@ plt.ylim(0,30);
 &lt;pre>&lt;code class="language-python">df = pd.DataFrame(list(zip(diff_e_score_guellil, diff_e_score_dexp)), columns=['Guellil et al.', 'dexp'])
 &lt;/code>&lt;/pre>
 &lt;pre>&lt;code class="language-python">sns.boxplot(data=df)
-plt.title(&amp;quot;Diffence of E-score between true and false positive\n(the greater the better)&amp;quot;);
+plt.title(&amp;quot;Difference of E-score between true and false positive\n(the greater the better)&amp;quot;);
 &lt;/code>&lt;/pre>
 &lt;p>&lt;img src="output_29_0.png" alt="png">&lt;/p>
 &lt;pre>&lt;code class="language-python">df.mean(axis=0)
@@ -180,7 +181,7 @@ plt.title(&amp;quot;Diffence of E-score between true and false positive\n(the gr
 dexp 50.104112
 dtype: float64
 &lt;/code>&lt;/pre>
-&lt;p>We can see that on average between all scenarios, for Guellil &lt;em>et al.&lt;/em> E-score, there is only a difference of &lt;code>1&lt;/code> points, while for the modified double-exponential E-score, there is an average difference of &lt;code>50&lt;/code> points.&lt;/p>
+&lt;p>We can see that on average between all scenarios, for Guellil &lt;em>et al.&lt;/em> E-score, there is only a difference of &lt;code>1&lt;/code> point, while for the modified double-exponential E-score, there is an average difference of &lt;code>50&lt;/code> points.&lt;/p>
 &lt;h3 id="conclusion">Conclusion&lt;/h3>
-&lt;p>In my simulations, using a the modified double-exponential E-score could allow for a better distinction between true and false positive taxonomic assignations by KrakenUniq&lt;/p>
-&lt;p>&lt;em>The notebook used in this blog post is available&lt;/em> &lt;a href="https://gist.github.com/49841c19b4f78c6182b6cce75e9025f2" target="_blank" rel="noopener">&lt;em>here&lt;/em>&lt;/a>&lt;/p></description></item></channel></rss>
+&lt;p>In my simulations, using a the modified double-exponential E-score could allow for a better distinction between true and false positive taxonomic assignations by KrakenUniq.&lt;/p>
+&lt;p>&lt;em>The notebook used for this blog post is available&lt;/em> &lt;a href="https://gist.github.com/49841c19b4f78c6182b6cce75e9025f2" target="_blank" rel="noopener">&lt;em>here&lt;/em>&lt;/a>&lt;/p></description></item></channel></rss>
