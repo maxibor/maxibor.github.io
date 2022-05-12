@@ -32,33 +32,35 @@ projects: []
 The task of [taxonomic profiling](https://www.sevenbridges.com/taxonomic-profiling-of-metagenomics-samples/) consists of answering the question *"Who is there ?"* in a metagenomic sample.
 However, in practice, it turns out to be quite a challenging assignment to tackle, and many solutions have been proposed to address it (for a comparative benchmark, see [Meyer et al. 2022](https://doi.org/10.1038/s41592-022-01431-4)).
 
-One of the central aspect of taxonomic profiling is to distinguishing true positive (taxon actually present in a sample) from false positive (taxon actually not present in sample) taxonomic assignments.
+One of the central aspect of taxonomic profiling is to distinguishing true positive (taxon actually present in a sample) from false positive (taxon not actually present in sample) taxonomic assignments.
 
-Today, I want to focus on one particular taxonomic profiler, [KrakenUniq](https://github.com/fbreitwieser/krakenuniq) ([Breitwieser et al. 2018](https://doi.org/10.1186/s13059-018-1568-0)).
+Today, I want to focus on one particular taxonomic profiler: [KrakenUniq](https://github.com/fbreitwieser/krakenuniq) ([Breitwieser et al. 2018](https://doi.org/10.1186/s13059-018-1568-0)).
 
-Based on the popular [k-mer](https://en.wikipedia.org/wiki/K-mer) based taxonomic classifier [Kraken](https://github.com/DerrickWood/kraken) ([Wood et al. 2014](https://doi.org/10.1186/gb-2014-15-3-r46)), KrakenUniq adds a unique (😉) feature of top of Kraken, the reporting of unique kmer counts. Let me explain.
+Based on the popular [k-mer](https://en.wikipedia.org/wiki/K-mer) based taxonomic classifier [Kraken](https://github.com/DerrickWood/kraken) ([Wood et al. 2014](https://doi.org/10.1186/gb-2014-15-3-r46)), KrakenUniq adds a unique (😉) feature on top of Kraken, the reporting of unique k-mer counts.
 
-The original Kraken program is based on direct k-mer matching. Kraken builds a database of all present k-mer in each reference genomes, and then compares it the k-mers found in the query sequences/sequencing reads (fig 1) . If there is a match, it uses a taxonomic tree and the LCA algorithm to assign each query sequence to a given taxon.
+Let me explain:
+
+The original Kraken program is based on direct k-mer matching. First Kraken builds a database of all present k-mer in each reference genomes, and then compares it to the k-mers found in the query sequences/sequencing reads (fig 1) . If there is a match, it uses a taxonomic tree and the LCA algorithm to assign each query sequence to a given taxon.
 
 ![](kraken.png)  
 **Figure 1**: The Kraken sequence classification algorithm. [original here](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2014-15-3-r46/figures/1)
 
-While this is already a well performing taxonomic profiling method, it suffers from one major drawback: it can not account for duplicated sequences. For example, when reporting the number of reads belonging to each taxon in a sample, Kraken is not able to distinguish an evenly covered genome (likely a true positive) from a genome suffering from read stacking (likely a false positive), often being the symptom (fig 2) of a false positive assignment, due to reads matching ultra-conserved regions between taxons from the same clade.
+While this is already a good performing taxonomic profiling method, it suffers from one major drawback: it can not account for duplicated sequences. For example, when reporting the number of reads belonging to each taxon in a sample, Kraken is not able to distinguish an evenly covered genome (likely a true positive, blue genome fig 2) from a genome suffering from read stacking (likely a false positive, purple genome, fig 2). This uneven coverage, often a false positive assignment, can be the consequence of different reasons, but one of the most common is due to reads matching ultra-conserved regions between taxons from the same clade, the so-called *read stacking*.
 
 ![](featured.png)  
 **Figure 2**: Two taxons having the same amount of assigned reads, two different scenarios. The blue genome has an evenly distributed coverage, while the purple genome suffers from read stacking. Unique kmers are highlighted with a black perimeter
 
-To circument this problem, KrakenUniq leverages the [HLL algorithm](https://en.wikipedia.org/wiki/HyperLogLog) to count the unique/distinc k-mers. In practice, in the example of fig 2, Kraken would have reported a "coverage" of 24 for both the blue and purple genome, while KrakenUniq would have reported a "coverage" of 7 for the blue genome, and 2 for the purple genome.
+To circumvent this problem, KrakenUniq leverages the [HLL algorithm](https://en.wikipedia.org/wiki/HyperLogLog) to count the unique/distinct k-mers. In practice, in the example of fig 2, Kraken would have reported a k-mer count of 24 for both the blue and purple genome, while KrakenUniq would have reported a k-mer count of 7 for the blue genome, and k-mer count of 2 for the purple genome.
 
-On top of that, KrakenUniq keeps track of how many of unique k-mers have been found, out all possible unique k-mers for each genome, which gives an estimation of the "coverage".
+On top of that, KrakenUniq keeps track of how many of unique k-mers have been found, out all possible unique k-mers for each taxon, and normalizes it by the taxon genome size, which gives an estimation of the "coverage".
 
 So, to summarize, with KrakenUniq, for each taxon, we now have three different metrics instead of "just one" for Kraken :
 
 - read count per taxon (which we already had with kraken), we'll refer to it later as $R$
 - number of unique k-mers (new with KrakenUniq), we'll refer to it later as $K$
-- "coverage" coverage of the k-mers of the clade in the database, we'll refer to it later as $C$
+- "coverage" of the k-mers of the clade in the database, we'll refer to it later as $C$
 
-Note that I've always mentioned the "coverage" between quotes, this is because [KrakenUniq defines it](https://github.com/fbreitwieser/krakenuniq/blob/2ac22bf7681223efa17ffba221231c7faac9da05/src/taxdb.hpp#L1103) as $C = \frac{k}{genome\ size}$.  
+Note that I've always mentioned the "coverage" between quotes, this is because [KrakenUniq defines it](https://github.com/fbreitwieser/krakenuniq/blob/2ac22bf7681223efa17ffba221231c7faac9da05/src/taxdb.hpp#L1103) as $C = \frac{K}{genome\ size}$.  
 Because by definition, the maximum number of k-mers (of length $k$) for a sequence of length $L$ can not exceed $L - k + 1$. This means that in the ideal situation, for example the blue genome of fig 2, the "coverage" will be at best, close to 1, but never greater than 1.
 
 To try to make sense of these three metrics, [Guellil et al. 2022](https://doi.org/10.1186/s13059-021-02580-z) came up with a score $E$ combining them, to discriminate true positive from false positive taxonomic assignments.
@@ -83,13 +85,13 @@ genome_size = 1000000
 ```
 
 **We'll look at four different possible scenarios**  
-For each scenario, we'll simulated 100 different situations
+For each scenario, we'll simulate 100 different situations
 
 #### scenario A: high duplication, low coverage (false positive)
 
 - A lot of reads are duplicated, probably coming from conversed regions, or sequencing artifacts
 - low coverage
-- There are more reads than unique kmers
+- There are more reads than unique k-mers
 
 ```python
 a_reads = np.random.randint(10, 300, 100) # randomly choose the number of reads, between 10 and 300
@@ -108,7 +110,7 @@ plt.legend(loc="upper left");
 
 - Very few reads are duplicated
 - low coverage
-- more unique kmers than reads (up to $ku = read\_length - kmer\_length + 1$ more unique k-mers than reads)
+- more unique k-mers than reads (up to $ku = read\_length - kmer\_length + 1$ more unique k-mers than reads)
 
 ```python
 b_reads = np.random.randint(10, 300, 100) # randomly choose the number of reads, between 10 and 300
@@ -190,7 +192,7 @@ plt.ylim(0,0.001);
 
 ![png](output_17_0.png)
 
-As we can see, it can be quite tricky in some situations to differentiate a true from a false positive assignment. This is particularly problematic beween scenario A and scenario B.
+As we can see, it can be quite tricky in some situations to differentiate a true from a false positive assignment. This is particularly problematic between scenario A and scenario B.
 
 ### Modified *dexp* E-score
 
@@ -262,7 +264,7 @@ diff_e_score_dexp = np.mean([e_score_dexp_b - e_score_dexp_a, e_score_dexp_c - e
 ```python
 plt.plot(diff_e_score_guellil, label="Guellil et al. E-score")
 plt.plot(diff_e_score_dexp, label="double-exp E-score")
-plt.title("Diffence of E-score between true and false positive\n(the greater the better)")
+plt.title("Difference of E-score between true and false positive\n(the greater the better)")
 plt.legend(loc="upper left")
 plt.ylim(0,30);
 ```
@@ -275,7 +277,7 @@ df = pd.DataFrame(list(zip(diff_e_score_guellil, diff_e_score_dexp)), columns=['
 
 ```python
 sns.boxplot(data=df)
-plt.title("Diffence of E-score between true and false positive\n(the greater the better)");
+plt.title("Difference of E-score between true and false positive\n(the greater the better)");
 ```
 
 ![png](output_29_0.png)
@@ -288,10 +290,10 @@ df.mean(axis=0)
     dexp              50.104112
     dtype: float64
 
-We can see that on average between all scenarios, for Guellil *et al.* E-score, there is only a difference of `1` points, while for the modified double-exponential E-score, there is an average difference of `50` points.
+We can see that on average between all scenarios, for Guellil *et al.* E-score, there is only a difference of `1` point, while for the modified double-exponential E-score, there is an average difference of `50` points.
 
 ### Conclusion
 
-In my simulations, using a the modified double-exponential E-score could allow for a better distinction between true and false positive taxonomic assignations by KrakenUniq
+In my simulations, using a the modified double-exponential E-score could allow for a better distinction between true and false positive taxonomic assignations by KrakenUniq.
 
-*The notebook used in this blog post is available* [*here*](<https://gist.github.com/49841c19b4f78c6182b6cce75e9025f2>)
+*The notebook used for this blog post is available* [*here*](<https://gist.github.com/49841c19b4f78c6182b6cce75e9025f2>)
