@@ -1,4 +1,100 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts | Maxime Borry</title><link>https://maximeborry.com/post/</link><atom:link href="https://maximeborry.com/post/index.xml" rel="self" type="application/rss+xml"/><description>Posts</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2022 Maxime Borry</copyright><lastBuildDate>Tue, 10 May 2022 13:38:45 +0200</lastBuildDate><image><url>https://maximeborry.com/media/icon_hu4c4b160219548583b0b35e67c5987186_165157_512x512_fill_lanczos_center_2.png</url><title>Posts</title><link>https://maximeborry.com/post/</link></image><item><title>A new E-score for KrakenUniq</title><link>https://maximeborry.com/post/kraken-uniq/</link><pubDate>Tue, 10 May 2022 13:38:45 +0200</pubDate><guid>https://maximeborry.com/post/kraken-uniq/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts | Maxime Borry</title><link>https://maximeborry.com/post/</link><atom:link href="https://maximeborry.com/post/index.xml" rel="self" type="application/rss+xml"/><description>Posts</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2022 Maxime Borry</copyright><lastBuildDate>Fri, 13 May 2022 23:13:15 +0200</lastBuildDate><image><url>https://maximeborry.com/media/icon_hu4c4b160219548583b0b35e67c5987186_165157_512x512_fill_lanczos_center_2.png</url><title>Posts</title><link>https://maximeborry.com/post/</link></image><item><title>Using Python to solve the Monty Hall problem</title><link>https://maximeborry.com/post/monty-hall-python/</link><pubDate>Fri, 13 May 2022 23:13:15 +0200</pubDate><guid>https://maximeborry.com/post/monty-hall-python/</guid><description>&lt;p>I&amp;rsquo;ve been recently reminded of the Monty Hall problem, and I thought I would try to show how to solve it with simulations in Python.&lt;/p>
+&lt;p>Inspired from the 60&amp;rsquo;s American TV game show &lt;a href="https://en.wikipedia.org/wiki/Let%27s_Make_a_Deal" target="_blank" rel="noopener">Let&amp;rsquo;s Make a Deal&lt;/a>, the principle is the following:
+The player is faced with three doors, behind one of which is a big prize (a 🚗), and behind the two others, a 🐐, and has to choose one, without opening it yet.&lt;/p>
+&lt;p>After the participant chose a door, Monty Hall (the host of the show) opens one of the two other door, behind which is always a 🐐.&lt;br>
+&lt;em>What is the best strategy to win the 🚗 ?&lt;/em>&lt;br>
+Keeping the original choice, or changing of door ?&lt;/p>
+&lt;p>It turns out that&amp;hellip;&lt;br>
+Read further to find out 😉&lt;/p>
+&lt;pre>&lt;code class="language-python">import numpy as np
+import altair as alt
+import pandas as pd
+alt.renderers.enable('mimetype')
+&lt;/code>&lt;/pre>
+&lt;pre>&lt;code class="language-python">nb_games = 10000 # The number of games we're going to simulate
+&lt;/code>&lt;/pre>
+&lt;pre>&lt;code class="language-python">games = []
+for i in range(nb_games):
+game = np.repeat('🐐', 3)
+prize = np.random.randint(0,3,1) # the door behind which the car is hidden
+game[prize]='🚗'
+games.append(game)
+&lt;/code>&lt;/pre>
+&lt;h3 id="strategy-keep-door">Strategy: keep door&lt;/h3>
+&lt;pre>&lt;code class="language-python">wins=0 # win counter
+for i in range(nb_games):
+doors = [0,1,2]
+player_door_choice = int(np.random.choice(doors, 1)) # the player initial's door choice
+doors.remove(player_door_choice) # doors not chosen by player
+for j in doors: # Monty Hall reveals that behind one of the door not chosen is a goat
+if games[i][j] == '🐐':
+goat_door = j
+if games[i][player_door_choice] == '🚗': # The player keeps his initial door choice
+wins += 1
+&lt;/code>&lt;/pre>
+&lt;pre>&lt;code class="language-python">print(f&amp;quot;Winning percentage: {round(wins/nb_games*100,1)}%&amp;quot;)
+&lt;/code>&lt;/pre>
+&lt;pre>&lt;code>Winning percentage: 32.1%
+&lt;/code>&lt;/pre>
+&lt;pre>&lt;code class="language-python">x = ['🚗','🐐']
+y = [round(wins/nb_games*100, 0), 100 - round(wins/nb_games*100, 0)]
+source = pd.DataFrame({'x':x, 'y':y})
+(alt.Chart(source).mark_bar(size=30).encode(
+x=alt.X('x', axis=alt.Axis(title=None)),
+y=alt.Y('y', axis=alt.Axis(title='outcome %'))
+).properties(width=200, title='Strategy: keep same door')
+.configure_axis(labelFontSize=20)
+.configure_title(
+fontSize=20,
+font='Courier',
+anchor='start',
+color='gray'
+))
+&lt;/code>&lt;/pre>
+&lt;p>&lt;img src="./monty_hall_7_0.png" alt="png">&lt;/p>
+&lt;h3 id="strategy-change-door">Strategy: change door&lt;/h3>
+&lt;pre>&lt;code class="language-python">wins=0
+for i in range(nb_games):
+doors = [0,1,2]
+player_door_choice = int(np.random.choice(doors, 1)) # the player initial's door choice
+doors.remove(player_door_choice) # doors not chosen
+for j in doors: # Monty Hall reveals that behind one of the door not chosen is a goat
+if games[i][j] == '🐐':
+goat_door = j
+doors.remove(goat_door) # the player changes its door choice
+if games[i][doors[0]] == '🚗':
+wins += 1
+&lt;/code>&lt;/pre>
+&lt;pre>&lt;code class="language-python">print(f&amp;quot;Winning percentage: {round(wins/nb_games*100,1)}%&amp;quot;)
+&lt;/code>&lt;/pre>
+&lt;pre>&lt;code>Winning percentage: 66.7%
+&lt;/code>&lt;/pre>
+&lt;pre>&lt;code class="language-python">x = ['🚗','🐐']
+y = [int(wins/nb_games*100), 100 - int(wins/nb_games*100)]
+source = pd.DataFrame({'x':x, 'y':y})
+(alt.Chart(source).mark_bar(size=30).encode(
+x=alt.X('x', axis=alt.Axis(title=None)),
+y=alt.Y('y', axis=alt.Axis(title='outcome %'))
+).properties(width=200, title='Strategy: change door')
+.configure_axis(labelFontSize=20)
+.configure_title(
+fontSize=20,
+font='Courier',
+anchor='start',
+color='gray'
+))
+&lt;/code>&lt;/pre>
+&lt;p>&lt;img src="./monty_hall_11_0.png" alt="png">&lt;/p>
+&lt;p>As I showed above, the &lt;strong>door changing strategy is much better&lt;/strong> with a 66.6% change of winning, vs 33.3% if we keep the original door.&lt;/p>
+&lt;p>If you want to learn more about the Monty Hall problem, and how to prove using the Baye&amp;rsquo;s theorem, have a reat at the &lt;a href="https://en.wikipedia.org/wiki/Monty_Hall_problem" target="_blank" rel="noopener">wikipedia page&lt;/a>&lt;/p>
+&lt;p>Finally, the code behind this post is &lt;a href="https://gist.github.com/maxibor/9d896b69c999b2feca4f6375be779aac" target="_blank" rel="noopener">here&lt;/a>&lt;/p>
+&lt;p>Last but not least, if you want to make it interactive with JavaScript P5, please have a look at this video from the Coding Train, which inspired this blog post 🙂&lt;/p>
+&lt;html>
+&lt;body>
+&lt;iframe src="https://www.youtube.com/embed/0zac-cDzJwA"
+width="560" height="315" frameborder="0" allowfullscreen>&lt;/iframe>
+&lt;/body>
+&lt;/html></description></item><item><title>A new E-score for KrakenUniq</title><link>https://maximeborry.com/post/kraken-uniq/</link><pubDate>Tue, 10 May 2022 13:38:45 +0200</pubDate><guid>https://maximeborry.com/post/kraken-uniq/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;p>The task of &lt;a href="https://www.sevenbridges.com/taxonomic-profiling-of-metagenomics-samples/" target="_blank" rel="noopener">taxonomic profiling&lt;/a> consists of answering the question &lt;em>&amp;ldquo;Who is there ?&amp;quot;&lt;/em> in a metagenomic sample.
 However, in practice, it turns out to be quite a challenging assignment to tackle, and many solutions have been proposed to address it (for a comparative benchmark, see &lt;a href="https://doi.org/10.1038/s41592-022-01431-4" target="_blank" rel="noopener">Meyer et al. 2022&lt;/a>).&lt;/p>
 &lt;p>One of the central aspect of taxonomic profiling is to distinguishing true positive (taxon actually present in a sample) from false positive (taxon not actually present in sample) taxonomic assignments.&lt;/p>
