@@ -13,13 +13,13 @@ superuser: true
 role: Maxime Borry
 # Organizations/Affiliations
 organizations:
-- name: Max Planck Institute for the Science of Human History
-  url: "https://shh.mpg.de/en"
 - name: Max Planck Institute for Evolutionary Anthropology
   url: "https://www.eva.mpg.de/index/"
+- name: Leibniz Institut for Natural Product Research and Infection Biology Hans Knöll Institute
+  url: "https://www.leibniz-hki.de/en/"
 
 # Short bio (displayed in user profile at end of posts)
-bio: Bioinformatician - Doctoral Researcher at the Max Planck Institute for Evolutionary Anthropology
+bio: Bioinformatician - Postdoctoral Researcher at the Max Planck Institute for Evolutionary Anthropology
 
 interests:
 - Bioinformatics
@@ -77,8 +77,8 @@ user_groups:
 - Grad Students
 ---
 
-I am __Maxime__, a __Doctoral Researcher in Bioinformatics__ at the [__Max Planck Institute for the Science History__](https://shh.mpg.de/en), and the [__Max Planck Institute for Evolutionary Anthropology__](https://www.eva.mpg.de/index/) in Germany.
+I am __Maxime__, a __Postdoctoral Researcher in Bioinformatics__ at the [__Leibniz Institut for Natural Product Research and Infection Biology Hans Knöll Institute__](https://www.leibniz-hki.de/en/), and the [__Max Planck Institute for Evolutionary Anthropology__](https://www.eva.mpg.de/index/) in Germany.
 
-After an undergraduate degree in biology, I first decided to dive in the studies of population and our environment. Only after realizing I wanted to focus more on the statistical part and the data analysis, I switched back to a Bioinformatics MSc. 
+After an undergraduate degree in biology, I first decided to dive in the studies of population and our environment. Only after realizing I wanted to focus more on the statistical part and the data analysis, I switched back to a Bioinformatics MSc.
 
-I am now working in the [Microbiome Sciences research group](https://www.shh.mpg.de/118825/dag_research_groups) on ancient DNA metagenomics, under the supervision of [Christina Warinner](http://christinawarinner.com).
+I did my PhD in the [Microbiome Sciences research group](https://www.shh.mpg.de/118825/dag_research_groups) on ancient DNA metagenomics, under the supervision of [Christina Warinner](http://christinawarinner.com). I now continue this work as a postdoctoral researcher, focusing more in depth on fermentation microbiomes.

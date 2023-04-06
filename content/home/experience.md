@@ -22,12 +22,20 @@ date_format: Jan 2006
 #   Leave `date_end` empty if it's your current employer.
 #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
 experience:
-  - title: Bioinformatics Doctoral Researcher
+  - title: Postdoctoral Researcher in Bioinformatics
+    company: Leibniz Institut for Natural Product Research and Infection Biology Hans Knöll Institute
+    company_url: https://www.leibniz-hki.de/en/
+    location: Leipzig, Germany
+    date_start: '2023-04-01'
+    date_end: 
+    description: Bioinformatic metagenomic analysis of ancient fermentation microbiomes.
+
+  - title: Doctoral Researcher in Bioinformatics
     company: Max Planck Institute for Evolutionary Anthropology
     company_url: https://www.eva.mpg.de
     location: Leipzig, Germany
-    date_start: '2021-09-02'
-    date_end: 
+    date_start: '2021-09-09'
+    date_end: '2023-03-09'
     description: Development of tools and pipelines for the analysis of ancient DNA metagenomics data.
 
   - title: Bioinformatics Doctoral Researcher

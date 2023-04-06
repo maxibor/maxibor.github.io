@@ -6,7 +6,7 @@ active = true  # Activate this widget? true/false
 weight = 10  # Order that this section will appear.
 
 title = """Maxime Borry  
-Doctoral Researcher"""
+Postdoctoral Researcher"""
 
 
 # Hero image (optional). Enter filename of an image in the `static/media/` folder.
@@ -43,4 +43,3 @@ hero_media = ""
 Working on **Bioinformatics** for **ancient DNA Metagenomics**  
 at the  
 **Max Planck Institute for Evolutionary Anthropology**
-

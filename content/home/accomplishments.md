@@ -25,6 +25,14 @@ date_format: Jan 2006
 item:
 - certificate_url: 
   date_end: ""
+  date_start: "2023-03-15"
+  description: ""
+  organization: Balance of the Microverse Cluster of Excellence
+  organization_url: https://www.microverse-cluster.de/en/
+  title: Postdoctoral researcher grant
+  url: 
+- certificate_url: 
+  date_end: ""
   date_start: "2019-01-15"
   description: ""
   organization: Paris Anthropological Society
