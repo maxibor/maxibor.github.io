@@ -1,6 +1,6 @@
 ---
 # Display name
-name: Maxime Borry
+name: Maxime Borry, PhD.
 
 # Username (this should match the folder name)
 authors:
@@ -10,7 +10,7 @@ authors:
 superuser: true
 
 # Role/position
-role: Maxime Borry
+role: Maxime Borry, PhD.
 # Organizations/Affiliations
 organizations:
 - name: Max Planck Institute for Evolutionary Anthropology
@@ -28,17 +28,20 @@ interests:
 
 education:
   courses:
-  - course: M.Sc. in Bioinformatics 🇫🇷
-    institution: Université Paris Diderot
+  - course: PhD candidate in Bioinformatics 
+    institution: Friedrich-Schiller-Universität Jena 🇩🇪
+    year: 2018-2023
+  - course: M.Sc. in Bioinformatics 
+    institution: Université Paris Diderot 🇫🇷
     year: 2016-2018
-  - course: M.Sc. in Ecology and Environmental sciences 🇫🇷
-    institution: Université Joseph Fourier, Grenoble
+  - course: M.Sc. in Ecology and Environmental sciences 
+    institution: Université Joseph Fourier, Grenoble 🇫🇷
     year: 2014-2015
-  - course: Exchange Semester 🇳🇴
-    institution: University of Nordland
+  - course: Exchange Semester
+    institution: University of Nordland 🇳🇴
     year: 2013
-  - course: B.Sc. in Life Sciences 🇫🇷
-    institution: Université Paris Descartes
+  - course: B.Sc. in Life Sciences
+    institution: Université Paris Descartes 🇫🇷
     year: 2011-2014
 
 # Social/Academic Networking
