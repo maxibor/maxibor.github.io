@@ -25,12 +25,12 @@ date_format: Jan 2006
 item:
 - certificate_url: 
   date_end: ""
-  date_start: "2023-09"
+  date_start: "2023-09-15"
   description: ""
-  organization: Future Fellows Poster Prize at ISBA 10 conference
+  organization: International Society for Biomolecular Archaeology (ISBA)
   organization_url: https://www.isbarch.org
-  title: Postdoctoral researcher grant
-  url: https://www.isbarch.org/awards
+  title: Future Fellows Poster Prize at ISBA 10 conference
+  url: https://www.isbarch.org/poster_prize
 - certificate_url: 
   date_end: ""
   date_start: "2023-03-15"
