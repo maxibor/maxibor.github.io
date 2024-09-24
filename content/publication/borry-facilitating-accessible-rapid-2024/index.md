@@ -51,7 +51,7 @@ featured: false
 
 # Links
 url_pdf: ''
-url_code: ''
+url_code: 'https://github.com/SPAAM-community/AMDirT'
 url_dataset: ''
 url_poster: ''
 url_project: ''
@@ -60,9 +60,9 @@ url_source: ''
 url_video: ''
 
 # Custom links (uncomment lines below)
-# links:
-# - name: Custom Link
-#   url: http://example.org
+links:
+- name: AMDirT Viewer
+  url: https://www.spaam-community.org/AMDirT/
 
 # Publication image
 # Add an image named `featured.jpg/png` to your page's folder then add a caption below.
