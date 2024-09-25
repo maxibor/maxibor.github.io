@@ -497,4 +497,4 @@ Overalapping markers are &amp;lsquo;jittered&amp;rsquo; around the exact coordin
 &lt;h2 id="end-result">End result&lt;/h2>
 &lt;p>Finally, thanks to the magic of GitHub GeoJSON rendering, the map can be easily embedded on any web page !&lt;/p>
 &lt;iframe height='400' width='800' frameborder='0' src='https://viewscreen.githubusercontent.com/view/geojson?url=https%3a%2f%2fraw.githubusercontent.com%2fSPAAM-community%2fAncientMetagenomeDir%2fmaster%2fassets%2fimages%2ffigures%2fancientmetagenomedir.geojson' title='ancientmetagenomedir.geojson'>&lt;/iframe>
-&lt;p>This is an interactive map, you can click on a marker to look at the details.&lt;/p></description></item></channel></rss>
+&lt;p>This is an interactive map, you can click around and zoom to navigate.&lt;/p></description></item></channel></rss>
