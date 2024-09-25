@@ -1,5 +1,5 @@
 ---
-title: Introduction to Ancient Metagenomics
+title: Introduction to Ancient Metagenomics Textbook
 
 # Authors
 # A YAML list of author names
