@@ -110,5 +110,6 @@ Problem solved !
 
 Finally, thanks to the magic of GitHub GeoJSON rendering, the map can be easily embedded on any web page !
 
-<script src="https://embed.githubusercontent.com/view/geojson/SPAAM-community/AncientMetagenomeDir/master/assets/analysis/live/ancientmetagenomedir.geo.json?height=400&width=800"></script>  
+<iframe height='400' width='800' frameborder='0' src='https://viewscreen.githubusercontent.com/view/geojson?url=https%3a%2f%2fraw.githubusercontent.com%2fSPAAM-community%2fAncientMetagenomeDir%2fmaster%2fassets%2fimages%2ffigures%2fancientmetagenomedir.geojson' title='ancientmetagenomedir.geojson'></iframe>
+
 This is an interactive map, you can click on a marker to look at the details.
