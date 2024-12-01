@@ -114,7 +114,7 @@ appointment_url = ""
 contact_links = [
   {icon = "map-marker-alt", icon_pack = "fas", name = "Leipzig, Germany", link = "https://goo.gl/maps/myb5tikEyKiJYrFj7"},
   {icon = "github", icon_pack = "fab", name = "Github - maxibor", link = "https://github.com/maxibor"},
-  {icon = "twitter", icon_pack = "fab", name = "DM Me - @notmaxib", link = "https://twitter.com/notmaxib"},
+  {icon = "user", icon_pack = "far", name = "Follow Me - @maxibor.bsky.social", link = "https://bsky.app/profile/maxibor.bsky.social"},
   {icon = "graduation-cap", icon_pack = "fas", name = "Google scholar", link = "https://scholar.google.com/citations?user=oUsxa5sAAAAJ"},
   {icon = "orcid", icon_pack = "fab", name = "ORCID - 0000-0001-9140-7559", link = "https://orcid.org/0000-0001-9140-7559"}
   # {icon = "keybase", icon_pack = "fab", name = "Chat on Keybase", link = "https://keybase.io/dedeswim"},
@@ -287,3 +287,8 @@ plugins_js  = []
 ############################
 [icon.pack]
   ai = false  # Academicons icon pack https://jpswalsh.github.io/academicons/
+
+[css.fontAwesome]
+  version = "6.6.0"
+  sri = "sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
