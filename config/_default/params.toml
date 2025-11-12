@@ -88,7 +88,7 @@ show_related = {book = true, page = false, post = true, project = true, publicat
 ############################
 
 # Enter contact details (optional). To hide a field, clear it to "".
-email = "maxime_borry@eva.mpg.de"
+email = ""
 phone = ""
 
 # Address
@@ -112,7 +112,8 @@ appointment_url = ""
 # Contact links
 #   Set to `[]` to disable, or comment out unwanted lines with a hash `#`.
 contact_links = [
-  {icon = "map-marker-alt", icon_pack = "fas", name = "Leipzig, Germany", link = "https://goo.gl/maps/myb5tikEyKiJYrFj7"},
+  {icon = "linkedin", icon_pack = "fab", name = "Linkedin", link = "https://www.linkedin.com/in/maximeborry/"}
+  {icon = "map-marker-alt", icon_pack = "fas", name = "Mainz, Germany", link = "https://maps.app.goo.gl/6tvGmnwsFymrnutK8"},
   {icon = "github", icon_pack = "fab", name = "Github - maxibor", link = "https://github.com/maxibor"},
   {icon = "user", icon_pack = "far", name = "Follow Me - @maxibor.bsky.social", link = "https://bsky.app/profile/maxibor.bsky.social"},
   {icon = "graduation-cap", icon_pack = "fas", name = "Google scholar", link = "https://scholar.google.com/citations?user=oUsxa5sAAAAJ"},
