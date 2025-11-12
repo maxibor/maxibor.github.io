@@ -6,7 +6,7 @@ active = true  # Activate this widget? true/false
 weight = 10  # Order that this section will appear.
 
 title = """Maxime Borry, PhD.  
-Postdoctoral Researcher"""
+Bioinformatics scientist"""
 
 
 # Hero image (optional). Enter filename of an image in the `static/media/` folder.
@@ -40,6 +40,4 @@ hero_media = ""
 #   Remove a link/note by deleting a cta/note block.
 
 +++
-Working on **Bioinformatics** for **ancient DNA Metagenomics**  
-at the  
-**Max Planck Institute for Evolutionary Anthropology**
+Developing **Bioinformatics** statistical tools and workflows for scalable and reproducible, and actionable results.

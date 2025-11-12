@@ -15,8 +15,6 @@ role: Maxime Borry, PhD.
 organizations:
 - name: Max Planck Institute for Evolutionary Anthropology
   url: "https://www.eva.mpg.de/index/"
-- name: Leibniz Institut for Natural Product Research and Infection Biology Hans Knöll Institute
-  url: "https://www.leibniz-hki.de/en/"
 
 # Short bio (displayed in user profile at end of posts)
 bio: Bioinformatician - Postdoctoral Researcher at the Max Planck Institute for Evolutionary Anthropology

@@ -22,12 +22,20 @@ date_format: Jan 2006
 #   Leave `date_end` empty if it's your current employer.
 #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
 experience:
+  - title: Bioinformatics Scientist
+    company: TRON - Translational Oncology Mainz
+    company_url: https://tron-mainz.de
+    location: Mainz, Germany
+    date_start: '2024-06-01'
+    date_end: '2025-11-30'
+    description: Development of workflows and analysis of oncogenetics sequencing data for personalized cancer vaccine research.
+
   - title: Postdoctoral Researcher in Bioinformatics
     company: Leibniz Institut for Natural Product Research and Infection Biology Hans Knöll Institute
     company_url: https://www.leibniz-hki.de/en/
     location: Leipzig, Germany
     date_start: '2023-04-01'
-    date_end: 
+    date_end: '2025-03-30'
     description: Bioinformatic metagenomic analysis of ancient fermentation microbiomes.
 
   - title: Doctoral Researcher in Bioinformatics
