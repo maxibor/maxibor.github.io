@@ -78,8 +78,9 @@ user_groups:
 - Grad Students
 ---
 
-I am __Maxime__, a __Postdoctoral Researcher in Bioinformatics__ at the [__Leibniz Institut for Natural Product Research and Infection Biology Hans Knöll Institute__](https://www.leibniz-hki.de/en/), and the [__Max Planck Institute for Evolutionary Anthropology__](https://www.eva.mpg.de/index/) in Germany.
+I am __Maxime__, a __Bionformatics scientist__ specialized in the development of statitistical tools and workflows for the analysis of omics data. I have extensive experience workking with prokaryotic, eukaryotic, and human systems, and thrive at transforming complex biological datasets into scientific results through rigorous scientific approaches and scalable bioinformatics solutions.
 
 After an undergraduate degree in biology, I first decided to dive in the studies of population and our environment. Only after realizing I wanted to focus more on the statistical part and the data analysis, I switched back to a Bioinformatics MSc.
 
-I did my PhD in the [Microbiome Sciences research group](https://www.shh.mpg.de/118825/dag_research_groups) on ancient DNA metagenomics, under the supervision of [Christina Warinner](http://christinawarinner.com). I now continue this work as a postdoctoral researcher, focusing more in depth on fermentation microbiomes.
+I did my PhD in the [Microbiome Sciences research group](https://www.shh.mpg.de/118825/dag_research_groups) on ancient DNA metagenomics, and continued this work as a postdoctoral researcher, focusing more in depth on fermentation microbiomes. 
+Recently I switched to computation oncology and cancer research, with a focus on personalized cancer vaccine development and analysis of cancer genomics datasets.
