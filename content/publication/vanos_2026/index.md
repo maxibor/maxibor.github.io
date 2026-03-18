@@ -35,7 +35,7 @@ publication: '*Journal of Open Source Software*'
 doi: 10.21105/joss.09324
 links:
 - name: Code
-  url: "https://github.com/maxibor/coproid"
+  url: "https://github.com/nf-core/coproid"
 - name: PDF
   url: https://joss.theoj.org/papers/10.21105/joss.09324
 
