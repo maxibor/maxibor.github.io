@@ -6,15 +6,14 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
-
 # Node.js
 node_modules/
 npm-debug.log
 yarn-error.log
 
 # Hugo
-/public/
-/resources/
+public/
+resources/
 .hugo_build.lock
 hugo_stats.json
 build.log
