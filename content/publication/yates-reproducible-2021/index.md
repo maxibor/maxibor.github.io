@@ -37,7 +37,7 @@ image:
 projects: []
 publishDate: '2021-03-16T11:32:34.817809Z'
 publication_types:
-- '2'
+- article-journal
 abstract: 'The broadening utilisation of ancient DNA to address archaeological, palaeontological,
   and biological questions is resulting in a rising diversity in the size of laboratories
   and scale of analyses being performed. In the context of this heterogeneous landscape,

@@ -33,7 +33,7 @@ image:
 projects: []
 publishDate: '2021-07-27T11:58:23.995025Z'
 publication_types:
-- '2'
+- article-journal
 abstract: DNA de novo assembly can be used to reconstruct longer stretches of DNA
   (contigs), including genes and even genomes, from short DNA sequencing reads. Applying
   this technique to metagenomic data derived from archaeological remains, such as

@@ -31,7 +31,7 @@ image:
 projects: []
 publishDate: '2022-06-02T14:32:17.345826Z'
 publication_types:
-- '2'
+- article-journal
 abstract: 'sam2lca is a program performing reference sequence disambiguation for reads mapping to multiple reference sequences in a shotgun metagenomics sequencing dataset. To do so, it takes as input the common SAM sequence alignment format and applies the lowest common ancestor algorithm.'
 publication:
   name: '*Journal of Open Source Software*'

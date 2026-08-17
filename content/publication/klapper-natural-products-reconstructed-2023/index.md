@@ -52,7 +52,7 @@ image:
 projects: []
 publishDate: '2023-05-17T19:34:05.896842Z'
 publication_types:
-- '2'
+- article-journal
 abstract: 'Major advances over the past decade in the field of ancient DNA are providing access to past paleogenomic diversity, but the diverse functions and biosynthetic capabilities of this growing paleome remain largely elusive. We investigated the dental calculus of 12 Neanderthals and 52 anatomically modern humans ranging from 100,000 years ago to the present and reconstructed 459 bacterial metagenome-assembled genomes. We identified a biosynthetic gene cluster shared by seven Middle and Upper Paleolithic individuals that allows for the heterologous production of a class of previously unknown metabolites that we name “paleofurans.” This paleobiotechnological approach demonstrates that viable biosynthetic machinery can be produced from the preserved genetic material of ancient organisms, allowing access to natural products from the Pleistocene and providing a promising area for natural product exploration.'
 publication:
   name: '*Science*'

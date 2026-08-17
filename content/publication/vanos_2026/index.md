@@ -30,7 +30,7 @@ image:
 projects: []
 publishDate: '2026-03-15'
 publication_types:
-- '2'
+- article-journal
 publication:
   name: '*Journal of Open Source Software*'
 hugoblox:

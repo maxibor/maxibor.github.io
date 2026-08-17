@@ -56,7 +56,7 @@ image:
 projects: []
 publishDate: '2021-05-18T13:53:01.058822Z'
 publication_types:
-- '2'
+- article-journal
 abstract: Loss of gut microbial diversity in industrial populations is associated
   with chronic diseases, underscoring the importance of studying our ancestral gut
   microbiome. However, relatively little is known about the composition of pre-industrial

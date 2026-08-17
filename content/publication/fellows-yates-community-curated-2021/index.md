@@ -47,7 +47,7 @@ image:
 projects: []
 publishDate: '2021-01-26T14:43:37.845793Z'
 publication_types:
-- '2'
+- article-journal
 abstract: Ancient DNA and RNA are valuable data sources for a wide range of disciplines.
   Within the field of ancient metagenomics, the number of published genetic datasets
   has risen dramatically in recent years, and tracking this data for reuse is particularly

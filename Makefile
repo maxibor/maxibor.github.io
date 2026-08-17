@@ -11,7 +11,7 @@ serve:
 
 # Build the site and serve the generated static files locally (to test search)
 preview: build
-	npx http-server public
+	npx http-server public -c-1
 
 # Clean up generated files
 clean:

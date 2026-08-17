@@ -38,7 +38,8 @@ publishDate: '2024-09-24T13:20:18.134384Z'
 
 # Publication type.
 # A single CSL publication type but formatted as a YAML list (for Hugo requirements).
-publication_types: ["5"]
+publication_types:
+- book
 
 # Publication name and optional abbreviated publication name.
 publication:
