@@ -8,9 +8,9 @@ sections:
   - block: hero
     content:
       title: |-
-        MAXIME BORRY, PHD.<br>BIOINFORMATICS SCIENTIST
+        <span class="text-white">MAXIME BORRY, PHD.<br>BIOINFORMATICS SCIENTIST</span>
       text: |-
-        Developing Bioinformatics statistical tools and workflows for scalable and reproducible, and actionable results.
+        <span class="text-white">Developing Bioinformatics statistical tools and workflows for scalable and reproducible, and actionable results.</span>
     design:
       alignment: left
       background:
