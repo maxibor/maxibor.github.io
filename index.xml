@@ -1,618 +1,776 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maxime Borry</title><link>https://maximeborry.com/</link><atom:link href="https://maximeborry.com/index.xml" rel="self" type="application/rss+xml"/><description>Maxime Borry</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2026 Maxime Borry</copyright><lastBuildDate>Sun, 15 Mar 2026 00:00:00 +0000</lastBuildDate><image><url>https://maximeborry.com/media/icon_hu4c4b160219548583b0b35e67c5987186_165157_512x512_fill_lanczos_center_2.png</url><title>Maxime Borry</title><link>https://maximeborry.com/</link></image><item><title>nf-core/coproID v2.0: An improved pipeline for the identification of (palaeo)faecal depositors</title><link>https://maximeborry.com/publication/vanos_2026/</link><pubDate>Sun, 15 Mar 2026 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/vanos_2026/</guid><description/></item><item><title>Introduction to Ancient Metagenomics Textbook</title><link>https://maximeborry.com/publication/fellows-yates-2024-13784555/</link><pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/fellows-yates-2024-13784555/</guid><description>&lt;p>Introduction to Ancient Metagenomics textbook: &lt;a href="https://www.spaam-community.org/intro-to-ancient-metagenomics-book/" target="_blank" rel="noopener">spaam-community.org/intro-to-ancient-metagenomics-book&lt;/a>&lt;/p>
-&lt;blockquote>
-&lt;p>&amp;ldquo;Focusing on host-associated ancient metagenomics, readers will learn the main steps of ancient metagenomic bioinformatic workflows, become familiar with the command line, learn how to process next-generation-sequencing (NGS) data, conduct taxonomic profiling of datasets, carry out ecological analyses, and perform de novo metagenomic assembly. By the end of the textbook, readers will have an understanding of how to effectively carry out the major bioinformatic components of an ancient metagenomic project in an open, reliable, and reproducible manner&amp;rdquo;&lt;/p>
-&lt;/blockquote></description></item><item><title>Facilitating Accessible, Rapid, and Appropriate Processing of Ancient Metagenomic Data with AMDirT</title><link>https://maximeborry.com/publication/borry-facilitating-accessible-rapid-2024/</link><pubDate>Wed, 01 May 2024 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/borry-facilitating-accessible-rapid-2024/</guid><description/></item><item><title>TAXPASTA: TAXonomic Profile Aggregation and STAndardisation</title><link>https://maximeborry.com/publication/beber-2023/</link><pubDate>Tue, 11 Jul 2023 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/beber-2023/</guid><description/></item><item><title>Natural Products from Reconstructed Bacterial Genomes of the Middle and Upper Paleolithic</title><link>https://maximeborry.com/publication/klapper-natural-products-reconstructed-2023/</link><pubDate>Mon, 01 May 2023 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/klapper-natural-products-reconstructed-2023/</guid><description/></item><item><title>nf-core/taxprofiler: highly parallelised and flexible pipeline for metagenomic taxonomic classification and profiling</title><link>https://maximeborry.com/publication/stamouli-2023-10-20-563221/</link><pubDate>Sun, 01 Jan 2023 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/stamouli-2023-10-20-563221/</guid><description>&lt;p>Add the &lt;strong>full text&lt;/strong> or &lt;strong>supplementary notes&lt;/strong> for the publication here using Markdown formatting.&lt;/p></description></item><item><title>sam2lca: Lowest Common Ancestor for SAM/BAM/CRAM alignment files</title><link>https://maximeborry.com/publication/borry-2022/</link><pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/borry-2022/</guid><description/></item><item><title>Using Python to solve the Monty Hall problem</title><link>https://maximeborry.com/post/monty-hall-python/</link><pubDate>Fri, 13 May 2022 23:13:15 +0200</pubDate><guid>https://maximeborry.com/post/monty-hall-python/</guid><description>&lt;p>I&amp;rsquo;ve been recently reminded of the Monty Hall problem, and I thought I would try to show how to solve it with simulations in Python.&lt;/p>
-&lt;p>Inspired from the 60&amp;rsquo;s American TV game show &lt;a href="https://en.wikipedia.org/wiki/Let%27s_Make_a_Deal" target="_blank" rel="noopener">Let&amp;rsquo;s Make a Deal&lt;/a>, the principle is the following:
-The player is faced with three doors, behind one of which is a big prize (a 🚗), and behind the two others, a 🐐, and has to choose one, without opening it yet.&lt;/p>
-&lt;p>After the participant chose a door, Monty Hall (the host of the show) opens one of the two other door, behind which is always a 🐐.&lt;br>
-&lt;em>What is the best strategy to win the 🚗 ?&lt;/em>&lt;br>
-Keeping the original choice, or changing of door ?&lt;/p>
-&lt;p>It turns out that&amp;hellip;&lt;br>
-Read further to find out 😉&lt;/p>
-&lt;pre>&lt;code class="language-python">import numpy as np
-import altair as alt
-import pandas as pd
-alt.renderers.enable('mimetype')
-&lt;/code>&lt;/pre>
-&lt;pre>&lt;code class="language-python">nb_games = 10000 # The number of games we're going to simulate
-&lt;/code>&lt;/pre>
-&lt;pre>&lt;code class="language-python">games = []
-for i in range(nb_games):
-game = np.repeat('🐐', 3)
-prize = np.random.randint(0,3,1) # the door behind which the car is hidden
-game[prize]='🚗'
-games.append(game)
-&lt;/code>&lt;/pre>
-&lt;h3 id="strategy-keep-door">Strategy: keep door&lt;/h3>
-&lt;pre>&lt;code class="language-python">wins=0 # win counter
-for i in range(nb_games):
-doors = [0,1,2]
-player_door_choice = int(np.random.choice(doors, 1)) # the player initial's door choice
-doors.remove(player_door_choice) # doors not chosen by player
-for j in doors: # Monty Hall reveals that behind one of the door not chosen is a goat
-if games[i][j] == '🐐':
-goat_door = j
-if games[i][player_door_choice] == '🚗': # The player keeps his initial door choice
-wins += 1
-&lt;/code>&lt;/pre>
-&lt;pre>&lt;code class="language-python">print(f&amp;quot;Winning percentage: {round(wins/nb_games*100,1)}%&amp;quot;)
-&lt;/code>&lt;/pre>
-&lt;pre>&lt;code>Winning percentage: 32.1%
-&lt;/code>&lt;/pre>
-&lt;pre>&lt;code class="language-python">x = ['🚗','🐐']
-y = [round(wins/nb_games*100, 0), 100 - round(wins/nb_games*100, 0)]
-source = pd.DataFrame({'x':x, 'y':y})
-(alt.Chart(source).mark_bar(size=30).encode(
-x=alt.X('x', axis=alt.Axis(title=None)),
-y=alt.Y('y', axis=alt.Axis(title='outcome %'))
-).properties(width=200, title='Strategy: keep same door')
-.configure_axis(labelFontSize=20)
-.configure_title(
-fontSize=20,
-font='Courier',
-anchor='start',
-color='gray'
-))
-&lt;/code>&lt;/pre>
-&lt;p>&lt;img src="./monty_hall_7_0.png" alt="png">&lt;/p>
-&lt;h3 id="strategy-change-door">Strategy: change door&lt;/h3>
-&lt;pre>&lt;code class="language-python">wins=0
-for i in range(nb_games):
-doors = [0,1,2]
-player_door_choice = int(np.random.choice(doors, 1)) # the player initial's door choice
-doors.remove(player_door_choice) # doors not chosen
-for j in doors: # Monty Hall reveals that behind one of the door not chosen is a goat
-if games[i][j] == '🐐':
-goat_door = j
-doors.remove(goat_door) # the player changes its door choice
-if games[i][doors[0]] == '🚗':
-wins += 1
-&lt;/code>&lt;/pre>
-&lt;pre>&lt;code class="language-python">print(f&amp;quot;Winning percentage: {round(wins/nb_games*100,1)}%&amp;quot;)
-&lt;/code>&lt;/pre>
-&lt;pre>&lt;code>Winning percentage: 66.7%
-&lt;/code>&lt;/pre>
-&lt;pre>&lt;code class="language-python">x = ['🚗','🐐']
-y = [int(wins/nb_games*100), 100 - int(wins/nb_games*100)]
-source = pd.DataFrame({'x':x, 'y':y})
-(alt.Chart(source).mark_bar(size=30).encode(
-x=alt.X('x', axis=alt.Axis(title=None)),
-y=alt.Y('y', axis=alt.Axis(title='outcome %'))
-).properties(width=200, title='Strategy: change door')
-.configure_axis(labelFontSize=20)
-.configure_title(
-fontSize=20,
-font='Courier',
-anchor='start',
-color='gray'
-))
-&lt;/code>&lt;/pre>
-&lt;p>&lt;img src="./monty_hall_11_0.png" alt="png">&lt;/p>
-&lt;p>As I showed above, the &lt;strong>door changing strategy is much better&lt;/strong> with a 66.6% change of winning, vs 33.3% if we keep the original door.&lt;/p>
-&lt;p>If you want to learn more about the Monty Hall problem, and how to prove using the Baye&amp;rsquo;s theorem, have a reat at the &lt;a href="https://en.wikipedia.org/wiki/Monty_Hall_problem" target="_blank" rel="noopener">wikipedia page&lt;/a>&lt;/p>
-&lt;p>Finally, the code behind this post is &lt;a href="https://gist.github.com/maxibor/9d896b69c999b2feca4f6375be779aac" target="_blank" rel="noopener">here&lt;/a>&lt;/p>
-&lt;p>Last but not least, if you want to make it interactive with JavaScript P5, please have a look at this video from the Coding Train, which inspired this blog post 🙂&lt;/p>
-&lt;html>
-&lt;body>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maxime Borry</title><link>https://maximeborry.com/</link><atom:link href="https://maximeborry.com/index.xml" rel="self" type="application/rss+xml"/><description>Maxime Borry</description><generator>HugoBlox Kit (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Mon, 24 Oct 2022 00:00:00 +0000</lastBuildDate><image><url>https://maximeborry.com/media/icon_hu_61fd8dcb2c2100c3.png</url><title>Maxime Borry</title><link>https://maximeborry.com/</link></image><item><title>nf-core/coproID v2.0: An improved pipeline for the identification of (palaeo)faecal depositors</title><link>https://maximeborry.com/publication/vanos_2026/</link><pubDate>Sun, 15 Mar 2026 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/vanos_2026/</guid><description/></item><item><title>Introduction to Ancient Metagenomics Textbook</title><link>https://maximeborry.com/publication/fellows-yates-2024-13784555/</link><pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/fellows-yates-2024-13784555/</guid><description>&lt;p&gt;Introduction to Ancient Metagenomics textbook:
+&lt;/p&gt;
+&lt;blockquote class="border-l-4 border-neutral-300 dark:border-neutral-600 pl-4 italic text-neutral-600 dark:text-neutral-400 my-6"&gt;
+&lt;p&gt;&amp;ldquo;Focusing on host-associated ancient metagenomics, readers will learn the main steps of ancient metagenomic bioinformatic workflows, become familiar with the command line, learn how to process next-generation-sequencing (NGS) data, conduct taxonomic profiling of datasets, carry out ecological analyses, and perform de novo metagenomic assembly. By the end of the textbook, readers will have an understanding of how to effectively carry out the major bioinformatic components of an ancient metagenomic project in an open, reliable, and reproducible manner&amp;rdquo;&lt;/p&gt;
+&lt;/blockquote&gt;</description></item><item><title>Facilitating Accessible, Rapid, and Appropriate Processing of Ancient Metagenomic Data with AMDirT</title><link>https://maximeborry.com/publication/borry-facilitating-accessible-rapid-2024/</link><pubDate>Wed, 01 May 2024 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/borry-facilitating-accessible-rapid-2024/</guid><description/></item><item><title>TAXPASTA: TAXonomic Profile Aggregation and STAndardisation</title><link>https://maximeborry.com/publication/beber-2023/</link><pubDate>Tue, 11 Jul 2023 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/beber-2023/</guid><description/></item><item><title>Natural Products from Reconstructed Bacterial Genomes of the Middle and Upper Paleolithic</title><link>https://maximeborry.com/publication/klapper-natural-products-reconstructed-2023/</link><pubDate>Mon, 01 May 2023 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/klapper-natural-products-reconstructed-2023/</guid><description/></item><item><title>nf-core/taxprofiler: highly parallelised and flexible pipeline for metagenomic taxonomic classification and profiling</title><link>https://maximeborry.com/publication/stamouli-2023-10-20-563221/</link><pubDate>Sun, 01 Jan 2023 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/stamouli-2023-10-20-563221/</guid><description>&lt;p&gt;Add the &lt;strong&gt;full text&lt;/strong&gt; or &lt;strong&gt;supplementary notes&lt;/strong&gt; for the publication here using Markdown formatting.&lt;/p&gt;</description></item><item><title>sam2lca: Lowest Common Ancestor for SAM/BAM/CRAM alignment files</title><link>https://maximeborry.com/publication/borry-2022/</link><pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/borry-2022/</guid><description/></item><item><title>Using Python to solve the Monty Hall problem</title><link>https://maximeborry.com/post/monty-hall-python/</link><pubDate>Fri, 13 May 2022 23:13:15 +0200</pubDate><guid>https://maximeborry.com/post/monty-hall-python/</guid><description>&lt;p&gt;I&amp;rsquo;ve been recently reminded of the Monty Hall problem, and I thought I would try to show how to solve it with simulations in Python.&lt;/p&gt;
+&lt;p&gt;Inspired from the 60&amp;rsquo;s American TV game show
+, the principle is the following:
+The player is faced with three doors, behind one of which is a big prize (a 🚗), and behind the two others, a 🐐, and has to choose one, without opening it yet.&lt;/p&gt;
+&lt;p&gt;After the participant chose a door, Monty Hall (the host of the show) opens one of the two other door, behind which is always a 🐐.&lt;br&gt;
+&lt;em&gt;What is the best strategy to win the 🚗 ?&lt;/em&gt;&lt;br&gt;
+Keeping the original choice, or changing of door ?&lt;/p&gt;
+&lt;p&gt;It turns out that&amp;hellip;&lt;br&gt;
+Read further to find out 😉&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;numpy&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;np&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;altair&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;alt&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pandas&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;pd&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;alt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;renderers&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;enable&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;mimetype&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;nb_games&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;10000&lt;/span&gt; &lt;span class="c1"&gt;# The number of games we&amp;#39;re going to simulate&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;games&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nb_games&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;game&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;repeat&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;🐐&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;prize&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;randint&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# the door behind which the car is hidden&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;game&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;prize&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;🚗&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;games&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;game&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="strategy-keep-door"&gt;Strategy: keep door&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;wins&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="c1"&gt;# win counter&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nb_games&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;doors&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;player_door_choice&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;choice&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;doors&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="c1"&gt;# the player initial&amp;#39;s door choice&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;doors&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;remove&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;player_door_choice&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# doors not chosen by player&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;doors&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="c1"&gt;# Monty Hall reveals that behind one of the door not chosen is a goat&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;games&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;🐐&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;goat_door&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;games&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;player_door_choice&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;🚗&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="c1"&gt;# The player keeps his initial door choice&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;wins&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;Winning percentage: &lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="nb"&gt;round&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;wins&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;nb_games&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;%&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;Winning percentage: 32.1%
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;🚗&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;🐐&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;round&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;wins&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;nb_games&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="nb"&gt;round&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;wins&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;nb_games&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DataFrame&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;x&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;y&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;alt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Chart&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mark_bar&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;30&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;encode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;alt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;x&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;axis&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;alt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Axis&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;None&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;alt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Y&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;y&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;axis&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;alt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Axis&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;outcome %&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;properties&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;width&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Strategy: keep same door&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;configure_axis&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;labelFontSize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;configure_title&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;fontSize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;font&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Courier&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;anchor&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;start&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;gray&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt="png"
+srcset="https://maximeborry.com/post/monty-hall-python/monty_hall_7_0_hu_4055e77e58b4d5f5.webp 299w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://maximeborry.com/post/monty-hall-python/monty_hall_7_0_hu_4055e77e58b4d5f5.webp"
+width="299"
+height="371"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id="strategy-change-door"&gt;Strategy: change door&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;wins&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nb_games&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;doors&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;player_door_choice&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;choice&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;doors&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="c1"&gt;# the player initial&amp;#39;s door choice&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;doors&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;remove&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;player_door_choice&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# doors not chosen&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;doors&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="c1"&gt;# Monty Hall reveals that behind one of the door not chosen is a goat&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;games&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;🐐&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;goat_door&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;doors&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;remove&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;goat_door&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# the player changes its door choice&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;games&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;doors&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;🚗&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;wins&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;Winning percentage: &lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="nb"&gt;round&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;wins&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;nb_games&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;%&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;Winning percentage: 66.7%
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;🚗&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;🐐&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;wins&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;nb_games&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;wins&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;nb_games&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;)]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DataFrame&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;x&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;y&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;alt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Chart&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mark_bar&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;30&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;encode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;alt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;x&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;axis&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;alt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Axis&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;None&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;alt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Y&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;y&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;axis&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;alt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Axis&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;outcome %&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;properties&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;width&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Strategy: change door&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;configure_axis&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;labelFontSize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;configure_title&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;fontSize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;font&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Courier&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;anchor&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;start&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;gray&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt="png"
+srcset="https://maximeborry.com/post/monty-hall-python/monty_hall_11_0_hu_f12eb87c48f0b0f6.webp 263w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://maximeborry.com/post/monty-hall-python/monty_hall_11_0_hu_f12eb87c48f0b0f6.webp"
+width="263"
+height="371"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;As I showed above, the &lt;strong&gt;door changing strategy is much better&lt;/strong&gt; with a 66.6% change of winning, vs 33.3% if we keep the original door.&lt;/p&gt;
+&lt;p&gt;If you want to learn more about the Monty Hall problem, and how to prove using the Baye&amp;rsquo;s theorem, have a reat at the
+&lt;/p&gt;
+&lt;p&gt;Finally, the code behind this post is
+&lt;/p&gt;
+&lt;p&gt;Last but not least, if you want to make it interactive with JavaScript P5, please have a look at this video from the Coding Train, which inspired this blog post 🙂&lt;/p&gt;
+&lt;html&gt;
+&lt;body&gt;
 &lt;iframe src="https://www.youtube.com/embed/0zac-cDzJwA"
-width="560" height="315" frameborder="0" allowfullscreen>&lt;/iframe>
-&lt;/body>
-&lt;/html></description></item><item><title>A new E-score for KrakenUniq</title><link>https://maximeborry.com/post/kraken-uniq/</link><pubDate>Tue, 10 May 2022 13:38:45 +0200</pubDate><guid>https://maximeborry.com/post/kraken-uniq/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>The task of &lt;a href="https://www.sevenbridges.com/taxonomic-profiling-of-metagenomics-samples/" target="_blank" rel="noopener">taxonomic profiling&lt;/a> consists of answering the question &lt;em>&amp;ldquo;Who is there ?&amp;quot;&lt;/em> in a metagenomic sample.
-However, in practice, it turns out to be quite a challenging assignment to tackle, and many solutions have been proposed to address it (for a comparative benchmark, see &lt;a href="https://doi.org/10.1038/s41592-022-01431-4" target="_blank" rel="noopener">Meyer et al. 2022&lt;/a>).&lt;/p>
-&lt;p>One of the central aspect of taxonomic profiling is to distinguishing true positive (taxon actually present in a sample) from false positive (taxon not actually present in sample) taxonomic assignments.&lt;/p>
-&lt;p>Today, I want to focus on one particular taxonomic profiler: &lt;a href="https://github.com/fbreitwieser/krakenuniq" target="_blank" rel="noopener">KrakenUniq&lt;/a> (&lt;a href="https://doi.org/10.1186/s13059-018-1568-0" target="_blank" rel="noopener">Breitwieser et al. 2018&lt;/a>).&lt;/p>
-&lt;p>Based on the popular &lt;a href="https://en.wikipedia.org/wiki/K-mer" target="_blank" rel="noopener">k-mer&lt;/a> based taxonomic classifier &lt;a href="https://github.com/DerrickWood/kraken" target="_blank" rel="noopener">Kraken&lt;/a> (&lt;a href="https://doi.org/10.1186/gb-2014-15-3-r46" target="_blank" rel="noopener">Wood et al. 2014&lt;/a>), KrakenUniq adds a unique (😉) feature on top of Kraken, the reporting of unique k-mer counts.&lt;/p>
-&lt;p>Let me explain:&lt;/p>
-&lt;p>The original Kraken program is based on direct k-mer matching. First Kraken builds a database of all present k-mer in each reference genomes, and then compares it to the k-mers found in the query sequences/sequencing reads (fig 1) . If there is a match, it uses a taxonomic tree and the LCA algorithm to assign each query sequence to a given taxon.&lt;/p>
-&lt;p>&lt;img src="kraken.png" alt="">&lt;br>
-&lt;strong>Figure 1&lt;/strong>: The Kraken sequence classification algorithm. &lt;a href="https://genomebiology.biomedcentral.com/articles/10.1186/gb-2014-15-3-r46/figures/1" target="_blank" rel="noopener">original here&lt;/a>&lt;/p>
-&lt;p>While this is already a good performing taxonomic profiling method, it suffers from one major drawback: it can not account for duplicated sequences. For example, when reporting the number of reads belonging to each taxon in a sample, Kraken is not able to distinguish an evenly covered genome (likely a true positive, blue genome fig 2) from a genome suffering from read stacking (likely a false positive, purple genome, fig 2). This uneven coverage, often a false positive assignment, can be the consequence of different reasons, but one of the most common is due to reads matching ultra-conserved regions between taxons from the same clade, the so-called &lt;em>read stacking&lt;/em>.&lt;/p>
-&lt;p>&lt;img src="featured.png" alt="">&lt;br>
-&lt;strong>Figure 2&lt;/strong>: Two taxons having the same amount of assigned reads, two different scenarios. The blue genome has an evenly distributed coverage, while the purple genome suffers from read stacking. Unique kmers are highlighted with a black perimeter&lt;/p>
-&lt;p>To circumvent this problem, KrakenUniq leverages the &lt;a href="https://en.wikipedia.org/wiki/HyperLogLog" target="_blank" rel="noopener">HLL algorithm&lt;/a> to count the unique/distinct k-mers. In practice, in the example of fig 2, Kraken would have reported a k-mer count of 24 for both the blue and purple genome, while KrakenUniq would have reported a k-mer count of 7 for the blue genome, and k-mer count of 2 for the purple genome.&lt;/p>
-&lt;p>On top of that, KrakenUniq keeps track of how many of unique k-mers have been found, out all possible unique k-mers for each taxon, and normalizes it by the taxon genome size, which gives an estimation of the &amp;ldquo;coverage&amp;rdquo;.&lt;/p>
-&lt;p>So, to summarize, with KrakenUniq, for each taxon, we now have three different metrics instead of &amp;ldquo;just one&amp;rdquo; for Kraken :&lt;/p>
-&lt;ul>
-&lt;li>read count per taxon (which we already had with kraken), we&amp;rsquo;ll refer to it later as $R$&lt;/li>
-&lt;li>number of unique k-mers (new with KrakenUniq), we&amp;rsquo;ll refer to it later as $K$&lt;/li>
-&lt;li>&amp;ldquo;coverage&amp;rdquo; of the k-mers of the clade in the database, we&amp;rsquo;ll refer to it later as $C$&lt;/li>
-&lt;/ul>
-&lt;p>Note that I&amp;rsquo;ve always mentioned the &amp;ldquo;coverage&amp;rdquo; between quotes, this is because &lt;a href="https://github.com/fbreitwieser/krakenuniq/blob/2ac22bf7681223efa17ffba221231c7faac9da05/src/taxdb.hpp#L1103" target="_blank" rel="noopener">KrakenUniq defines it&lt;/a> as $C = \frac{K}{genome\ size}$.&lt;br>
-Because by definition, the maximum number of k-mers (of length $k$) for a sequence of length $L$ can not exceed $L - k + 1$. This means that in the ideal situation, for example the blue genome of fig 2, the &amp;ldquo;coverage&amp;rdquo; will be at best, close to 1, but never greater than 1.&lt;/p>
-&lt;p>To try to make sense of these three metrics, &lt;a href="https://doi.org/10.1186/s13059-021-02580-z" target="_blank" rel="noopener">Guellil et al. 2022&lt;/a> came up with a score $E$ combining them, to discriminate true positive from false positive taxonomic assignments.&lt;/p>
-&lt;p>$$E = \frac{K}{R} \times C$$&lt;/p>
-&lt;p>Here, using different simulated taxon assignment situations, I propose a tweak to this score, to try to improve its ability to differentiate true positive from false positive taxonomic assignments.&lt;/p>
-&lt;h2 id="the-simulations">The simulations&lt;/h2>
-&lt;p>First, let&amp;rsquo;s define a few parameters for our simulation, and import necessary libraries&lt;/p>
-&lt;pre>&lt;code class="language-python">import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-import pandas as pd
-read_length = 45
-kmer_length = 35
-genome_size = 1000000
-&lt;/code>&lt;/pre>
-&lt;p>&lt;strong>We&amp;rsquo;ll look at four different possible scenarios&lt;/strong>&lt;br>
-For each scenario, we&amp;rsquo;ll simulate 100 different situations&lt;/p>
-&lt;h4 id="scenario-a-high-duplication-low-coverage-false-positive">scenario A: high duplication, low coverage (false positive)&lt;/h4>
-&lt;ul>
-&lt;li>A lot of reads are duplicated, probably coming from conversed regions, or sequencing artifacts&lt;/li>
-&lt;li>low coverage&lt;/li>
-&lt;li>There are more reads than unique k-mers&lt;/li>
-&lt;/ul>
-&lt;pre>&lt;code class="language-python">a_reads = np.random.randint(10, 300, 100) # randomly choose the number of reads, between 10 and 300
-comp_kmer_a = lambda x: int(x / np.random.randint(2,10, 1)) # randomly choose between 2 and 10 times less k-mers
-comp_kmer_a_vec = np.vectorize(comp_kmer_a)
-a_kmers = comp_kmer_a_vec(a_reads)
-plt.plot(a_kmers/a_reads, label=r&amp;quot;$\frac{k}{R}$&amp;quot;)
-plt.plot(a_kmers/genome_size, label=&amp;quot;cov&amp;quot;)
-plt.title(&amp;quot;scenario A&amp;quot;)
-plt.legend(loc=&amp;quot;upper left&amp;quot;);
-&lt;/code>&lt;/pre>
-&lt;p>&lt;img src="output_6_0.png" alt="png">&lt;/p>
-&lt;h4 id="scenario-b-low-duplication-low-coverage-true-positive">scenario B: low duplication, low coverage (true positive)&lt;/h4>
-&lt;ul>
-&lt;li>Very few reads are duplicated&lt;/li>
-&lt;li>low coverage&lt;/li>
-&lt;li>more unique k-mers than reads (up to $ku = read_length - kmer_length + 1$ more unique k-mers than reads)&lt;/li>
-&lt;/ul>
-&lt;pre>&lt;code class="language-python">b_reads = np.random.randint(10, 300, 100) # randomly choose the number of reads, between 10 and 300
-comp_kmer_b = lambda x: min(genome_size - kmer_length + 1, int(x * np.random.randint(2,(read_length - kmer_length + 1), 1))) # randomly choose up to ku more k-mers than reads
-comp_kmer_b_vec = np.vectorize(comp_kmer_b)
-b_kmers = comp_kmer_b_vec(b_reads)
-plt.plot(b_kmers/b_reads, label=r&amp;quot;$\frac{k}{R}$&amp;quot;)
-plt.plot(b_kmers/genome_size, label=&amp;quot;cov&amp;quot;)
-plt.title(&amp;quot;scenario B&amp;quot;)
-plt.legend(loc=&amp;quot;upper left&amp;quot;);
-&lt;/code>&lt;/pre>
-&lt;p>&lt;img src="output_8_0.png" alt="png">&lt;/p>
-&lt;h4 id="scenario-c-low-duplication-higher-coverage-true-positive">scenario C: low duplication, higher coverage (true positive)&lt;/h4>
-&lt;ul>
-&lt;li>same as scenario B, but with a higher coverage&lt;/li>
-&lt;/ul>
-&lt;pre>&lt;code class="language-python">c_reads = np.random.randint(10000, 100000, 100) # # randomly choose the number of reads, between 10000 and 100000
-comp_kmer_c = lambda x: min(genome_size - kmer_length + 1, int(x * np.random.randint(2,(read_length - kmer_length + 1), 1)))
-comp_kmer_c_vec = np.vectorize(comp_kmer_c)
-c_kmers = comp_kmer_c_vec(c_reads)
-plt.plot(c_kmers/c_reads, label=r&amp;quot;$\frac{k}{R}$&amp;quot;)
-plt.plot(c_kmers/genome_size, label=&amp;quot;cov&amp;quot;)
-plt.title(&amp;quot;scenario C&amp;quot;)
-plt.legend(loc=&amp;quot;upper left&amp;quot;);
-&lt;/code>&lt;/pre>
-&lt;p>&lt;img src="output_10_0.png" alt="png">&lt;/p>
-&lt;h4 id="scenario-d-low-duplication-high-coverage">scenario D: low duplication, high coverage&lt;/h4>
-&lt;ul>
-&lt;li>more reads than unique kmers (because of the coverage definiton of KrakenUniq)&lt;/li>
-&lt;li>high coverage&lt;/li>
-&lt;/ul>
-&lt;pre>&lt;code class="language-python">d_reads = np.random.randint(genome_size*1.1, genome_size*3, 100) # getting between 1.1*genome_size and 3*genome size reads
-comp_kmer_d = lambda x: min(genome_size - kmer_length + 1, int(x * np.random.randint(2,(read_length - kmer_length + 1), 1)))
-comp_kmer_d_vec = np.vectorize(comp_kmer_d)
-d_kmers = comp_kmer_d_vec(d_reads)
-plt.plot(d_kmers/d_reads, label=r&amp;quot;$\frac{k}{R}$&amp;quot;)
-plt.plot(d_kmers/genome_size, label=&amp;quot;cov&amp;quot;)
-plt.title(&amp;quot;scenario D&amp;quot;)
-plt.legend(loc=&amp;quot;upper left&amp;quot;);
-&lt;/code>&lt;/pre>
-&lt;p>&lt;img src="output_12_0.png" alt="png">&lt;/p>
-&lt;h2 id="comparing-e-scores">Comparing E-scores&lt;/h2>
-&lt;h3 id="guellil-et-al-e-score">Guellil &lt;em>et al.&lt;/em> E-score&lt;/h3>
-&lt;p>Now that we have our four different scenarios, let&amp;rsquo;s look at how &lt;a href="https://doi.org/10.1186/s13059-021-02580-z" target="_blank" rel="noopener">Guellil &lt;em>et al.&lt;/em>&lt;/a> E-score performs at discriminating between true positive (scenario A) and false positive (scenario B, C, and D) taxonomic assignments.&lt;/p>
-&lt;pre>&lt;code class="language-python">def e_score_guellil(nb_kmer, nb_read, genome_size):
-cov = nb_kmer/genome_size
-return((nb_kmer/nb_read) * cov )
-e_score_guellil_vec = np.vectorize(e_score_guellil)
-&lt;/code>&lt;/pre>
-&lt;pre>&lt;code class="language-python">e_score_guellil_a = e_score_guellil_vec(a_kmers, a_reads, genome_size)
-e_score_guellil_b = e_score_guellil_vec(b_kmers, b_reads, genome_size)
-e_score_guellil_c = e_score_guellil_vec(c_kmers, c_reads, genome_size)
-e_score_guellil_d = e_score_guellil_vec(d_kmers, d_reads, genome_size)
-plt.plot(e_score_guellil_a, label = &amp;quot;scenario A&amp;quot;)
-plt.plot(e_score_guellil_b, label = &amp;quot;scenario B&amp;quot;)
-plt.plot(e_score_guellil_c, label = &amp;quot;scenario C&amp;quot;)
-plt.plot(e_score_guellil_d, label = &amp;quot;scenario D&amp;quot;)
-plt.legend(loc=&amp;quot;upper left&amp;quot;)
-plt.title(&amp;quot;Guellil et al. E score&amp;quot;)
-plt.ylim(0,0.001);
-&lt;/code>&lt;/pre>
-&lt;p>&lt;img src="output_17_0.png" alt="png">&lt;/p>
-&lt;p>As we can see, it can be quite tricky in some situations to differentiate a true from a false positive assignment. This is particularly problematic between scenario A and scenario B.&lt;/p>
-&lt;h3 id="modified-dexp-e-score">Modified &lt;em>dexp&lt;/em> E-score&lt;/h3>
-&lt;p>Here I propose a slightly different score to mitigate some of issue.
-Instead of defining&lt;/p>
-&lt;p>$$E = \frac{K}{R}\times C$$&lt;/p>
-&lt;p>I propose to use&lt;/p>
-&lt;p>$$E = \frac{K}{R} \times dexp(C)$$&lt;/p>
-&lt;p>with $dexp$ being the &lt;a href="https://en.wikipedia.org/wiki/Double_exponential_function" target="_blank" rel="noopener">double exponential function&lt;/a>.&lt;/p>
-&lt;p>This way, more emphasis is given to the &amp;ldquo;coverage&amp;rdquo;, which particularly helps in low &amp;ldquo;coverage&amp;rdquo; scenarios, since the double exponential function grows &amp;ldquo;really fast&amp;rdquo; between 0 and 1.&lt;/p>
-&lt;pre>&lt;code class="language-python">#https://en.wikipedia.org/wiki/Double_exponential_function
-def double_exp(x, a=1.3, b=18):
-return(a**(b*x))
-double_exp_vec = np.vectorize(double_exp)
-&lt;/code>&lt;/pre>
-&lt;pre>&lt;code class="language-python">x = np.arange(0,1,0.01)
-y = double_exp_vec(x)
-plt.plot(x, y)
-plt.title(&amp;quot;Double exponential function&amp;quot;);
-&lt;/code>&lt;/pre>
-&lt;p>&lt;img src="output_21_0.png" alt="png">&lt;/p>
-&lt;pre>&lt;code class="language-python">def e_score_dexp(nb_kmer, nb_read, genome_size):
-cov = nb_kmer/genome_size
-return((nb_kmer/nb_read) * double_exp(cov))
-e_score_dexp_vec = np.vectorize(e_score_dexp)
-&lt;/code>&lt;/pre>
-&lt;p>Now let&amp;rsquo;s look at how this modified E-score performs&lt;/p>
-&lt;pre>&lt;code class="language-python">e_score_dexp_a = e_score_dexp_vec(a_kmers, a_reads, genome_size)
-e_score_dexp_b = e_score_dexp_vec(b_kmers, b_reads, genome_size)
-e_score_dexp_c = e_score_dexp_vec(c_kmers, c_reads, genome_size)
-e_score_dexp_d = e_score_dexp_vec(d_kmers, d_reads, genome_size)
-plt.plot(e_score_dexp_a, label = &amp;quot;case_a&amp;quot;)
-plt.plot(e_score_dexp_b, label = &amp;quot;case_b&amp;quot;)
-plt.plot(e_score_dexp_c, label = &amp;quot;case_c&amp;quot;)
-plt.plot(e_score_dexp_d, label = &amp;quot;case_b&amp;quot;)
-plt.legend(loc=&amp;quot;upper left&amp;quot;)
-plt.title(&amp;quot;Double-exp E-score&amp;quot;)
-plt.ylim(0,4);
-&lt;/code>&lt;/pre>
-&lt;p>&lt;img src="output_24_0.png" alt="png">&lt;/p>
-&lt;p>We can see that there is a much clearer distinction between true and false positive assignments.
-We can also look at the mean difference of all scenarios between true and false positives, for the original, and the new double exp E-score&lt;/p>
-&lt;pre>&lt;code class="language-python">diff_e_score_guellil = np.mean([e_score_guellil_b - e_score_guellil_a, e_score_guellil_c - e_score_guellil_a, e_score_guellil_d - e_score_guellil_a], axis=0)
-diff_e_score_dexp = np.mean([e_score_dexp_b - e_score_dexp_a, e_score_dexp_c - e_score_dexp_a, e_score_dexp_d - e_score_dexp_a], axis=0)
-&lt;/code>&lt;/pre>
-&lt;pre>&lt;code class="language-python">plt.plot(diff_e_score_guellil, label=&amp;quot;Guellil et al. E-score&amp;quot;)
-plt.plot(diff_e_score_dexp, label=&amp;quot;double-exp E-score&amp;quot;)
-plt.title(&amp;quot;Difference of E-score between true and false positive\n(the greater the better)&amp;quot;)
-plt.legend(loc=&amp;quot;upper left&amp;quot;)
-plt.ylim(0,30);
-&lt;/code>&lt;/pre>
-&lt;p>&lt;img src="output_27_0.png" alt="png">&lt;/p>
-&lt;pre>&lt;code class="language-python">df = pd.DataFrame(list(zip(diff_e_score_guellil, diff_e_score_dexp)), columns=['Guellil et al.', 'dexp'])
-&lt;/code>&lt;/pre>
-&lt;pre>&lt;code class="language-python">sns.boxplot(data=df)
-plt.title(&amp;quot;Difference of E-score between true and false positive\n(the greater the better)&amp;quot;);
-&lt;/code>&lt;/pre>
-&lt;p>&lt;img src="output_29_0.png" alt="png">&lt;/p>
-&lt;pre>&lt;code class="language-python">df.mean(axis=0)
-&lt;/code>&lt;/pre>
-&lt;pre>&lt;code>Guellil et al. 1.012888
+width="560" height="315" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/body&gt;
+&lt;/html&gt;</description></item><item><title>A new E-score for KrakenUniq</title><link>https://maximeborry.com/post/kraken-uniq/</link><pubDate>Tue, 10 May 2022 13:38:45 +0200</pubDate><guid>https://maximeborry.com/post/kraken-uniq/</guid><description>&lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;The task of
+consists of answering the question &lt;em&gt;&amp;ldquo;Who is there ?&amp;rdquo;&lt;/em&gt; in a metagenomic sample.
+However, in practice, it turns out to be quite a challenging assignment to tackle, and many solutions have been proposed to address it (for a comparative benchmark, see
+).&lt;/p&gt;
+&lt;p&gt;One of the central aspect of taxonomic profiling is to distinguishing true positive (taxon actually present in a sample) from false positive (taxon not actually present in sample) taxonomic assignments.&lt;/p&gt;
+&lt;p&gt;Today, I want to focus on one particular taxonomic profiler:
+(
+).&lt;/p&gt;
+&lt;p&gt;Based on the popular
+based taxonomic classifier
+(
+), KrakenUniq adds a unique (😉) feature on top of Kraken, the reporting of unique k-mer counts.&lt;/p&gt;
+&lt;p&gt;Let me explain:&lt;/p&gt;
+&lt;p&gt;The original Kraken program is based on direct k-mer matching. First Kraken builds a database of all present k-mer in each reference genomes, and then compares it to the k-mers found in the query sequences/sequencing reads (fig 1) . If there is a match, it uses a taxonomic tree and the LCA algorithm to assign each query sequence to a given taxon.&lt;/p&gt;
+&lt;p&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt=""
+srcset="https://maximeborry.com/post/kraken-uniq/kraken_hu_eebe289f9da76a1e.webp 320w, https://maximeborry.com/post/kraken-uniq/kraken_hu_c5294f705b4c5816.webp 480w, https://maximeborry.com/post/kraken-uniq/kraken_hu_5e9d41960f6ef442.webp 760w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://maximeborry.com/post/kraken-uniq/kraken_hu_eebe289f9da76a1e.webp"
+width="760"
+height="528"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;strong&gt;Figure 1&lt;/strong&gt;: The Kraken sequence classification algorithm.
+&lt;/p&gt;
+&lt;p&gt;While this is already a good performing taxonomic profiling method, it suffers from one major drawback: it can not account for duplicated sequences. For example, when reporting the number of reads belonging to each taxon in a sample, Kraken is not able to distinguish an evenly covered genome (likely a true positive, blue genome fig 2) from a genome suffering from read stacking (likely a false positive, purple genome, fig 2). This uneven coverage, often a false positive assignment, can be the consequence of different reasons, but one of the most common is due to reads matching ultra-conserved regions between taxons from the same clade, the so-called &lt;em&gt;read stacking&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt=""
+srcset="https://maximeborry.com/post/kraken-uniq/featured_hu_f5fad167a9057403.webp 320w, https://maximeborry.com/post/kraken-uniq/featured_hu_946f05e0059f0f7c.webp 480w, https://maximeborry.com/post/kraken-uniq/featured_hu_d236df26b84177bb.webp 731w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://maximeborry.com/post/kraken-uniq/featured_hu_f5fad167a9057403.webp"
+width="731"
+height="486"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;strong&gt;Figure 2&lt;/strong&gt;: Two taxons having the same amount of assigned reads, two different scenarios. The blue genome has an evenly distributed coverage, while the purple genome suffers from read stacking. Unique kmers are highlighted with a black perimeter&lt;/p&gt;
+&lt;p&gt;To circumvent this problem, KrakenUniq leverages the
+to count the unique/distinct k-mers. In practice, in the example of fig 2, Kraken would have reported a k-mer count of 24 for both the blue and purple genome, while KrakenUniq would have reported a k-mer count of 7 for the blue genome, and k-mer count of 2 for the purple genome.&lt;/p&gt;
+&lt;p&gt;On top of that, KrakenUniq keeps track of how many of unique k-mers have been found, out all possible unique k-mers for each taxon, and normalizes it by the taxon genome size, which gives an estimation of the &amp;ldquo;coverage&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;So, to summarize, with KrakenUniq, for each taxon, we now have three different metrics instead of &amp;ldquo;just one&amp;rdquo; for Kraken :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;read count per taxon (which we already had with kraken), we&amp;rsquo;ll refer to it later as $R$&lt;/li&gt;
+&lt;li&gt;number of unique k-mers (new with KrakenUniq), we&amp;rsquo;ll refer to it later as $K$&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;coverage&amp;rdquo; of the k-mers of the clade in the database, we&amp;rsquo;ll refer to it later as $C$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Note that I&amp;rsquo;ve always mentioned the &amp;ldquo;coverage&amp;rdquo; between quotes, this is because
+as $C = \frac{K}{genome\ size}$.&lt;br&gt;
+Because by definition, the maximum number of k-mers (of length $k$) for a sequence of length $L$ can not exceed $L - k + 1$. This means that in the ideal situation, for example the blue genome of fig 2, the &amp;ldquo;coverage&amp;rdquo; will be at best, close to 1, but never greater than 1.&lt;/p&gt;
+&lt;p&gt;To try to make sense of these three metrics,
+came up with a score $E$ combining them, to discriminate true positive from false positive taxonomic assignments.&lt;/p&gt;
+$$E = \frac{K}{R} \times C$$&lt;p&gt;Here, using different simulated taxon assignment situations, I propose a tweak to this score, to try to improve its ability to differentiate true positive from false positive taxonomic assignments.&lt;/p&gt;
+&lt;h2 id="the-simulations"&gt;The simulations&lt;/h2&gt;
+&lt;p&gt;First, let&amp;rsquo;s define a few parameters for our simulation, and import necessary libraries&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;numpy&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;np&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;plt&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;seaborn&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;sns&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pandas&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;pd&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;read_length&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;45&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;kmer_length&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;35&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;genome_size&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1000000&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;We&amp;rsquo;ll look at four different possible scenarios&lt;/strong&gt;&lt;br&gt;
+For each scenario, we&amp;rsquo;ll simulate 100 different situations&lt;/p&gt;
+&lt;h4 id="scenario-a-high-duplication-low-coverage-false-positive"&gt;scenario A: high duplication, low coverage (false positive)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;A lot of reads are duplicated, probably coming from conversed regions, or sequencing artifacts&lt;/li&gt;
+&lt;li&gt;low coverage&lt;/li&gt;
+&lt;li&gt;There are more reads than unique k-mers&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;a_reads&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;randint&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;300&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# randomly choose the number of reads, between 10 and 300&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;comp_kmer_a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;lambda&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;randint&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="c1"&gt;# randomly choose between 2 and 10 times less k-mers&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;comp_kmer_a_vec&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;vectorize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;comp_kmer_a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;a_kmers&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;comp_kmer_a_vec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a_reads&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a_kmers&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;a_reads&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;label&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sa"&gt;r&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;$\frac&lt;/span&gt;&lt;span class="si"&gt;{k}{R}&lt;/span&gt;&lt;span class="s2"&gt;$&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a_kmers&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;genome_size&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;label&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;cov&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;scenario A&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;legend&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;loc&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;upper left&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt="png"
+srcset="https://maximeborry.com/post/kraken-uniq/output_6_0_hu_5bda5052a857eeec.webp 320w, https://maximeborry.com/post/kraken-uniq/output_6_0_hu_5bd1c7fc5c361e18.webp 372w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://maximeborry.com/post/kraken-uniq/output_6_0_hu_5bda5052a857eeec.webp"
+width="372"
+height="264"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h4 id="scenario-b-low-duplication-low-coverage-true-positive"&gt;scenario B: low duplication, low coverage (true positive)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Very few reads are duplicated&lt;/li&gt;
+&lt;li&gt;low coverage&lt;/li&gt;
+&lt;li&gt;more unique k-mers than reads (up to $ku = read\_length - kmer\_length + 1$ more unique k-mers than reads)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;b_reads&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;randint&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;300&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# randomly choose the number of reads, between 10 and 300&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;comp_kmer_b&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;lambda&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;min&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;genome_size&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;kmer_length&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;randint&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,(&lt;/span&gt;&lt;span class="n"&gt;read_length&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;kmer_length&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt; &lt;span class="c1"&gt;# randomly choose up to ku more k-mers than reads&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;comp_kmer_b_vec&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;vectorize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;comp_kmer_b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;b_kmers&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;comp_kmer_b_vec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b_reads&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b_kmers&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;b_reads&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;label&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sa"&gt;r&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;$\frac&lt;/span&gt;&lt;span class="si"&gt;{k}{R}&lt;/span&gt;&lt;span class="s2"&gt;$&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b_kmers&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;genome_size&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;label&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;cov&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;scenario B&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;legend&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;loc&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;upper left&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt="png"
+srcset="https://maximeborry.com/post/kraken-uniq/output_8_0_hu_614c142048e04a67.webp 320w, https://maximeborry.com/post/kraken-uniq/output_8_0_hu_8814303d99ce6766.webp 368w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://maximeborry.com/post/kraken-uniq/output_8_0_hu_614c142048e04a67.webp"
+width="368"
+height="264"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h4 id="scenario-c-low-duplication-higher-coverage-true-positive"&gt;scenario C: low duplication, higher coverage (true positive)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;same as scenario B, but with a higher coverage&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;c_reads&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;randint&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10000&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;100000&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# # randomly choose the number of reads, between 10000 and 100000&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;comp_kmer_c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;lambda&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;min&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;genome_size&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;kmer_length&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;randint&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,(&lt;/span&gt;&lt;span class="n"&gt;read_length&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;kmer_length&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;comp_kmer_c_vec&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;vectorize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;comp_kmer_c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;c_kmers&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;comp_kmer_c_vec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c_reads&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c_kmers&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;c_reads&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;label&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sa"&gt;r&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;$\frac&lt;/span&gt;&lt;span class="si"&gt;{k}{R}&lt;/span&gt;&lt;span class="s2"&gt;$&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c_kmers&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;genome_size&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;label&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;cov&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;scenario C&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;legend&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;loc&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;upper left&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt="png"
+srcset="https://maximeborry.com/post/kraken-uniq/output_10_0_hu_f54220ece1b0fd08.webp 320w, https://maximeborry.com/post/kraken-uniq/output_10_0_hu_552931c5b3b1595b.webp 368w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://maximeborry.com/post/kraken-uniq/output_10_0_hu_f54220ece1b0fd08.webp"
+width="368"
+height="264"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h4 id="scenario-d-low-duplication-high-coverage"&gt;scenario D: low duplication, high coverage&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;more reads than unique kmers (because of the coverage definiton of KrakenUniq)&lt;/li&gt;
+&lt;li&gt;high coverage&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;d_reads&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;randint&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;genome_size&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="mf"&gt;1.1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;genome_size&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# getting between 1.1*genome_size and 3*genome size reads&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;comp_kmer_d&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;lambda&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;min&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;genome_size&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;kmer_length&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;randint&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,(&lt;/span&gt;&lt;span class="n"&gt;read_length&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;kmer_length&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;comp_kmer_d_vec&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;vectorize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;comp_kmer_d&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;d_kmers&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;comp_kmer_d_vec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;d_reads&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;d_kmers&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;d_reads&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;label&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sa"&gt;r&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;$\frac&lt;/span&gt;&lt;span class="si"&gt;{k}{R}&lt;/span&gt;&lt;span class="s2"&gt;$&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;d_kmers&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;genome_size&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;label&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;cov&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;scenario D&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;legend&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;loc&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;upper left&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt="png"
+srcset="https://maximeborry.com/post/kraken-uniq/output_12_0_hu_2eb537c72595726a.webp 320w, https://maximeborry.com/post/kraken-uniq/output_12_0_hu_7124c58b79658235.webp 372w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://maximeborry.com/post/kraken-uniq/output_12_0_hu_2eb537c72595726a.webp"
+width="372"
+height="264"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id="comparing-e-scores"&gt;Comparing E-scores&lt;/h2&gt;
+&lt;h3 id="guellil-et-al-e-score"&gt;Guellil &lt;em&gt;et al.&lt;/em&gt; E-score&lt;/h3&gt;
+&lt;p&gt;Now that we have our four different scenarios, let&amp;rsquo;s look at how
+E-score performs at discriminating between true positive (scenario A) and false positive (scenario B, C, and D) taxonomic assignments.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;e_score_guellil&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nb_kmer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;nb_read&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;genome_size&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;cov&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;nb_kmer&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;genome_size&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;nb_kmer&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;nb_read&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;cov&lt;/span&gt; &lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;e_score_guellil_vec&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;vectorize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e_score_guellil&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;e_score_guellil_a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;e_score_guellil_vec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a_kmers&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;a_reads&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;genome_size&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;e_score_guellil_b&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;e_score_guellil_vec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b_kmers&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b_reads&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;genome_size&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;e_score_guellil_c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;e_score_guellil_vec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c_kmers&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;c_reads&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;genome_size&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;e_score_guellil_d&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;e_score_guellil_vec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;d_kmers&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;d_reads&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;genome_size&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e_score_guellil_a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;label&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;scenario A&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e_score_guellil_b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;label&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;scenario B&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e_score_guellil_c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;label&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;scenario C&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e_score_guellil_d&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;label&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;scenario D&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;legend&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;loc&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;upper left&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;Guellil et al. E score&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ylim&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mf"&gt;0.001&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt="png"
+srcset="https://maximeborry.com/post/kraken-uniq/output_17_0_hu_1c1a121fcb1efbd5.webp 320w, https://maximeborry.com/post/kraken-uniq/output_17_0_hu_3f856e414a3c82b5.webp 391w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://maximeborry.com/post/kraken-uniq/output_17_0_hu_1c1a121fcb1efbd5.webp"
+width="391"
+height="264"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;As we can see, it can be quite tricky in some situations to differentiate a true from a false positive assignment. This is particularly problematic between scenario A and scenario B.&lt;/p&gt;
+&lt;h3 id="modified-dexp-e-score"&gt;Modified &lt;em&gt;dexp&lt;/em&gt; E-score&lt;/h3&gt;
+&lt;p&gt;Here I propose a slightly different score to mitigate some of issue.
+Instead of defining&lt;/p&gt;
+$$E = \frac{K}{R}\times C$$&lt;p&gt;I propose to use&lt;/p&gt;
+$$E = \frac{K}{R} \times dexp(C)$$&lt;p&gt;with $dexp$ being the
+.&lt;/p&gt;
+&lt;p&gt;This way, more emphasis is given to the &amp;ldquo;coverage&amp;rdquo;, which particularly helps in low &amp;ldquo;coverage&amp;rdquo; scenarios, since the double exponential function grows &amp;ldquo;really fast&amp;rdquo; between 0 and 1.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;#https://en.wikipedia.org/wiki/Double_exponential_function&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;double_exp&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mf"&gt;1.3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;18&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;double_exp_vec&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;vectorize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;double_exp&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arange&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mf"&gt;0.01&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;double_exp_vec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;Double exponential function&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt="png"
+srcset="https://maximeborry.com/post/kraken-uniq/output_21_0_hu_ed60d544ffe00ab0.webp 320w, https://maximeborry.com/post/kraken-uniq/output_21_0_hu_daf0f8d09dc4e0e0.webp 375w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://maximeborry.com/post/kraken-uniq/output_21_0_hu_ed60d544ffe00ab0.webp"
+width="375"
+height="264"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;e_score_dexp&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nb_kmer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;nb_read&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;genome_size&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;cov&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;nb_kmer&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;genome_size&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;nb_kmer&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;nb_read&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;double_exp&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cov&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;e_score_dexp_vec&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;vectorize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e_score_dexp&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now let&amp;rsquo;s look at how this modified E-score performs&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;e_score_dexp_a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;e_score_dexp_vec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a_kmers&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;a_reads&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;genome_size&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;e_score_dexp_b&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;e_score_dexp_vec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b_kmers&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b_reads&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;genome_size&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;e_score_dexp_c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;e_score_dexp_vec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c_kmers&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;c_reads&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;genome_size&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;e_score_dexp_d&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;e_score_dexp_vec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;d_kmers&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;d_reads&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;genome_size&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e_score_dexp_a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;label&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;case_a&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e_score_dexp_b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;label&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;case_b&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e_score_dexp_c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;label&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;case_c&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e_score_dexp_d&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;label&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;case_b&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;legend&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;loc&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;upper left&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;Double-exp E-score&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ylim&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt="png"
+srcset="https://maximeborry.com/post/kraken-uniq/output_24_0_hu_5e0c506de52edf01.webp 320w, https://maximeborry.com/post/kraken-uniq/output_24_0_hu_c7a0592feecd85ba.webp 372w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://maximeborry.com/post/kraken-uniq/output_24_0_hu_5e0c506de52edf01.webp"
+width="372"
+height="264"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;We can see that there is a much clearer distinction between true and false positive assignments.
+We can also look at the mean difference of all scenarios between true and false positives, for the original, and the new double exp E-score&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;diff_e_score_guellil&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mean&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;e_score_guellil_b&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;e_score_guellil_a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;e_score_guellil_c&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;e_score_guellil_a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;e_score_guellil_d&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;e_score_guellil_a&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;axis&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;diff_e_score_dexp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mean&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;e_score_dexp_b&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;e_score_dexp_a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;e_score_dexp_c&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;e_score_dexp_a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;e_score_dexp_d&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;e_score_dexp_a&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;axis&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;diff_e_score_guellil&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;label&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;Guellil et al. E-score&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;diff_e_score_dexp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;label&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;double-exp E-score&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;Difference of E-score between true and false positive&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;(the greater the better)&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;legend&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;loc&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;upper left&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ylim&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;30&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt="png"
+srcset="https://maximeborry.com/post/kraken-uniq/output_27_0_hu_79e02dc31512ce72.webp 320w, https://maximeborry.com/post/kraken-uniq/output_27_0_hu_919f084238609c91.webp 368w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://maximeborry.com/post/kraken-uniq/output_27_0_hu_79e02dc31512ce72.webp"
+width="368"
+height="279"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;df&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DataFrame&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;zip&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;diff_e_score_guellil&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;diff_e_score_dexp&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt; &lt;span class="n"&gt;columns&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Guellil et al.&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;dexp&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;sns&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;boxplot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;Difference of E-score between true and false positive&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;(the greater the better)&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;
+&lt;figure &gt;
+&lt;div class="flex justify-center "&gt;
+&lt;div class="w-full" &gt;
+&lt;img alt="png"
+srcset="https://maximeborry.com/post/kraken-uniq/output_29_0_hu_befe4f93d90f84e1.webp 320w, https://maximeborry.com/post/kraken-uniq/output_29_0_hu_bed89274994097a.webp 375w"
+sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+src="https://maximeborry.com/post/kraken-uniq/output_29_0_hu_befe4f93d90f84e1.webp"
+width="375"
+height="279"
+loading="lazy" data-zoomable /&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mean&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;axis&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;Guellil et al. 1.012888
 dexp 50.104112
 dtype: float64
-&lt;/code>&lt;/pre>
-&lt;p>We can see that on average between all scenarios, for Guellil &lt;em>et al.&lt;/em> E-score, there is only a difference of &lt;code>1&lt;/code> point, while for the modified double-exponential E-score, there is an average difference of &lt;code>50&lt;/code> points.&lt;/p>
-&lt;h3 id="conclusion">Conclusion&lt;/h3>
-&lt;p>In my simulations, using a the modified double-exponential E-score could allow for a better distinction between true and false positive taxonomic assignations by KrakenUniq.&lt;/p>
-&lt;p>&lt;em>The notebook used for this blog post is available&lt;/em> &lt;a href="https://gist.github.com/49841c19b4f78c6182b6cce75e9025f2" target="_blank" rel="noopener">&lt;em>here&lt;/em>&lt;/a>&lt;/p></description></item><item><title>PyDamage: automated ancient damage identification and estimation for contigs in ancient DNA de novo assembly</title><link>https://maximeborry.com/publication/borry-pydamage-2021/</link><pubDate>Thu, 01 Jul 2021 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/borry-pydamage-2021/</guid><description/></item><item><title>Reconstruction of ancient microbial genomes from the human gut</title><link>https://maximeborry.com/publication/wibowo-reconstruction-2021/</link><pubDate>Sat, 01 May 2021 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/wibowo-reconstruction-2021/</guid><description/></item><item><title>Reproducible, portable, and efficient ancient genome reconstruction with nf-core/eager</title><link>https://maximeborry.com/publication/yates-reproducible-2021/</link><pubDate>Mon, 01 Mar 2021 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/yates-reproducible-2021/</guid><description/></item><item><title>noSQL: when it's too big for a dictionary</title><link>https://maximeborry.com/post/rocksdb/</link><pubDate>Wed, 10 Feb 2021 10:40:21 +0100</pubDate><guid>https://maximeborry.com/post/rocksdb/</guid><description>&lt;p>Recently, I&amp;rsquo;ve been working on a project where I need to store a key-value pairs for very large files.
-In Python, the first idea would be to use a &lt;a href="https://docs.python.org/3/tutorial/datastructures.html#dictionaries" target="_blank" rel="noopener">dictionary&lt;/a>.&lt;br>
-However, I had more than 800 millions key-value pairs to store, so a dictonary just wouldn&amp;rsquo;t cut it.&lt;br>
-Enters the world of noSQL databases, and more specifically &lt;a href="https://rocksdb.org" target="_blank" rel="noopener">RocksDB&lt;/a>.&lt;br>
-Described by its creators, originally at Facebook, as a &amp;ldquo;high performance persistant key-value store&amp;rdquo;, it behaves pretty much like a dictonary, but can scale very well.&lt;/p>
-&lt;p>Written in C++, there is fortunately a python binding, in the name of &lt;a href="https://github.com/twmht/python-rocksdb" target="_blank" rel="noopener">python-rocksdb&lt;/a>, even available as a &lt;a href="https://anaconda.org/conda-forge/python-rocksdb" target="_blank" rel="noopener">conda package&lt;/a>.&lt;/p>
-&lt;p>It&amp;rsquo;s relatively simple to use:&lt;/p>
-&lt;pre>&lt;code class="language-python">import rocksdb
-# Create or open database
-db = rocksdb.DB(&amp;quot;test.db&amp;quot;, rocksdb.Options(create_if_missing=True))
-key = &amp;quot;Hello&amp;quot;
-value = &amp;quot;World&amp;quot;
-# Store key-value pair
-db.put(key.encode(), value.decode())
-# Get value for a given key
-print(db.get(key.encode()).decode())
-# prints &amp;quot;World&amp;quot;
-# Delete a key value-pair
-db.delete(key.encode())
-&lt;/code>&lt;/pre>
-&lt;p>Because RocksDB stores all data as byte strings, one need to use &lt;code>.encode()&lt;/code> and &lt;code>.decode()&lt;/code> to store and get data.&lt;/p>
-&lt;h3 id="batch-operation">Batch operation&lt;/h3>
-&lt;p>One way to speed up RockDB, is to perform operations in batch, instead of performing them one by one.&lt;/p>
-&lt;pre>&lt;code class="language-python">import rocksdb
-db = rocksdb.DB(&amp;quot;test.db&amp;quot;, rocksdb.Options(create_if_missing=True))
-batch = rocksdb.WriteBatch()
-batch.put(b&amp;quot;key&amp;quot;, b&amp;quot;v1&amp;quot;)
-batch.delete(b&amp;quot;key&amp;quot;)
-batch.put(b&amp;quot;key&amp;quot;, b&amp;quot;v2&amp;quot;)
-batch.put(b&amp;quot;key&amp;quot;, b&amp;quot;v3&amp;quot;)
-db.write(batch)
-&lt;/code>&lt;/pre>
-&lt;h3 id="batch-limits-and-solutions">Batch limits and solutions&lt;/h3>
-&lt;p>&lt;strong>But beware !&lt;/strong> For very large files, the batch can become too big for the memory of your computer, and you end up &lt;a href="https://www.enterprisestorageforum.com/storage-hardware/memory-swapping.html" target="_blank" rel="noopener">swapping&lt;/a> like crazy !&lt;/p>
-&lt;figure id="figure-when-memory-overflows-to-swap">
-&lt;div class="d-flex justify-content-center">
-&lt;div class="w-100" >&lt;img src="https://media1.tenor.com/images/09e8655db8859a953eb58c64a9fc7d7e/tenor.gif?itemid=11213683" alt="When memory overflows to swap" loading="lazy" data-zoomable />&lt;/div>
-&lt;/div>&lt;figcaption>
-When memory overflows to swap
-&lt;/figcaption>&lt;/figure>
-&lt;p>To prevent this, we have to restrict ourselves to batches of reasonable sizes, meaning making more batches, but smaller.&lt;/p>
-&lt;p>&lt;strong>But beware !&lt;/strong> RocksDB storage system relies on many indivual &lt;code>.sst&lt;/code> files, that RocksDB opens in parallel to make queries and store data. The larger the database, the more files are open. And this can lead to this kind of error:&lt;/p>
-&lt;pre>&lt;code class="language-bash">IO error: While open a file for appending: xxxxxxx.sst: Too many open files
-&lt;/code>&lt;/pre>
-&lt;p>Indeed, there is maximum number of files that can be open at any give time by a single process.&lt;br>
-For example, it&amp;rsquo;s &lt;a href="https://stackoverflow.com/questions/6624077/max-open-files-per-process" target="_blank" rel="noopener">256 by default on macOS&lt;/a>&lt;/p>
-&lt;p>Luckily, to overcome this hurdle, RocksDB has the &lt;code>max_open_files&lt;/code> option.&lt;/p>
-&lt;p>Putting it all together, this gives us the following script:&lt;/p>
-&lt;pre>&lt;code class="language-python">import rocksdb
-from subprocess import check_output
-from tqdm import tqdm
-def get_nb_lines(filename):
-&amp;quot;&amp;quot;&amp;quot;A function for getting the number of lines in a file
-Args:
-filename(str): The path to a file
-Returns:
-int: Number of lines in file
-&amp;quot;&amp;quot;&amp;quot;
-cmd = f&amp;quot;wc -l {filename}&amp;quot;
-return int(check_output(cmd, shell=True).split()[0])
-OPTS = rocksdb.Options()
-OPTS.create_if_missing = False
-OPTS.max_open_files = 250
-# Instantiating the database
-db = rocksdb.DB(&amp;quot;mybigdata.db&amp;quot;, OPTS)
-# The big file we want to store in RocksDB
-key_value_file = &amp;quot;very_large_file.tsv&amp;quot;
-# We get the number of key-value pairs in the file
-nb_key_value_pairs = get_nb_lines(key_value_file)
-# Starting our first batch
-batch = rocksdb.WriteBatch()
-# Key-value pair counter
-i = 0
-# Number of batches, the more, the less memory used
-max_batches = 100
-# Setting the batch size: how many key-value pairs go in each batch
-batch_size = min(nlines-1, int(nlines/max_batches))
-with open(key_value_file) as bigfile:
-for line in tqdm(bigfile, total=nlines):
-# Each line looks like: key [tab] value
-linesplit = line.split()
-key = linesplit[0]
-value = linesplit[1]
-batch.put(bytes(key, encoding='utf8'), bytes(value, encoding='utf8'))
-# If we reached the batch size, store it in RocksDB, and create a new batch
-if i % batch_size == 0:
-db.write(batch)
-batch = rocksdb.WriteBatch()
-# Store the remaining key-value pairs
-db.write(batch)
-&lt;/code>&lt;/pre></description></item><item><title>Making Interactive maps in Python using GeoJSON and GitHub</title><link>https://maximeborry.com/post/interactive-map-howto/</link><pubDate>Tue, 12 Jan 2021 13:08:30 +0100</pubDate><guid>https://maximeborry.com/post/interactive-map-howto/</guid><description>&lt;p>Recently, I&amp;rsquo;ve been involved with the &lt;a href="https://github.com/spaam-community/ancientMetagenomeDir" target="_blank" rel="noopener">AncientMetagenomeDir&lt;/a> project. Briefly, with this collaborative community effort, we aimed to regroup in one single repository, all the metadata about every single published ancient DNA metagenomics article, and turn them into &lt;a href="https://en.wikipedia.org/wiki/FAIR_data" target="_blank" rel="noopener">FAIR&lt;/a> scientific data.&lt;/p>
-&lt;p>We ended with large &lt;code>TSV&lt;/code> (table) files regrouping a standardized set of metadata, about each ancient DNA metagenomics sample. Because these are originally archeological data, one of the information that is systematically collected is the geographical location of each sample.&lt;/p>
-&lt;p>While static maps were already generated for the &lt;a href="https://doi.org/10.1101/2020.09.02.279570" target="_blank" rel="noopener">AncientMegenomeDir publication&lt;/a>, we had the opportunity to play with interactive maps for the &lt;a href="https://spaam-community.github.io/AncientMetagenomeDir/#/" target="_blank" rel="noopener">website of the project&lt;/a>.&lt;/p>
-&lt;p>Usually, hosting interactive elements online require some sort of backend framework (like &lt;a href="https://www.streamlit.io/" target="_blank" rel="noopener">Streamlit&lt;/a> or &lt;a href="https://shiny.rstudio.com/" target="_blank" rel="noopener">Shiny&lt;/a>) to perform the rendering, however, I wanted to have it as serverless as possible, and this is where the &lt;a href="https://docs.github.com/en/free-pro-team@latest/github/managing-files-in-a-repository/mapping-geojson-files-on-github" target="_blank" rel="noopener">&lt;code>GeoJSON&lt;/code> rendering function of GitHub&lt;/a> came to the rescue.&lt;/p>
-&lt;p>Using GitHub magic, that meant that as long as I would push a &lt;a href="https://geojson.org/" target="_blank" rel="noopener">&lt;code>GeoJSON&lt;/code>&lt;/a> file on GitHub, it would automatically be rendered as an interactive map, thanks to &lt;a href="https://leafletjs.com/" target="_blank" rel="noopener">Leaflet.js&lt;/a>.&lt;/p>
-&lt;h2 id="from-tsv-to-geojson">From TSV to GeoJSON&lt;/h2>
-&lt;p>The question that I was left with: How to go from a &lt;code>TSV&lt;/code> table to a &lt;code>GeoJSON&lt;/code> file ?
-Luckily for me, this is really easy to do thanks to &lt;a href="https://geopandas.org/" target="_blank" rel="noopener">GeoPandas&lt;/a>.&lt;br>
-I only needed to make sure that there were a &lt;code>latitude&lt;/code> and &lt;code>longitude&lt;/code> columns in the &lt;code>TSV&lt;/code> files.&lt;/p>
-&lt;figure id="figure-geographic-coordinate-system-credit-wikipediahttpsenwikipediaorgwikigeographic_coordinate_system">
-&lt;div class="d-flex justify-content-center">
-&lt;div class="w-100" >
-&lt;img alt="Geographic coordinate system, credit: [Wikipedia](https://en.wikipedia.org/wiki/Geographic_coordinate_system)" srcset="
-/post/interactive-map-howto/coordinate-system_hu0fbc7a9d6e3ec1414817c2d1317b72fa_45308_e68793dd344fa7bdbd49fc64a155d63d.png 400w,
-/post/interactive-map-howto/coordinate-system_hu0fbc7a9d6e3ec1414817c2d1317b72fa_45308_253cc9b1a123bc88e7104702cf408d7b.png 760w,
-/post/interactive-map-howto/coordinate-system_hu0fbc7a9d6e3ec1414817c2d1317b72fa_45308_1200x1200_fit_lanczos_2.png 1200w"
-src="https://maximeborry.com/post/interactive-map-howto/coordinate-system_hu0fbc7a9d6e3ec1414817c2d1317b72fa_45308_e68793dd344fa7bdbd49fc64a155d63d.png"
-width="435"
-height="340"
-loading="lazy" data-zoomable />&lt;/div>
-&lt;/div>&lt;figcaption data-pre="Figure&amp;nbsp;" data-post=":&amp;nbsp;" class="numbered">
-Geographic coordinate system, credit: &lt;a href="https://en.wikipedia.org/wiki/Geographic_coordinate_system">Wikipedia&lt;/a>
-&lt;/figcaption>&lt;/figure>
-&lt;pre>&lt;code class="language-python">import pandas as pd
-import geopandas
-df = pd.read_csv(&amp;quot;table.tsv&amp;quot;, sep=&amp;quot;\t&amp;quot;)
-gdf = geopandas.GeoDataFrame(df, geometry=geopandas.points_from_xy(df.longitude, df.latitude))
-gdf.to_file(&amp;quot;output.geo.json&amp;quot;, driver='GeoJSON')
-&lt;/code>&lt;/pre>
-&lt;blockquote>
-&lt;p>Instead of pushing to GitHub at every change to check a GeoJSON rendering, you can check a GeoJSON map with the &lt;a href="https://geojson.io/" target="_blank" rel="noopener">geojson.io&lt;/a> website.&lt;/p>
-&lt;/blockquote>
-&lt;h2 id="displaying-more-metadata-on-the-map">Displaying more metadata on the map&lt;/h2>
-&lt;p>So far, I only used the map to display the latitude and longitude of each sample, but we can actually display more information by changing the color, size, or the shape of each marker(point) for example.&lt;/p>
-&lt;p>Refering again the &lt;a href="https://docs.github.com/en/free-pro-team@latest/github/managing-files-in-a-repository/mapping-geojson-files-on-github#styling-features" target="_blank" rel="noopener">Github documentation&lt;/a>, this corresponds to the &lt;code>marker-color&lt;/code>, &lt;code>marker-size&lt;/code>, or &lt;code>marker-symbol&lt;/code>.&lt;/p>
-&lt;p>For example, to change the color, we add a &lt;code>marker-color&lt;/code> column with the desired color value.&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>&lt;strong>marker-color&lt;/strong>&lt;/th>
-&lt;th>publication_doi&lt;/th>
-&lt;th>site_name&lt;/th>
-&lt;th>latitude&lt;/th>
-&lt;th>longitude&lt;/th>
-&lt;th>sample_name&lt;/th>
-&lt;th>sample_age&lt;/th>
-&lt;th>material&lt;/th>
-&lt;th>archive&lt;/th>
-&lt;th>archive_accession&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>#009C54&lt;/td>
-&lt;td>10.1016/j.quascirev.2017.11.037&lt;/td>
-&lt;td>Hässeldala Port&lt;/td>
-&lt;td>56.16&lt;/td>
-&lt;td>15.01&lt;/td>
-&lt;td>HA1.1&lt;/td>
-&lt;td>13900&lt;/td>
-&lt;td>lake sediment&lt;/td>
-&lt;td>ENA&lt;/td>
-&lt;td>SRS2040659&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>#C22026&lt;/td>
-&lt;td>10.3390/geosciences10070270&lt;/td>
-&lt;td>Unknown&lt;/td>
-&lt;td>53.322&lt;/td>
-&lt;td>1.118&lt;/td>
-&lt;td>ELF001A_95_S81_ELFM1D1&lt;/td>
-&lt;td>6000&lt;/td>
-&lt;td>shallow marine sediment&lt;/td>
-&lt;td>ENA&lt;/td>
-&lt;td>ERS3605424&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;p>&lt;strong>Table 1:&lt;/strong> Sample data from the AncientMetagenomeDir repository&lt;/p>
-&lt;figure id="figure-markers-are-colored-by-property">
-&lt;div class="d-flex justify-content-center">
-&lt;div class="w-100" >
-&lt;img alt="Markers are colored by property" srcset="
-/post/interactive-map-howto/marker-color_hu5de8302c11b0599c4f8a330d955cd7b3_216765_2dc745ec159793e84743ce05c605094e.png 400w,
-/post/interactive-map-howto/marker-color_hu5de8302c11b0599c4f8a330d955cd7b3_216765_cf4de92bc17b1b08278892512e81d135.png 760w,
-/post/interactive-map-howto/marker-color_hu5de8302c11b0599c4f8a330d955cd7b3_216765_1200x1200_fit_lanczos_2.png 1200w"
-src="https://maximeborry.com/post/interactive-map-howto/marker-color_hu5de8302c11b0599c4f8a330d955cd7b3_216765_2dc745ec159793e84743ce05c605094e.png"
-width="632"
-height="415"
-loading="lazy" data-zoomable />&lt;/div>
-&lt;/div>&lt;figcaption data-pre="Figure&amp;nbsp;" data-post=":&amp;nbsp;" class="numbered">
-Markers are colored by property
-&lt;/figcaption>&lt;/figure>
-&lt;p>Here, markers in pink are host-associated single genomes, while markers in light-blue are host-associated metagenomes.&lt;/p>
-&lt;h2 id="preventing-overlapping-points">Preventing overlapping points&lt;/h2>
-&lt;p>In this dataset, different samples are sometimes coming from a same archeological site. In practice, this means that points will overlap on the map because they share the exact same geographic coordinates.
-In Figure 2, for example, you can notice a very dark shadow bellow each marker: that&amp;rsquo;s because there are many overlapping markers present on the spot.&lt;/p>
-&lt;p>The problem is that only one marker will be displayed, and the other ones being hidden below.&lt;/p>
-&lt;p>To overcome this issue, the little trick is to slightly alter the coordinates of each sample to plot them as distinct points on the map. I did that with random sampling from the normal distribution using &lt;a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.normal.html" target="_blank" rel="noopener">Numpy&lt;/a> with a very small standard deviation.&lt;/p>
-&lt;pre>&lt;code class="language-python">import pandas as pd
-import geopandas
-import numpy as np
-df = pd.read_csv(&amp;quot;table.tsv&amp;quot;, sep=&amp;quot;\t&amp;quot;)
-sigma = 0.0015
-df['new_latitude'] = df['latitude'].apply(lambda x: np.random.normal(x, sigma))
-df['new_longitude'] = df['longitude'].apply(lambda x: np.random.normal(x, sigma))
-gdf = geopandas.GeoDataFrame(df, geometry=geopandas.points_from_xy(df.new_longitude, df.new_latitude))
-gdf.to_file(&amp;quot;output.geo.json&amp;quot;, driver='GeoJSON')
-&lt;/code>&lt;/pre>
-&lt;p>Problem solved !&lt;/p>
-&lt;figure id="figure-overalapping-markers-are-jittered-around-the-exact-coordinates">
-&lt;div class="d-flex justify-content-center">
-&lt;div class="w-100" >
-&lt;img alt="Overalapping markers are &amp;#39;jittered&amp;#39; around the exact coordinates" srcset="
-/post/interactive-map-howto/marker-jitter_hud42370f9c294ed1624b2767a29b5f442_213929_7e8795447b89cbb94ef9bbc4dd5c1c3e.png 400w,
-/post/interactive-map-howto/marker-jitter_hud42370f9c294ed1624b2767a29b5f442_213929_0e366325b86badb3a5d1afabc89ed3de.png 760w,
-/post/interactive-map-howto/marker-jitter_hud42370f9c294ed1624b2767a29b5f442_213929_1200x1200_fit_lanczos_2.png 1200w"
-src="https://maximeborry.com/post/interactive-map-howto/marker-jitter_hud42370f9c294ed1624b2767a29b5f442_213929_7e8795447b89cbb94ef9bbc4dd5c1c3e.png"
-width="635"
-height="399"
-loading="lazy" data-zoomable />&lt;/div>
-&lt;/div>&lt;figcaption data-pre="Figure&amp;nbsp;" data-post=":&amp;nbsp;" class="numbered">
-Overalapping markers are &amp;lsquo;jittered&amp;rsquo; around the exact coordinates
-&lt;/figcaption>&lt;/figure>
-&lt;h2 id="end-result">End result&lt;/h2>
-&lt;p>Finally, thanks to the magic of GitHub GeoJSON rendering, the map can be easily embedded on any web page !&lt;/p>
-&lt;iframe height='400' width='800' frameborder='0' src='https://viewscreen.githubusercontent.com/view/geojson?url=https%3a%2f%2fraw.githubusercontent.com%2fSPAAM-community%2fAncientMetagenomeDir%2fmaster%2fassets%2fimages%2ffigures%2fancientmetagenomedir.geojson' title='ancientmetagenomedir.geojson'>&lt;/iframe>
-&lt;p>This is an interactive map, you can click around and zoom to navigate.&lt;/p></description></item><item><title>Community-curated and standardised metadata of published ancient metagenomic samples with AncientMetagenomeDir</title><link>https://maximeborry.com/publication/fellows-yates-community-curated-2021/</link><pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/fellows-yates-community-curated-2021/</guid><description/></item><item><title>CoproID predicts the source of coprolites and paleofeces using microbiome composition and host DNA content</title><link>https://maximeborry.com/publication/borry-coproid-2020/</link><pubDate>Wed, 01 Apr 2020 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/borry-coproid-2020/</guid><description/></item><item><title>coGSEA</title><link>https://maximeborry.com/project/cogsea/</link><pubDate>Fri, 03 Jan 2020 11:31:07 +0100</pubDate><guid>https://maximeborry.com/project/cogsea/</guid><description/></item><item><title>Dixit Diderot</title><link>https://maximeborry.com/project/dixit_diderot/</link><pubDate>Fri, 03 Jan 2020 11:31:07 +0100</pubDate><guid>https://maximeborry.com/project/dixit_diderot/</guid><description/></item><item><title>Meetdock</title><link>https://maximeborry.com/project/meetdock/</link><pubDate>Fri, 03 Jan 2020 11:31:07 +0100</pubDate><guid>https://maximeborry.com/project/meetdock/</guid><description/></item><item><title>Phylogeny of the Anacyclus genus</title><link>https://maximeborry.com/project/anacyclus/</link><pubDate>Fri, 03 Jan 2020 11:31:07 +0100</pubDate><guid>https://maximeborry.com/project/anacyclus/</guid><description/></item><item><title>Sourcepredict: Prediction of metagenomic sample sources using dimension reduction followed by machine learning classification</title><link>https://maximeborry.com/publication/borry-sourcepredict-2019/</link><pubDate>Sun, 01 Sep 2019 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/borry-sourcepredict-2019/</guid><description/></item><item><title>Slides</title><link>https://maximeborry.com/slides/example/</link><pubDate>Tue, 05 Feb 2019 00:00:00 +0000</pubDate><guid>https://maximeborry.com/slides/example/</guid><description>&lt;h1 id="create-slides-in-markdown-with-wowchemy">Create slides in Markdown with Wowchemy&lt;/h1>
-&lt;p>&lt;a href="https://wowchemy.com/" target="_blank" rel="noopener">Wowchemy&lt;/a> | &lt;a href="https://owchemy.com/docs/managing-content/#create-slides" target="_blank" rel="noopener">Documentation&lt;/a>&lt;/p>
-&lt;hr>
-&lt;h2 id="features">Features&lt;/h2>
-&lt;ul>
-&lt;li>Efficiently write slides in Markdown&lt;/li>
-&lt;li>3-in-1: Create, Present, and Publish your slides&lt;/li>
-&lt;li>Supports speaker notes&lt;/li>
-&lt;li>Mobile friendly slides&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h2 id="controls">Controls&lt;/h2>
-&lt;ul>
-&lt;li>Next: &lt;code>Right Arrow&lt;/code> or &lt;code>Space&lt;/code>&lt;/li>
-&lt;li>Previous: &lt;code>Left Arrow&lt;/code>&lt;/li>
-&lt;li>Start: &lt;code>Home&lt;/code>&lt;/li>
-&lt;li>Finish: &lt;code>End&lt;/code>&lt;/li>
-&lt;li>Overview: &lt;code>Esc&lt;/code>&lt;/li>
-&lt;li>Speaker notes: &lt;code>S&lt;/code>&lt;/li>
-&lt;li>Fullscreen: &lt;code>F&lt;/code>&lt;/li>
-&lt;li>Zoom: &lt;code>Alt + Click&lt;/code>&lt;/li>
-&lt;li>&lt;a href="https://github.com/hakimel/reveal.js#pdf-export" target="_blank" rel="noopener">PDF Export&lt;/a>: &lt;code>E&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h2 id="code-highlighting">Code Highlighting&lt;/h2>
-&lt;p>Inline code: &lt;code>variable&lt;/code>&lt;/p>
-&lt;p>Code block:&lt;/p>
-&lt;pre>&lt;code class="language-python">porridge = &amp;quot;blueberry&amp;quot;
-if porridge == &amp;quot;blueberry&amp;quot;:
-print(&amp;quot;Eating...&amp;quot;)
-&lt;/code>&lt;/pre>
-&lt;hr>
-&lt;h2 id="math">Math&lt;/h2>
-&lt;p>In-line math: $x + y = z$&lt;/p>
-&lt;p>Block math:&lt;/p>
-&lt;p>$$
-f\left( x \right) = ;\frac{{2\left( {x + 4} \right)\left( {x - 4} \right)}}{{\left( {x + 4} \right)\left( {x + 1} \right)}}
-$$&lt;/p>
-&lt;hr>
-&lt;h2 id="fragments">Fragments&lt;/h2>
-&lt;p>Make content appear incrementally&lt;/p>
-&lt;pre>&lt;code>{{% fragment %}} One {{% /fragment %}}
-{{% fragment %}} **Two** {{% /fragment %}}
-{{% fragment %}} Three {{% /fragment %}}
-&lt;/code>&lt;/pre>
-&lt;p>Press &lt;code>Space&lt;/code> to play!&lt;/p>
-&lt;p>&lt;span class="fragment " >
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can see that on average between all scenarios, for Guellil &lt;em&gt;et al.&lt;/em&gt; E-score, there is only a difference of &lt;code&gt;1&lt;/code&gt; point, while for the modified double-exponential E-score, there is an average difference of &lt;code&gt;50&lt;/code&gt; points.&lt;/p&gt;
+&lt;h3 id="conclusion"&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;In my simulations, using a the modified double-exponential E-score could allow for a better distinction between true and false positive taxonomic assignations by KrakenUniq.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;The notebook used for this blog post is available&lt;/em&gt;
+&lt;/p&gt;</description></item><item><title>PyDamage: automated ancient damage identification and estimation for contigs in ancient DNA de novo assembly</title><link>https://maximeborry.com/publication/borry-pydamage-2021/</link><pubDate>Thu, 01 Jul 2021 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/borry-pydamage-2021/</guid><description/></item><item><title>Reconstruction of ancient microbial genomes from the human gut</title><link>https://maximeborry.com/publication/wibowo-reconstruction-2021/</link><pubDate>Sat, 01 May 2021 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/wibowo-reconstruction-2021/</guid><description/></item><item><title>Reproducible, portable, and efficient ancient genome reconstruction with nf-core/eager</title><link>https://maximeborry.com/publication/yates-reproducible-2021/</link><pubDate>Mon, 01 Mar 2021 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/yates-reproducible-2021/</guid><description/></item><item><title>noSQL: when it's too big for a dictionary</title><link>https://maximeborry.com/post/rocksdb/</link><pubDate>Wed, 10 Feb 2021 10:40:21 +0100</pubDate><guid>https://maximeborry.com/post/rocksdb/</guid><description>&lt;p&gt;Recently, I&amp;rsquo;ve been working on a project where I need to store a key-value pairs for very large files.
+In Python, the first idea would be to use a
+.&lt;br&gt;
+However, I had more than 800 millions key-value pairs to store, so a dictonary just wouldn&amp;rsquo;t cut it.&lt;br&gt;
+Enters the world of noSQL databases, and more specifically
+.&lt;br&gt;
+Described by its creators, originally at Facebook, as a &amp;ldquo;high performance persistant key-value store&amp;rdquo;, it behaves pretty much like a dictonary, but can scale very well.&lt;/p&gt;
+&lt;p&gt;Written in C++, there is fortunately a python binding, in the name of
+, even available as a
+.&lt;/p&gt;
+&lt;p&gt;It&amp;rsquo;s relatively simple to use:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;rocksdb&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Create or open database&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;db&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;rocksdb&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DB&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;test.db&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;rocksdb&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Options&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;create_if_missing&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;key&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;Hello&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;World&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Store key-value pair&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;put&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;encode&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;decode&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Get value for a given key&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;encode&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;decode&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# prints &amp;#34;World&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Delete a key value-pair&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;delete&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;encode&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Because RocksDB stores all data as byte strings, one need to use &lt;code&gt;.encode()&lt;/code&gt; and &lt;code&gt;.decode()&lt;/code&gt; to store and get data.&lt;/p&gt;
+&lt;h3 id="batch-operation"&gt;Batch operation&lt;/h3&gt;
+&lt;p&gt;One way to speed up RockDB, is to perform operations in batch, instead of performing them one by one.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;rocksdb&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;db&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;rocksdb&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DB&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;test.db&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;rocksdb&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Options&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;create_if_missing&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;batch&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;rocksdb&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;WriteBatch&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;batch&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;put&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;b&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;key&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="sa"&gt;b&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;v1&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;batch&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;delete&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;b&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;key&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;batch&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;put&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;b&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;key&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="sa"&gt;b&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;v2&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;batch&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;put&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;b&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;key&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="sa"&gt;b&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;v3&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;batch&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="batch-limits-and-solutions"&gt;Batch limits and solutions&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;But beware !&lt;/strong&gt; For very large files, the batch can become too big for the memory of your computer, and you end up
+like crazy !&lt;/p&gt;
+&lt;figure&gt;&lt;img src="https://media1.tenor.com/images/09e8655db8859a953eb58c64a9fc7d7e/tenor.gif?itemid=11213683"&gt;&lt;figcaption&gt;
+&lt;h4&gt;When memory overflows to swap&lt;/h4&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;To prevent this, we have to restrict ourselves to batches of reasonable sizes, meaning making more batches, but smaller.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;But beware !&lt;/strong&gt; RocksDB storage system relies on many indivual &lt;code&gt;.sst&lt;/code&gt; files, that RocksDB opens in parallel to make queries and store data. The larger the database, the more files are open. And this can lead to this kind of error:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;IO error: While open a file &lt;span class="k"&gt;for&lt;/span&gt; appending: xxxxxxx.sst: Too many open files
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Indeed, there is maximum number of files that can be open at any give time by a single process.&lt;br&gt;
+For example, it&amp;rsquo;s
+&lt;/p&gt;
+&lt;p&gt;Luckily, to overcome this hurdle, RocksDB has the &lt;code&gt;max_open_files&lt;/code&gt; option.&lt;/p&gt;
+&lt;p&gt;Putting it all together, this gives us the following script:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;rocksdb&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;subprocess&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;check_output&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;tqdm&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;tqdm&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;get_nb_lines&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;filename&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;&amp;#34;&amp;#34;A function for getting the number of lines in a file
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s2"&gt; Args:
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s2"&gt; filename(str): The path to a file
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s2"&gt; Returns:
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s2"&gt; int: Number of lines in file
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s2"&gt; &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;cmd&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;wc -l &lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;filename&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;check_output&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cmd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;shell&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;split&lt;/span&gt;&lt;span class="p"&gt;()[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;OPTS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;rocksdb&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Options&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;OPTS&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;create_if_missing&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;False&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;OPTS&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;max_open_files&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;250&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Instantiating the database&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;db&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;rocksdb&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DB&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;mybigdata.db&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;OPTS&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# The big file we want to store in RocksDB&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;key_value_file&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;very_large_file.tsv&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# We get the number of key-value pairs in the file&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;nb_key_value_pairs&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;get_nb_lines&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;key_value_file&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Starting our first batch&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;batch&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;rocksdb&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;WriteBatch&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Key-value pair counter&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Number of batches, the more, the less memory used&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;max_batches&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Setting the batch size: how many key-value pairs go in each batch&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;batch_size&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;min&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nlines&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nlines&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;max_batches&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;key_value_file&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;bigfile&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;tqdm&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bigfile&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;total&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;nlines&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;# Each line looks like: key [tab] value&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;linesplit&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;split&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;key&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;linesplit&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;linesplit&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;batch&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;put&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;bytes&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;encoding&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;utf8&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="nb"&gt;bytes&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;encoding&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;utf8&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;# If we reached the batch size, store it in RocksDB, and create a new batch&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="n"&gt;batch_size&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;batch&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;batch&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;rocksdb&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;WriteBatch&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Store the remaining key-value pairs&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;batch&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>Making Interactive maps in Python using GeoJSON and GitHub</title><link>https://maximeborry.com/post/interactive-map-howto/</link><pubDate>Tue, 12 Jan 2021 13:08:30 +0100</pubDate><guid>https://maximeborry.com/post/interactive-map-howto/</guid><description>&lt;p&gt;Recently, I&amp;rsquo;ve been involved with the
+project. Briefly, with this collaborative community effort, we aimed to regroup in one single repository, all the metadata about every single published ancient DNA metagenomics article, and turn them into
+scientific data.&lt;/p&gt;
+&lt;p&gt;We ended with large &lt;code&gt;TSV&lt;/code&gt; (table) files regrouping a standardized set of metadata, about each ancient DNA metagenomics sample. Because these are originally archeological data, one of the information that is systematically collected is the geographical location of each sample.&lt;/p&gt;
+&lt;p&gt;While static maps were already generated for the
+, we had the opportunity to play with interactive maps for the
+.&lt;/p&gt;
+&lt;p&gt;Usually, hosting interactive elements online require some sort of backend framework (like
+or
+) to perform the rendering, however, I wanted to have it as serverless as possible, and this is where the
+came to the rescue.&lt;/p&gt;
+&lt;p&gt;Using GitHub magic, that meant that as long as I would push a
+file on GitHub, it would automatically be rendered as an interactive map, thanks to
+.&lt;/p&gt;
+&lt;h2 id="from-tsv-to-geojson"&gt;From TSV to GeoJSON&lt;/h2&gt;
+&lt;p&gt;The question that I was left with: How to go from a &lt;code&gt;TSV&lt;/code&gt; table to a &lt;code&gt;GeoJSON&lt;/code&gt; file ?
+Luckily for me, this is really easy to do thanks to
+.&lt;br&gt;
+I only needed to make sure that there were a &lt;code&gt;latitude&lt;/code&gt; and &lt;code&gt;longitude&lt;/code&gt; columns in the &lt;code&gt;TSV&lt;/code&gt; files.&lt;/p&gt;
+&lt;figure&gt;&lt;img src="https://maximeborry.com/post/interactive-map-howto/coordinate-system.png"&gt;&lt;figcaption&gt;
+&lt;h4&gt;Geographic coordinate system, credit: [Wikipedia](https://en.wikipedia.org/wiki/Geographic_coordinate_system)&lt;/h4&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pandas&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;pd&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;geopandas&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;df&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read_csv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;table.tsv&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sep&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="se"&gt;\t&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;gdf&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;geopandas&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;GeoDataFrame&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;geometry&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;geopandas&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;points_from_xy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;longitude&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;latitude&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;gdf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to_file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;output.geo.json&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;driver&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;GeoJSON&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;blockquote class="border-l-4 border-neutral-300 dark:border-neutral-600 pl-4 italic text-neutral-600 dark:text-neutral-400 my-6"&gt;
+&lt;p&gt;Instead of pushing to GitHub at every change to check a GeoJSON rendering, you can check a GeoJSON map with the
+website.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id="displaying-more-metadata-on-the-map"&gt;Displaying more metadata on the map&lt;/h2&gt;
+&lt;p&gt;So far, I only used the map to display the latitude and longitude of each sample, but we can actually display more information by changing the color, size, or the shape of each marker(point) for example.&lt;/p&gt;
+&lt;p&gt;Refering again the
+, this corresponds to the &lt;code&gt;marker-color&lt;/code&gt;, &lt;code&gt;marker-size&lt;/code&gt;, or &lt;code&gt;marker-symbol&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;For example, to change the color, we add a &lt;code&gt;marker-color&lt;/code&gt; column with the desired color value.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;strong&gt;marker-color&lt;/strong&gt;&lt;/th&gt;
+&lt;th&gt;publication_doi&lt;/th&gt;
+&lt;th&gt;site_name&lt;/th&gt;
+&lt;th&gt;latitude&lt;/th&gt;
+&lt;th&gt;longitude&lt;/th&gt;
+&lt;th&gt;sample_name&lt;/th&gt;
+&lt;th&gt;sample_age&lt;/th&gt;
+&lt;th&gt;material&lt;/th&gt;
+&lt;th&gt;archive&lt;/th&gt;
+&lt;th&gt;archive_accession&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;#009C54&lt;/td&gt;
+&lt;td&gt;10.1016/j.quascirev.2017.11.037&lt;/td&gt;
+&lt;td&gt;Hässeldala Port&lt;/td&gt;
+&lt;td&gt;56.16&lt;/td&gt;
+&lt;td&gt;15.01&lt;/td&gt;
+&lt;td&gt;HA1.1&lt;/td&gt;
+&lt;td&gt;13900&lt;/td&gt;
+&lt;td&gt;lake sediment&lt;/td&gt;
+&lt;td&gt;ENA&lt;/td&gt;
+&lt;td&gt;SRS2040659&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;#C22026&lt;/td&gt;
+&lt;td&gt;10.3390/geosciences10070270&lt;/td&gt;
+&lt;td&gt;Unknown&lt;/td&gt;
+&lt;td&gt;53.322&lt;/td&gt;
+&lt;td&gt;1.118&lt;/td&gt;
+&lt;td&gt;ELF001A_95_S81_ELFM1D1&lt;/td&gt;
+&lt;td&gt;6000&lt;/td&gt;
+&lt;td&gt;shallow marine sediment&lt;/td&gt;
+&lt;td&gt;ENA&lt;/td&gt;
+&lt;td&gt;ERS3605424&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;Table 1:&lt;/strong&gt; Sample data from the AncientMetagenomeDir repository&lt;/p&gt;
+&lt;figure&gt;&lt;img src="https://maximeborry.com/post/interactive-map-howto/marker-color.png"&gt;&lt;figcaption&gt;
+&lt;h4&gt;Markers are colored by property&lt;/h4&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;Here, markers in pink are host-associated single genomes, while markers in light-blue are host-associated metagenomes.&lt;/p&gt;
+&lt;h2 id="preventing-overlapping-points"&gt;Preventing overlapping points&lt;/h2&gt;
+&lt;p&gt;In this dataset, different samples are sometimes coming from a same archeological site. In practice, this means that points will overlap on the map because they share the exact same geographic coordinates.
+In Figure 2, for example, you can notice a very dark shadow bellow each marker: that&amp;rsquo;s because there are many overlapping markers present on the spot.&lt;/p&gt;
+&lt;p&gt;The problem is that only one marker will be displayed, and the other ones being hidden below.&lt;/p&gt;
+&lt;p&gt;To overcome this issue, the little trick is to slightly alter the coordinates of each sample to plot them as distinct points on the map. I did that with random sampling from the normal distribution using
+with a very small standard deviation.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pandas&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;pd&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;geopandas&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;numpy&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;np&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;df&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read_csv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;table.tsv&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sep&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="se"&gt;\t&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;sigma&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mf"&gt;0.0015&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;new_latitude&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;latitude&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;apply&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;lambda&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;normal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sigma&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;new_longitude&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;longitude&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;apply&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;lambda&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;normal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sigma&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;gdf&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;geopandas&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;GeoDataFrame&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;geometry&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;geopandas&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;points_from_xy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;new_longitude&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;new_latitude&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;gdf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to_file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;output.geo.json&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;driver&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;GeoJSON&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Problem solved !&lt;/p&gt;
+&lt;figure&gt;&lt;img src="https://maximeborry.com/post/interactive-map-howto/marker-jitter.png"&gt;&lt;figcaption&gt;
+&lt;h4&gt;Overalapping markers are &amp;#39;jittered&amp;#39; around the exact coordinates&lt;/h4&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;h2 id="end-result"&gt;End result&lt;/h2&gt;
+&lt;p&gt;Finally, thanks to the magic of GitHub GeoJSON rendering, the map can be easily embedded on any web page !&lt;/p&gt;
+&lt;iframe height='400' width='800' frameborder='0' src='https://viewscreen.githubusercontent.com/view/geojson?url=https%3a%2f%2fraw.githubusercontent.com%2fSPAAM-community%2fAncientMetagenomeDir%2fmaster%2fassets%2fimages%2ffigures%2fancientmetagenomedir.geojson' title='ancientmetagenomedir.geojson'&gt;&lt;/iframe&gt;
+&lt;p&gt;This is an interactive map, you can click around and zoom to navigate.&lt;/p&gt;</description></item><item><title>Community-curated and standardised metadata of published ancient metagenomic samples with AncientMetagenomeDir</title><link>https://maximeborry.com/publication/fellows-yates-community-curated-2021/</link><pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/fellows-yates-community-curated-2021/</guid><description/></item><item><title>CoproID predicts the source of coprolites and paleofeces using microbiome composition and host DNA content</title><link>https://maximeborry.com/publication/borry-coproid-2020/</link><pubDate>Wed, 01 Apr 2020 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/borry-coproid-2020/</guid><description/></item><item><title>coGSEA</title><link>https://maximeborry.com/project/cogsea/</link><pubDate>Fri, 03 Jan 2020 11:31:07 +0100</pubDate><guid>https://maximeborry.com/project/cogsea/</guid><description/></item><item><title>Dixit Diderot</title><link>https://maximeborry.com/project/dixit_diderot/</link><pubDate>Fri, 03 Jan 2020 11:31:07 +0100</pubDate><guid>https://maximeborry.com/project/dixit_diderot/</guid><description/></item><item><title>Meetdock</title><link>https://maximeborry.com/project/meetdock/</link><pubDate>Fri, 03 Jan 2020 11:31:07 +0100</pubDate><guid>https://maximeborry.com/project/meetdock/</guid><description/></item><item><title>Phylogeny of the Anacyclus genus</title><link>https://maximeborry.com/project/anacyclus/</link><pubDate>Fri, 03 Jan 2020 11:31:07 +0100</pubDate><guid>https://maximeborry.com/project/anacyclus/</guid><description/></item><item><title>Sourcepredict: Prediction of metagenomic sample sources using dimension reduction followed by machine learning classification</title><link>https://maximeborry.com/publication/borry-sourcepredict-2019/</link><pubDate>Sun, 01 Sep 2019 00:00:00 +0000</pubDate><guid>https://maximeborry.com/publication/borry-sourcepredict-2019/</guid><description/></item><item><title>Slides</title><link>https://maximeborry.com/slides/example/</link><pubDate>Tue, 05 Feb 2019 00:00:00 +0000</pubDate><guid>https://maximeborry.com/slides/example/</guid><description>&lt;h1 id="create-slides-in-markdown-with-wowchemy"&gt;Create slides in Markdown with Wowchemy&lt;/h1&gt;
+&lt;p&gt;
+|
+&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="features"&gt;Features&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Efficiently write slides in Markdown&lt;/li&gt;
+&lt;li&gt;3-in-1: Create, Present, and Publish your slides&lt;/li&gt;
+&lt;li&gt;Supports speaker notes&lt;/li&gt;
+&lt;li&gt;Mobile friendly slides&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="controls"&gt;Controls&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Next: &lt;code&gt;Right Arrow&lt;/code&gt; or &lt;code&gt;Space&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Previous: &lt;code&gt;Left Arrow&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Start: &lt;code&gt;Home&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Finish: &lt;code&gt;End&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Overview: &lt;code&gt;Esc&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Speaker notes: &lt;code&gt;S&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Fullscreen: &lt;code&gt;F&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Zoom: &lt;code&gt;Alt + Click&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;
+: &lt;code&gt;E&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="code-highlighting"&gt;Code Highlighting&lt;/h2&gt;
+&lt;p&gt;Inline code: &lt;code&gt;variable&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Code block:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;porridge&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;blueberry&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;porridge&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;blueberry&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;Eating...&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id="math"&gt;Math&lt;/h2&gt;
+&lt;p&gt;In-line math: $x + y = z$&lt;/p&gt;
+&lt;p&gt;Block math:&lt;/p&gt;
+$$
+f\left( x \right) = \;\frac{{2\left( {x + 4} \right)\left( {x - 4} \right)}}{{\left( {x + 4} \right)\left( {x + 1} \right)}}
+$$&lt;hr&gt;
+&lt;h2 id="fragments"&gt;Fragments&lt;/h2&gt;
+&lt;p&gt;Make content appear incrementally&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;{{% fragment %}} One {{% /fragment %}}
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;{{% fragment %}} **Two** {{% /fragment %}}
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;{{% fragment %}} Three {{% /fragment %}}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Press &lt;code&gt;Space&lt;/code&gt; to play!&lt;/p&gt;
+&lt;span class="fragment " &gt;
 One
-&lt;/span>
-&lt;span class="fragment " >
-&lt;strong>Two&lt;/strong>
-&lt;/span>
-&lt;span class="fragment " >
+&lt;/span&gt;
+&lt;span class="fragment " &gt;
+&lt;strong&gt;Two&lt;/strong&gt;
+&lt;/span&gt;
+&lt;span class="fragment " &gt;
 Three
-&lt;/span>&lt;/p>
-&lt;hr>
-&lt;p>A fragment can accept two optional parameters:&lt;/p>
-&lt;ul>
-&lt;li>&lt;code>class&lt;/code>: use a custom style (requires definition in custom CSS)&lt;/li>
-&lt;li>&lt;code>weight&lt;/code>: sets the order in which a fragment appears&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h2 id="speaker-notes">Speaker Notes&lt;/h2>
-&lt;p>Add speaker notes to your presentation&lt;/p>
-&lt;pre>&lt;code class="language-markdown">{{% speaker_note %}}
-- Only the speaker can read these notes
-- Press `S` key to view
-{{% /speaker_note %}}
-&lt;/code>&lt;/pre>
-&lt;p>Press the &lt;code>S&lt;/code> key to view the speaker notes!&lt;/p>
-&lt;aside class="notes">
-&lt;ul>
-&lt;li>Only the speaker can read these notes&lt;/li>
-&lt;li>Press &lt;code>S&lt;/code> key to view&lt;/li>
-&lt;/ul>
-&lt;/aside>
-&lt;hr>
-&lt;h2 id="themes">Themes&lt;/h2>
-&lt;ul>
-&lt;li>black: Black background, white text, blue links (default)&lt;/li>
-&lt;li>white: White background, black text, blue links&lt;/li>
-&lt;li>league: Gray background, white text, blue links&lt;/li>
-&lt;li>beige: Beige background, dark text, brown links&lt;/li>
-&lt;li>sky: Blue background, thin dark text, blue links&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;ul>
-&lt;li>night: Black background, thick white text, orange links&lt;/li>
-&lt;li>serif: Cappuccino background, gray text, brown links&lt;/li>
-&lt;li>simple: White background, black text, blue links&lt;/li>
-&lt;li>solarized: Cream-colored background, dark green text, blue links&lt;/li>
-&lt;/ul>
-&lt;hr>
+&lt;/span&gt;
+&lt;hr&gt;
+&lt;p&gt;A fragment can accept two optional parameters:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;class&lt;/code&gt;: use a custom style (requires definition in custom CSS)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;weight&lt;/code&gt;: sets the order in which a fragment appears&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="speaker-notes"&gt;Speaker Notes&lt;/h2&gt;
+&lt;p&gt;Add speaker notes to your presentation&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-markdown" data-lang="markdown"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;{{% speaker_note %}}
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; Only the speaker can read these notes
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; Press &lt;span class="sb"&gt;`S`&lt;/span&gt; key to view
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;{{% /speaker_note %}}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Press the &lt;code&gt;S&lt;/code&gt; key to view the speaker notes!&lt;/p&gt;
+&lt;aside class="notes"&gt;
+&lt;ul&gt;
+&lt;li&gt;Only the speaker can read these notes&lt;/li&gt;
+&lt;li&gt;Press &lt;code&gt;S&lt;/code&gt; key to view&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/aside&gt;
+&lt;hr&gt;
+&lt;h2 id="themes"&gt;Themes&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;black: Black background, white text, blue links (default)&lt;/li&gt;
+&lt;li&gt;white: White background, black text, blue links&lt;/li&gt;
+&lt;li&gt;league: Gray background, white text, blue links&lt;/li&gt;
+&lt;li&gt;beige: Beige background, dark text, brown links&lt;/li&gt;
+&lt;li&gt;sky: Blue background, thin dark text, blue links&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;night: Black background, thick white text, orange links&lt;/li&gt;
+&lt;li&gt;serif: Cappuccino background, gray text, brown links&lt;/li&gt;
+&lt;li&gt;simple: White background, black text, blue links&lt;/li&gt;
+&lt;li&gt;solarized: Cream-colored background, dark green text, blue links&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
 &lt;section data-noprocess data-shortcode-slide
 data-background-image="/media/boards.jpg"
->
-&lt;h2 id="custom-slide">Custom Slide&lt;/h2>
-&lt;p>Customize the slide style and background&lt;/p>
-&lt;pre>&lt;code class="language-markdown">{{&amp;lt; slide background-image=&amp;quot;/media/boards.jpg&amp;quot; &amp;gt;}}
-{{&amp;lt; slide background-color=&amp;quot;#0000FF&amp;quot; &amp;gt;}}
-{{&amp;lt; slide class=&amp;quot;my-style&amp;quot; &amp;gt;}}
-&lt;/code>&lt;/pre>
-&lt;hr>
-&lt;h2 id="custom-css-example">Custom CSS Example&lt;/h2>
-&lt;p>Let&amp;rsquo;s make headers navy colored.&lt;/p>
-&lt;p>Create &lt;code>assets/css/reveal_custom.css&lt;/code> with:&lt;/p>
-&lt;pre>&lt;code class="language-css">.reveal section h1,
-.reveal section h2,
-.reveal section h3 {
-color: navy;
-}
-&lt;/code>&lt;/pre>
-&lt;hr>
-&lt;h1 id="questions">Questions?&lt;/h1>
-&lt;p>&lt;a href="https://github.com/wowchemy/wowchemy-hugo-modules/discussions" target="_blank" rel="noopener">Ask&lt;/a>&lt;/p>
-&lt;p>&lt;a href="https://wowchemy.com/docs/managing-content/#create-slides" target="_blank" rel="noopener">Documentation&lt;/a>&lt;/p></description></item></channel></rss>
+&gt;
+&lt;h2 id="custom-slide"&gt;Custom Slide&lt;/h2&gt;
+&lt;p&gt;Customize the slide style and background&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-markdown" data-lang="markdown"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;{{&amp;lt; slide background-image=&amp;#34;/media/boards.jpg&amp;#34; &amp;gt;}}
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;{{&amp;lt; slide background-color=&amp;#34;&lt;span class="ni"&gt;#0000FF&lt;/span&gt;&amp;#34; &amp;gt;}}
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;{{&amp;lt; slide class=&amp;#34;my-style&amp;#34; &amp;gt;}}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id="custom-css-example"&gt;Custom CSS Example&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s make headers navy colored.&lt;/p&gt;
+&lt;p&gt;Create &lt;code&gt;assets/css/reveal_custom.css&lt;/code&gt; with:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-css" data-lang="css"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;reveal&lt;/span&gt; &lt;span class="nt"&gt;section&lt;/span&gt; &lt;span class="nt"&gt;h1&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;reveal&lt;/span&gt; &lt;span class="nt"&gt;section&lt;/span&gt; &lt;span class="nt"&gt;h2&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;reveal&lt;/span&gt; &lt;span class="nt"&gt;section&lt;/span&gt; &lt;span class="nt"&gt;h3&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;color&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;navy&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h1 id="questions"&gt;Questions?&lt;/h1&gt;
+&lt;p&gt;
+&lt;/p&gt;
+&lt;p&gt;
+&lt;/p&gt;</description></item></channel></rss>
