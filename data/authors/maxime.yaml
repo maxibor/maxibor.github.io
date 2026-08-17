@@ -1,0 +1,113 @@
+schema: hugoblox/author/v1
+slug: maxime
+name:
+  display: Maxime Borry, PhD.
+is_owner: true
+role: Maxime Borry, PhD.
+bio: 'I am Maxime, a Bioinformatics scientist specializing in the development of statistical
+  tools and workflows for the analysis of omics data. I have extensive experience
+  working with prokaryotic, eukaryotic, and human systems, and I excel at transforming
+  complex biological datasets into scientific results through rigorous approaches
+  and scalable bioinformatics solutions.
+
+
+  After an undergraduate degree in biology, I initially pursued studies in population
+  and environmental sciences. After realizing I wanted to focus more on statistics
+  and data analysis, I returned to complete an M.Sc. in Bioinformatics.
+
+
+  I completed my PhD in the [Microbiome Sciences research group at the MPI-EVA](https://www.eva.mpg.de/archaeogenetics/research-groups/microbiome-sciences/),
+  studying ancient DNA metagenomics, and continued this work as a postdoctoral researcher
+  at the [Leibniz-HKI](https://www.leibniz-hki.de/en/) with a focus on fermentation
+  microbiomes. Recently, I transitioned to computational oncology and cancer research,
+  focusing on personalized cancer vaccine development and the analysis of cancer genomics
+  datasets.'
+affiliations:
+- name: Max Planck Institute for Evolutionary Anthropology
+  url: https://www.eva.mpg.de/index/
+interests:
+- Bioinformatics
+- Metagenomics
+- Machine Learning
+links:
+- icon: brands/github
+  url: https://github.com/maxibor
+- icon: brands/linkedin
+  url: https://linkedin.com/in/maximeborry/
+- icon: fas/map-marker-alt
+  url: https://maps.app.goo.gl/6tvGmnwsFymrnutK8
+- icon: brands/bluesky
+  url: https://bsky.app/profile/maxibor.bsky.social
+- icon: academicons/google-scholar
+  url: https://scholar.google.com/citations?user=oUsxa5sAAAAJ
+- icon: academicons/orcid
+  url: https://orcid.org/0000-0001-9140-7559
+education:
+- degree: PhD candidate in Bioinformatics
+  institution: Friedrich-Schiller-Universität Jena 🇩🇪
+  summary: 2018-2023
+- degree: M.Sc. in Bioinformatics
+  institution: Université Paris Diderot 🇫🇷
+  summary: 2016-2018
+- degree: M.Sc. in Ecology and Environmental sciences
+  institution: Université Joseph Fourier, Grenoble 🇫🇷
+  summary: 2014-2015
+- degree: Exchange Semester
+  institution: University of Nordland 🇳🇴
+  summary: 2013
+- degree: B.Sc. in Life Sciences
+  institution: Université Paris Descartes 🇫🇷
+  summary: 2011-2014
+experience:
+- role: Bioinformatics Scientist
+  org: TRON - Translational Oncology Mainz
+  start: '2024-06-01'
+  end: '2025-11-30'
+  summary: Development of workflows and analysis of oncogenetics sequencing data for
+    personalized cancer vaccine research.
+- role: Postdoctoral Researcher in Bioinformatics
+  org: Leibniz Institut for Natural Product Research and Infection Biology Hans Knöll
+    Institute
+  start: '2023-04-01'
+  end: '2025-03-30'
+  summary: Bioinformatic metagenomic analysis of ancient fermentation microbiomes.
+- role: Doctoral Researcher in Bioinformatics
+  org: Max Planck Institute for Evolutionary Anthropology
+  start: '2021-09-09'
+  end: '2023-03-09'
+  summary: Development of tools and pipelines for the analysis of ancient DNA metagenomics
+    data.
+- role: Bioinformatics Doctoral Researcher
+  org: Max Planck Institute for the Science of Human History
+  start: '2018-09-10'
+  summary: Development of tools and pipelines for the analysis of ancient DNA metagenomics
+    data.
+- role: Bioinformatics Research intern
+  org: Natural History Museum - CNRS
+  start: '2018-01-01'
+  end: '2018-07-30'
+  summary: Development of tools and pipelines for the analysis of ancient DNA metagenomics
+    data.
+- role: Bioinformatics Research intern
+  org: Institut Pasteur
+  start: '2017-03-01'
+  end: '2017-05-30'
+  summary: Development of a tool in R and Shiny for comparison of expression level
+    in multi-omics data.
+- role: Bioinformatics Research assistant
+  org: CRG
+  start: '2016-06-01'
+  end: '2016-08-30'
+  summary: Exploration of the human oral mycobiome.
+- role: Research intern
+  org: MPI-EVA
+  start: '2015-12-01'
+  end: '2016-02-29'
+  summary: Detection of gene duplications between Neanderthal and Mordern Humans.
+- role: Guest researcher
+  org: University of Oslo
+  start: '2015-06-01'
+  end: '2015-10-30'
+  summary: Development of new markers and metagenomics softwares for plant identification.
+    De novo and mapping assembly of Illumina data, phylogeny of the Anacyclus genus,
+    and metabarcoding visualization software development.

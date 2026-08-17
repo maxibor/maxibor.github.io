@@ -1,0 +1,30 @@
+hugoblox:
+  meta:
+    format: "hugoblox-font@1"
+    name: "Mono"
+    vendor: "hugoblox"
+    version: "1.0.0"
+
+  families:
+    heading: "B612"
+    body: "B612 Mono"
+    code: "B612 Mono"
+
+  weights:
+    heading: [400, 700]
+    body: [400, 700]
+    code: [400]
+
+  leading:
+    heading: 1.2
+    body: 1.7
+    code: 1.5
+
+  tracking:
+    heading: "0"
+    body: "0"
+
+  variable:
+    heading: false
+    body: false
+    code: false

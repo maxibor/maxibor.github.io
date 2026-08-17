@@ -6,9 +6,15 @@ authors: ["Maxime Borry et al"]
 publication_types: ["2"]
 abstract: "Shotgun metagenomics applied to archaeological feces (paleofeces) can bring new insights into the composition and functions of human and animal gut microbiota from the past. However, paleofeces often undergo physical distortions in archaeological sediments, making their source species difficult to identify on the basis of fecal morphology or microscopic features alone. Here we present a reproducible and scalable pipeline using both host and microbial DNA to infer the host source of fecal material. We apply this pipeline to newly sequenced archaeological specimens and show that we are able to distinguish morphologically similar human and canine paleofeces, as well as non-fecal sediments, from a range of archaeological contexts."
 featured: false
-publication: "*PeerJ*"
-url_pdf: "https://peerj.com/articles/9001"
-doi: "10.7717/peerj.9001"
-url_code: "https://github.com/nf-core/coproid"
+publication:
+  name: "*PeerJ*"
+hugoblox:
+  ids:
+    doi: "10.7717/peerj.9001"
+links:
+  - type: pdf
+    url: "https://peerj.com/articles/9001"
+  - type: code
+    url: "https://github.com/nf-core/coproid"
 ---
 

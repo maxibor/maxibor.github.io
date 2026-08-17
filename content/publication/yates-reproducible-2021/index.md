@@ -50,7 +50,12 @@ abstract: 'The broadening utilisation of ancient DNA to address archaeological, 
   development and maintenance support; contributing to a long-term life-cycle for
   the pipeline. nf-core/eager will assist in ensuring that a wider range of ancient
   DNA analyses can be applied by a diverse range of research groups and fields.'
-publication: '*PeerJ*'
-url_pdf: https://peerj.com/articles/10947
-doi: 10.7717/peerj.10947
+publication:
+  name: '*PeerJ*'
+hugoblox:
+  ids:
+    doi: 10.7717/peerj.10947
+links:
+  - type: pdf
+    url: https://peerj.com/articles/10947
 ---

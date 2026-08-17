@@ -75,7 +75,12 @@ abstract: Loss of gut microbial diversity in industrial populations is associate
   of previously undescribed gut microorganisms from ancient microbiomes and the investigation
   of the evolutionary history of the human gut microbiota through genome reconstruction
   from palaeofaeces.
-publication: '*Nature*'
-url_pdf: https://www.nature.com/articles/s41586-021-03532-0.pdf
-doi: 10.1038/s41586-021-03532-0
+publication:
+  name: '*Nature*'
+hugoblox:
+  ids:
+    doi: 10.1038/s41586-021-03532-0
+links:
+  - type: pdf
+    url: https://www.nature.com/articles/s41586-021-03532-0.pdf
 ---

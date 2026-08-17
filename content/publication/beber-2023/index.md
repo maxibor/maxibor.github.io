@@ -34,8 +34,14 @@ publishDate: '2023-07-11T16:03:38.510712Z'
 publication_types:
 - '2'
 abstract: 'TAXPASTA is a standalone command-line tool written in Python that aims to standardise the diverse range of metagenomic profiler output formats to simple tabular formats that are readily consumed in downstream applications. TAXPASTA facilitates cross-comparison between taxonomic profiling tools without the need for external or dedicated modules or plugins needed of other ‘dedicated’ metagenomic profile formats.'
-publication: '*Journal of Open Source Software*'
-url_pdf: "https://www.theoj.org/joss-papers/joss.05627/10.21105.joss.05627.pdf"
-doi: "10.21105/joss.05627"
-url_code: "https://github.com/taxprofiler/taxpasta"
+publication:
+  name: '*Journal of Open Source Software*'
+hugoblox:
+  ids:
+    doi: "10.21105/joss.05627"
+links:
+  - type: pdf
+    url: "https://www.theoj.org/joss-papers/joss.05627/10.21105.joss.05627.pdf"
+  - type: code
+    url: "https://github.com/taxprofiler/taxpasta"
 ---

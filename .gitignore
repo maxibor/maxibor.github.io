@@ -1,8 +1,33 @@
-# IDEs
-.idea/
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
 
 # Hugo
+/public/
 /resources/
-public/
+.hugo_build.lock
+hugo_stats.json
+build.log
 assets/jsconfig.json
-.DS_Store
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# R
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata

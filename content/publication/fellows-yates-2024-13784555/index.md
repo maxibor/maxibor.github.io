@@ -41,10 +41,13 @@ publishDate: '2024-09-24T13:20:18.134384Z'
 publication_types: ["5"]
 
 # Publication name and optional abbreviated publication name.
-publication: '*Zenodo*'
+publication:
+  name: '*Zenodo*'
 publication_short: ''
 
-doi: 10.5281/zenodo.13784555
+hugoblox:
+  ids:
+    doi: 10.5281/zenodo.13784555
 
 abstract: ''
 
@@ -57,8 +60,6 @@ tags: []
 featured: false
 
 # Links
-url_pdf: ''
-url_code: ''
 url_dataset: ''
 url_poster: ''
 url_project: ''

@@ -22,10 +22,13 @@ publishDate: '2024-09-24T13:10:47.141076Z'
 publication_types: ["2"]
 
 # Publication name and optional abbreviated publication name.
-publication: '*F1000Research*'
+publication:
+  name: '*F1000Research*'
 publication_short: ''
 
-doi: 10.12688/f1000research.134798.2
+hugoblox:
+  ids:
+    doi: 10.12688/f1000research.134798.2
 
 abstract: " Access to sample-level metadata is important when selecting public metagenomic sequencing datasets for reuse in new biological analyses. The Standards, Precautions, and Advances in Ancient Metagenomics community (SPAAM, https://spaam-community.org) has previously published AncientMetagenomeDir, a collection of curated and standardised sample metadata tables for metagenomic and microbial genome datasets generated from ancient samples. However, while sample-level information is useful for identifying relevant samples for inclusion in new projects, Next Generation Sequencing (NGS) library construction and sequencing metadata are also essential for appropriately reprocessing ancient metagenomic data. Currently, recovering information for downloading and preparing such data is difficult when laboratory and bioinformatic metadata is heterogeneously recorded in prose-based publications.
 Through a series of community-based hackathon events, AncientMetagenomeDir was updated to provide standardised library-level metadata of existing and new ancient metagenomic samples. In tandem, the companion tool 'AMDirT' was developed to facilitate rapid data filtering and downloading of ancient metagenomic data, as well as improving automated metadata curation and validation for AncientMetagenomeDir.
@@ -50,8 +53,6 @@ tags:
 featured: false
 
 # Links
-url_pdf: ''
-url_code: 'https://github.com/SPAAM-community/AMDirT'
 url_dataset: ''
 url_poster: ''
 url_project: ''

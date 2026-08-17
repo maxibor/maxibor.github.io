@@ -6,9 +6,15 @@ authors: ["Maxime Borry"]
 publication_types: ["2"]
 abstract: "SourcePredict is a Python package distributed through Conda, to classify and predict the origin of metagenomic samples, given a reference dataset of known origins, a problem also known as source tracking."
 featured: false
-publication: "*Journal of Open Source Software*"
-url_pdf: "https://joss.theoj.org/papers/10.21105/joss.01540"
-doi: "10.21105/joss.01540"
-url_code: "https://github.com/maxibor/sourcepredict"
+publication:
+  name: "*Journal of Open Source Software*"
+hugoblox:
+  ids:
+    doi: "10.21105/joss.01540"
+links:
+  - type: pdf
+    url: "https://joss.theoj.org/papers/10.21105/joss.01540"
+  - type: code
+    url: "https://github.com/maxibor/sourcepredict"
 ---
 

@@ -1,32 +1,25 @@
 ---
-# Documentation: https://wowchemy.com/docs/managing-content/
-
-title: "A new E-score for KrakenUniq"
-subtitle: "using the double-exponential function"
-summary: "How to distinguish between true and false positive assignations with KrakenUniq"
-authors: [Maxime]
-tags: [kraken, metagenomics, duplication]
+title: A new E-score for KrakenUniq
+subtitle: using the double-exponential function
+summary: How to distinguish between true and false positive assignations with KrakenUniq
+authors:
+  - maxime
+tags:
+  - kraken
+  - metagenomics
+  - duplication
 categories: []
 date: 2022-05-10T13:38:45+02:00
 lastmod: 2022-05-10T13:38:45+02:00
 featured: true
 draft: false
-
-# Featured image
-# To use, add an image named `featured.jpg/png` to your page's folder.
-# Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
 image:
   caption: ""
   focal_point: ""
   preview_only: false
-
-# Projects (optional).
-#   Associate this post with one or more of your projects.
-#   Simply enter your project's folder or file name without extension.
-#   E.g. `projects = ["internal-project"]` references `content/project/deep-learning/index.md`.
-#   Otherwise, set `projects = []`.
 projects: []
 ---
+
 ## Introduction
 
 The task of [taxonomic profiling](https://www.sevenbridges.com/taxonomic-profiling-of-metagenomics-samples/) consists of answering the question *"Who is there ?"* in a metagenomic sample.

@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Publication_types | Maxime Borry</title>
-    <link>/publication_types/</link>
-      <atom:link href="/publication_types/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/publication_types/</link>
+      <atom:link href="http://localhost:1313/publication_types/index.xml" rel="self" type="application/rss+xml" />
     <description>Publication_types</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2021 Maxime Borry</copyright><lastBuildDate>Tue, 01 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <generator>HugoBlox Kit (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 15 Mar 2026 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>/media/yoga.jpg</url>
+      <url>http://localhost:1313/media/icon_hu_61fd8dcb2c2100c3.png</url>
       <title>Publication_types</title>
-      <link>/publication_types/</link>
+      <link>http://localhost:1313/publication_types/</link>
     </image>
     
   </channel>

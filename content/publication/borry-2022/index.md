@@ -33,8 +33,11 @@ publishDate: '2022-06-02T14:32:17.345826Z'
 publication_types:
 - '2'
 abstract: 'sam2lca is a program performing reference sequence disambiguation for reads mapping to multiple reference sequences in a shotgun metagenomics sequencing dataset. To do so, it takes as input the common SAM sequence alignment format and applies the lowest common ancestor algorithm.'
-publication: '*Journal of Open Source Software*'
-doi: 10.21105/joss.04360
+publication:
+  name: '*Journal of Open Source Software*'
+hugoblox:
+  ids:
+    doi: 10.21105/joss.04360
 links:
 - name: Code
   url: "https://github.com/maxibor/sam2lca"

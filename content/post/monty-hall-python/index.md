@@ -101,7 +101,7 @@ source = pd.DataFrame({'x':x, 'y':y})
 ))
 ```
 
-![png](./monty_hall_7_0.png)
+![png](monty_hall_7_0.png)
 
 ### Strategy: change door
 
@@ -142,7 +142,7 @@ source = pd.DataFrame({'x':x, 'y':y})
 ))
 ```
 
-![png](./monty_hall_11_0.png)
+![png](monty_hall_11_0.png)
 
 As I showed above, the **door changing strategy is much better** with a 66.6% change of winning, vs 33.3% if we keep the original door.
 

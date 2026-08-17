@@ -1,0 +1,29 @@
+{
+  "name": "maxibor.github.io",
+  "version": "1.0.0",
+  "description": "<p align=\"center\"><a href=\"https://wowchemy.com\" target=\"_blank\" rel=\"noopener\"><img src=\"https://wowchemy.com/img/logo_200px.png\" alt=\"Wowchemy Website Builder\"></a></p>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxibor/maxibor.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/maxibor/maxibor.github.io/issues"
+  },
+  "homepage": "https://github.com/maxibor/maxibor.github.io#readme",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "@tailwindcss/typography": "^0.5.20",
+    "tailwindcss": "^4.3.3"
+  },
+  "dependencies": {
+    "preact": "^10.29.8"
+  }
+}

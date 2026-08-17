@@ -61,7 +61,12 @@ abstract: Ancient DNA and RNA are valuable data sources for a wide range of disc
   sequence-read archives and term-ontologies, and ensure consistency and interoperability
   for future meta-analyses. This collection will also assist in standardising metadata
   reporting for future ancient metagenomic studies.
-publication: '*Scientific Data*'
-url_pdf: https://www.nature.com/articles/s41597-021-00816-y.pdf
-doi: 10.1038/s41597-021-00816-y
+publication:
+  name: '*Scientific Data*'
+hugoblox:
+  ids:
+    doi: 10.1038/s41597-021-00816-y
+links:
+  - type: pdf
+    url: https://www.nature.com/articles/s41597-021-00816-y.pdf
 ---

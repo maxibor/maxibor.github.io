@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Courses | Maxime Borry</title>
-    <link>/courses/</link>
-      <atom:link href="/courses/index.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:1313/courses/</link>
+      <atom:link href="http://localhost:1313/courses/index.xml" rel="self" type="application/rss+xml" />
     <description>Courses</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2021 Maxime Borry</copyright>
+    <generator>HugoBlox Kit (https://hugoblox.com)</generator><language>en-us</language>
     <image>
-      <url>/media/yoga.jpg</url>
+      <url>http://localhost:1313/media/icon_hu_61fd8dcb2c2100c3.png</url>
       <title>Courses</title>
-      <link>/courses/</link>
+      <link>http://localhost:1313/courses/</link>
     </image>
     
   </channel>

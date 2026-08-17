@@ -31,8 +31,11 @@ projects: []
 publishDate: '2026-03-15'
 publication_types:
 - '2'
-publication: '*Journal of Open Source Software*'
-doi: 10.21105/joss.09324
+publication:
+  name: '*Journal of Open Source Software*'
+hugoblox:
+  ids:
+    doi: 10.21105/joss.09324
 links:
 - name: Code
   url: "https://github.com/nf-core/coproid"

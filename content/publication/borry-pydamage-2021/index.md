@@ -59,8 +59,14 @@ abstract: DNA de novo assembly can be used to reconstruct longer stretches of DN
   contigs bearing DNA damage characteristic of aDNA. Coupled with aDNA de novo assembly,
   Pydamage opens up new doors to explore functional diversity in ancient metagenomic
   datasets.
-publication: '*PeerJ*'
-url_pdf: https://peerj.com/articles/11845.pdf
-doi: 10.7717/peerj.11845
-url_code: "https://github.com/maxibor/pydamage"
+publication:
+  name: '*PeerJ*'
+hugoblox:
+  ids:
+    doi: 10.7717/peerj.11845
+links:
+  - type: pdf
+    url: https://peerj.com/articles/11845.pdf
+  - type: code
+    url: "https://github.com/maxibor/pydamage"
 ---

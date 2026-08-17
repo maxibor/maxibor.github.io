@@ -1,32 +1,25 @@
 ---
-# Documentation: https://wowchemy.com/docs/managing-content/
-
 title: "noSQL: when it's too big for a dictionary"
-subtitle: "How to use and optimize RocksDB for very large files"
+subtitle: How to use and optimize RocksDB for very large files
 summary: ""
-authors: [Maxime]
-tags: [noSQL, database, big data]
+authors:
+  - maxime
+tags:
+  - noSQL
+  - database
+  - big data
 categories: []
 date: 2021-02-10T10:40:21+01:00
 lastmod: 2021-02-10T10:53:21+01:00
 featured: false
 draft: false
-
-# Featured image
-# To use, add an image named `featured.jpg/png` to your page's folder.
-# Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
 image:
   caption: ""
   focal_point: ""
   preview_only: true
-
-# Projects (optional).
-#   Associate this post with one or more of your projects.
-#   Simply enter your project's folder or file name without extension.
-#   E.g. `projects = ["internal-project"]` references `content/project/deep-learning/index.md`.
-#   Otherwise, set `projects = []`.
 projects: []
 ---
+
 
 Recently, I've been working on a project where I need to store a key-value pairs for very large files.
 In Python, the first idea would be to use a [dictionary](https://docs.python.org/3/tutorial/datastructures.html#dictionaries).  

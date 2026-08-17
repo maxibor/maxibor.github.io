@@ -1,0 +1,36 @@
+hugoblox:
+  meta:
+    format: "hugoblox-theme@1"
+    name: "Custom"
+    vendor: "hugoblox"
+    version: "1.0.0"
+
+  type: "dual"
+
+  light:
+    colors:
+      primary: "#01579b"
+      secondary: "#ff8f00"
+    surfaces:
+      background: "rgb(255, 255, 255)"
+      foreground: "#2b2b2b"
+      header:
+        background: "#ffffff"
+        foreground: "#01579b"
+      footer:
+        background: "rgb(247, 247, 247)"
+        foreground: "#2b2b2b"
+
+  dark:
+    colors:
+      primary: "#01579b"
+      secondary: "#ff8f00"
+    surfaces:
+      background: "#0f172a"
+      foreground: "#f8fafc"
+      header:
+        background: "#0f172a"
+        foreground: "#f8fafc"
+      footer:
+        background: "#111827"
+        foreground: "#e5e7eb"
